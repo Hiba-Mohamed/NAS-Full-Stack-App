@@ -70,3 +70,20 @@ export function GetStarted() {
 }
 
 export default GetStarted;
+// const Hospital{
+//   hospitalName:hospitalName,
+//   hospitalUnits:[
+//     hospitalUnits:[
+//       unitName:unitName,
+//       shifts:
+//       [{shift:
+//         shiftId:shiftId,
+//         data:
+//         {shiftDate:shiftDate
+//         shiftType: shiftType
+//       }
+//       staff:[{nurseId, nurseData}]
+//       }]
+//     ]
+//   ],
+// }
