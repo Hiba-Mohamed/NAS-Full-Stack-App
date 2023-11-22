@@ -31,6 +31,7 @@ export function GetStarted() {
     setHospitalName(hospitalNameString);
     localStorage.setItem("Hospital Name", JSON.stringify(hospitalNameString));
     navigate(`/addingNewUnit`);
+    window.location.reload();
   };
 
   return (

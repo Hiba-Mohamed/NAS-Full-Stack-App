@@ -12,7 +12,6 @@ const hospitalName = hospitalNameJSON ? JSON.parse(hospitalNameJSON) : [];
 
 export function NewUnit() {
   const [hospitalNameString, setHospitalName] = useState(hospitalName);
-
  useEffect(() => {
    setHospitalName(hospitalName);
  }, hospitalName);
