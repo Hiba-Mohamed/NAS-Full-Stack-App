@@ -13,14 +13,15 @@ import EditNursePage from "./pages/editNurse";
 import ViewShift from "./pages/viewShift";
 import SearchResults from "./pages/searchResult";
 import LandingPage from "./pages/introPage";
+import GetStarted from "./pages/getStarted";
 
 function App() {
   return (
     <div className="App">
       <Heading />
-
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="getStarted" element={<GetStarted />} />
         <Route path="/viewShift/:ShiftId" element={<ViewShift />} />
         <Route
           path="/searchResult/:shiftDate/:shiftType"
@@ -35,7 +36,6 @@ function App() {
         <Route path="/shiftHistory" element={<ShiftHistory />} />
         <Route path="/startSheet" element={<StartSheet />} />
         <Route path="/introPage" element={<LandingPage />} />
-
         <Route
           path="/editNurse/:ShiftId/:nurseId"
           element={<EditNursePage />}
