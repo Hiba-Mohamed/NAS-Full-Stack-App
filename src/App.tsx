@@ -14,14 +14,20 @@ import ViewShift from "./pages/viewShift";
 import SearchResults from "./pages/searchResult";
 import LandingPage from "./pages/introPage";
 import GetStarted from "./pages/getStarted";
+import HospitalView from "./pages/hospitalView";
+import NewUnit from "./pages/addingNewUnit";
+
 
 function App() {
   return (
     <div className="App">
+      
       <Heading />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/addingNewUnit" element={<NewUnit />} />
+        <Route path="/hospitalView" element={<HospitalView />} />
         <Route path="getStarted" element={<GetStarted />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/viewShift/:ShiftId" element={<ViewShift />} />
         <Route
           path="/searchResult/:shiftDate/:shiftType"
