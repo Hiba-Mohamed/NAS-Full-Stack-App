@@ -2,15 +2,48 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+interface IHospitalData {
+  hospitalName: string;
+  hospitalUnits: [
+    {
+      unitName: string;
+      shifts: [
+        {
+          shiftId: string;
+          data: {
+            shiftDate: string;
+            shiftType: string;
+            unitName: string;
+          };
+          staff: [
+            {
+              nurseId: string;
+              nurseData: {
+                nurseName: string;
+                nurseBreak: string;
+                reliefName: string;
+                extraDuties: string;
+                fireCode: string;
+                assignedPatient: [{ patientName: string; patientRoom: string }]; // Replace 'any' with the actual type of nurseData
+              };
+            },
+          ];
+        },
+      ];
+    },
+  ];
+}
 interface IHospitalName {
   hospitalName: string;
 }
 
 export function GetStarted() {
-  const hospitalNameJSON = localStorage.getItem("Hospital Name");
+  const hospitalNameJSON = localStorage.getItem("Hospital Data");
 
-  const [hospitalNameString, setHospitalName] = useState(
-    hospitalNameJSON ? JSON.parse(hospitalNameJSON) : []
+  const [hospitalData, setHospitalData] = useState<IHospitalData>(
+    hospitalNameJSON
+      ? JSON.parse(hospitalNameJSON)
+      : { hospitalName: "", hospitalUnits: [] }
   );
 
   const {
@@ -18,24 +51,30 @@ export function GetStarted() {
     handleSubmit,
     formState: { errors },
   } = useForm<IHospitalName>({
-    defaultValues: { hospitalName: hospitalNameString },
+    defaultValues: { hospitalName: hospitalData.hospitalName },
   });
-  
 
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<IHospitalName> = (data, event) => {
     event?.preventDefault();
-    console.log(data.hospitalName);
     const hospitalNameString = data.hospitalName;
-    setHospitalName(hospitalNameString);
-    localStorage.setItem("Hospital Name", JSON.stringify(hospitalNameString));
+
+    const updatedHospitalData: IHospitalData = {
+      hospitalName: hospitalNameString,
+      hospitalUnits: hospitalData.hospitalUnits || [],
+    };
+
+    // Update the localStorage with the updated hospital data
+    localStorage.setItem("Hospital Data", JSON.stringify(updatedHospitalData));
+
+    setHospitalData(updatedHospitalData);
     navigate(`/addingNewUnit`);
     window.location.reload();
   };
 
   return (
-    <div className=" flex flex-col items-center font-nunito bg-slate-50 min-h-screen">
+    <div className="flex flex-col items-center font-nunito bg-slate-50 min-h-screen">
       <h1 className="text-center font-bold text-2xl sm:text-5xl p-12">
         Getting started
       </h1>
@@ -70,20 +109,3 @@ export function GetStarted() {
 }
 
 export default GetStarted;
-// const Hospital{
-//   hospitalName:hospitalName,
-//   hospitalUnits:[
-//     hospitalUnits:[
-//       unitName:unitName,
-//       shifts:
-//       [{shift:
-//         shiftId:shiftId,
-//         data:
-//         {shiftDate:shiftDate
-//         shiftType: shiftType
-//       }
-//       staff:[{nurseId, nurseData}]
-//       }]
-//     ]
-//   ],
-// }

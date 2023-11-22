@@ -1,38 +1,114 @@
 import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
-import { useEffect } from "react";
 
 interface IUnitName {
   unitName: string;
 }
 
-const hospitalNameJSON = localStorage.getItem("Hospital Name");
-const hospitalName = hospitalNameJSON ? JSON.parse(hospitalNameJSON) : [];
-
+interface IHospitalData {
+  hospitalName: string;
+  hospitalUnits: [
+    {
+      unitName: string;
+      shifts: [
+        {
+          shiftId: string;
+          data: {
+            shiftDate: string;
+            shiftType: string;
+            unitName: string;
+          };
+          staff: [
+            {
+              nurseId: string;
+              nurseData: {
+                nurseName: string;
+                nurseBreak: string;
+                reliefName: string;
+                extraDuties: string;
+                fireCode: string;
+                assignedPatient: [{ patientName: string; patientRoom: string }]; // Replace 'any' with the actual type of nurseData
+              };
+            },
+          ];
+        },
+      ];
+    },
+  ];
+}
 export function NewUnit() {
-  const [hospitalNameString, setHospitalName] = useState(hospitalName);
- useEffect(() => {
-   setHospitalName(hospitalName);
- }, hospitalName);
- 
+  const hospitalNameJSON = localStorage.getItem("Hospital Data");
+
+  const [hospitalData, setHospitalData] = useState<IHospitalData>(
+    hospitalNameJSON
+      ? JSON.parse(hospitalNameJSON)
+      : { hospitalName: "", hospitalUnits: [] }
+  );
+
+  const [duplicateError, setDuplicateError] = useState("")
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IUnitName>();
 
+
   const onSubmit: SubmitHandler<IUnitName> = (data, event) => {
     event?.preventDefault();
-    console.log(data)
-    alert("hello");
-  };
+        const unitArray = hospitalData.hospitalUnits;
+        if (unitArray && unitArray !== undefined && unitArray.length > 0) {
+          const duplicateUnit = unitArray.some(
+            (unit) =>
+              unit.unitName.toLocaleLowerCase() === data.unitName.toLocaleLowerCase()
+          );
+          if(!duplicateUnit){
+            console.log(data.unitName);
+            const newUnit = { unitName: data.unitName, shifts: [] as any };
+            const exsitingUnitsArray = hospitalData.hospitalUnits;
+            console.log(exsitingUnitsArray);
+            exsitingUnitsArray.push(newUnit);
+            const updatedHospitalData: IHospitalData = {
+              hospitalName: hospitalData.hospitalName,
+              hospitalUnits: exsitingUnitsArray, // Use spread operator to create a new array
+            };
+            // Update the localStorage with the updated hospital data
+            localStorage.setItem(
+              "Hospital Data",
+              JSON.stringify(updatedHospitalData)
+            );
+
+            setHospitalData(updatedHospitalData);
+          }
+          else{       setDuplicateError(
+            "Duplicate Unit Name Detected, Enter a Different Unit Name please"
+          );}
+        }
+        if(unitArray && unitArray == undefined || unitArray.length < 1){
+          console.log(data.unitName);
+          const newUnit = { unitName: data.unitName, shifts: [] as any };
+          const exsitingUnitsArray = hospitalData.hospitalUnits;
+          console.log(exsitingUnitsArray);
+          exsitingUnitsArray.push(newUnit);
+          const updatedHospitalData: IHospitalData = {
+            hospitalName: hospitalData.hospitalName,
+            hospitalUnits: exsitingUnitsArray, // Use spread operator to create a new array
+          };
+          // Update the localStorage with the updated hospital data
+          localStorage.setItem(
+            "Hospital Data",
+            JSON.stringify(updatedHospitalData)
+          );
+
+          setHospitalData(updatedHospitalData);
+        }  };
   return (
     <div className="font-nunito min-h-screen">
       <div className="flex flex-col items-center justify-center py-6 sm:py-12">
         {" "}
         <h1 className="p-6 sm:p-6 text-3xl sm:text-5xl text-center font-bold">
-          {hospitalNameString}
+          {hospitalData.hospitalName}
         </h1>
         <div>
           {" "}
@@ -64,6 +140,9 @@ export function NewUnit() {
               {errors?.unitName?.type === "required" && (
                 <p className="text-peach text-sm">This field is required</p>
               )}
+              <div className="bg-white sm:px-8 max-w-sm  sm:max-w-xl text-xsm p-4 sm:text-md text-sm text-center mx-4 my-2">
+               {duplicateError? (<p className="text-peach ">{duplicateError}</p>):""}
+              </div>
             </div>
 
             <button
