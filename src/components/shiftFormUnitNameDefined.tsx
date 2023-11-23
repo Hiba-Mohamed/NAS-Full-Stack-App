@@ -126,7 +126,7 @@ const UnitShiftForm = (unitName: { unitName: string }) => {
         setHospitalData(hospitalData);
 
         localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
-        navigate(`/manageStaff/${unitNameString}/${ShiftId}`);
+        navigate(`/manageUnitStaff/${unitNameString}/${ShiftId}`);
       }
     }
     if (matchingUnitInfo && shiftsArray && shiftsArray.length < 1) {
@@ -143,7 +143,7 @@ const UnitShiftForm = (unitName: { unitName: string }) => {
         setHospitalData(hospitalData);
 
         localStorage.setItem("Hospital Data",JSON.stringify(hospitalData));
-        navigate(`/manageStaff/${unitNameString}/${ShiftId}`);
+        navigate(`/manageUnitStaff/${unitNameString}/${ShiftId}`);
     }
   };
 
