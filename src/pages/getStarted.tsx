@@ -2,37 +2,43 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+interface IUnitShiftData {
+  shiftDate: Date;
+  shiftType: string;
+}
+interface IpatientObject {
+  patientName: string;
+  patientRoom: string;
+}
+
+interface IStaffData {
+  nurseId: string;
+  nurseData: {
+    nurseName: string;
+    nurseBreak: string;
+    reliefName: string;
+    extraDuties: string;
+    fireCode: string;
+    assignedPatient: IpatientObject[];
+  };
+}
+
+interface IUnitShiftObject {
+  shiftId: string;
+  data: IUnitShiftData;
+  staff: IStaffData[];
+}
+
+interface IUnitObject {
+  unitName: string;
+  shifts: IUnitShiftObject[];
+}
+
 interface IHospitalData {
   hospitalName: string;
-  hospitalUnits: [
-    {
-      unitName: string;
-      shifts: [
-        {
-          shiftId: string;
-          data: {
-            shiftDate: string;
-            shiftType: string;
-            unitName: string;
-          };
-          staff: [
-            {
-              nurseId: string;
-              nurseData: {
-                nurseName: string;
-                nurseBreak: string;
-                reliefName: string;
-                extraDuties: string;
-                fireCode: string;
-                assignedPatient: [{ patientName: string; patientRoom: string }]; // Replace 'any' with the actual type of nurseData
-              };
-            },
-          ];
-        },
-      ];
-    },
-  ];
+  hospitalUnits: IUnitObject[];
 }
+
 interface IHospitalName {
   hospitalName: string;
 }

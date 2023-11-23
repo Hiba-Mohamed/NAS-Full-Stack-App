@@ -7,36 +7,42 @@ interface IUnitName {
   unitName: string;
 }
 
+
+interface IUnitShiftData {
+  shiftDate: string;
+  shiftType: string;
+}
+interface IpatientObject {
+  patientName: string;
+  patientRoom: string;
+}
+
+interface IStaffData {
+  nurseId: string;
+  nurseData: {
+    nurseName: string;
+    nurseBreak: string;
+    reliefName: string;
+    extraDuties: string;
+    fireCode: string;
+    assignedPatient: IpatientObject[];
+  };
+}
+
+interface IUnitShiftObject {
+  shiftId: string;
+  data: IUnitShiftData;
+  staff: IStaffData[];
+}
+
+interface IUnitObject {
+  unitName: string;
+  shifts: IUnitShiftObject[];
+}
+
 interface IHospitalData {
   hospitalName: string;
-  hospitalUnits: [
-    {
-      unitName: string;
-      shifts: [
-        {
-          shiftId: string;
-          data: {
-            shiftDate: string;
-            shiftType: string;
-            unitName: string;
-          };
-          staff: [
-            {
-              nurseId: string;
-              nurseData: {
-                nurseName: string;
-                nurseBreak: string;
-                reliefName: string;
-                extraDuties: string;
-                fireCode: string;
-                assignedPatient: [{ patientName: string; patientRoom: string }]; // Replace 'any' with the actual type of nurseData
-              };
-            },
-          ];
-        },
-      ];
-    },
-  ];
+  hospitalUnits: IUnitObject[];
 }
 export function NewUnit() {
   const hospitalNameJSON = localStorage.getItem("Hospital Data");
@@ -67,13 +73,13 @@ export function NewUnit() {
       );
       if (!duplicateUnit) {
         console.log(data.unitName);
-        const newUnit = { unitName: data.unitName, shifts: [] as any };
+        const newUnit = { unitName: data.unitName, shifts: [] };
         const exsitingUnitsArray = hospitalData.hospitalUnits;
         console.log(exsitingUnitsArray);
         exsitingUnitsArray.push(newUnit);
         const updatedHospitalData: IHospitalData = {
           hospitalName: hospitalData.hospitalName,
-          hospitalUnits: exsitingUnitsArray, // Use spread operator to create a new array
+          hospitalUnits: exsitingUnitsArray, 
         };
         // Update the localStorage with the updated hospital data
         localStorage.setItem(
@@ -82,7 +88,7 @@ export function NewUnit() {
         );
 
         setHospitalData(updatedHospitalData);
-        navigate(`/startSheet/${data.unitName}`);
+        navigate(`/startUnitShift/${data.unitName}`);
       } else {
         setDuplicateError(
           "Duplicate Unit Name Detected, Enter a Different Unit Name please"
@@ -91,7 +97,7 @@ export function NewUnit() {
     }
     if ((unitArray && unitArray == undefined) || unitArray.length < 1) {
       console.log(data.unitName);
-      const newUnit = { unitName: data.unitName, shifts: [] as any };
+      const newUnit = { unitName: data.unitName, shifts: [] };
       const exsitingUnitsArray = hospitalData.hospitalUnits;
       console.log(exsitingUnitsArray);
       exsitingUnitsArray.push(newUnit);
@@ -127,7 +133,7 @@ export function NewUnit() {
       </div>
       <div className="flex flex-col items-center justify-center">
         <h1 className="font-bold text-2xl p-6">Adding New Unit</h1>
-        <div>
+        <div className="flex flex-col items-center justify-center">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="p-12 justify-center items-center sm:gap-2 flex flex-col sm:flex-row bg-white m-4 shadow-lg rounded-xl sm:max-w-4xl"
@@ -145,13 +151,11 @@ export function NewUnit() {
               {errors?.unitName?.type === "required" && (
                 <p className="text-peach text-sm">This field is required</p>
               )}
-              <div className="bg-white sm:px-8 max-w-sm  sm:max-w-xl text-xsm p-4 sm:text-md text-sm text-center mx-4 my-2">
-                {duplicateError ? (
-                  <p className="text-peach ">{duplicateError}</p>
-                ) : (
-                  ""
-                )}
-              </div>
+              {errors?.unitName?.type === "maxLength" && (
+                <p className="text-peach text-sm">
+                  Unit's name cannot exceed 30 characters
+                </p>
+              )}
             </div>
 
             <button
@@ -161,6 +165,13 @@ export function NewUnit() {
               Submit
             </button>
           </form>{" "}
+          <div className="bg-white sm:px-8 max-w-sm  sm:max-w-xl text-xsm p-4 sm:text-md text-sm text-center mx-4 my-2">
+            {duplicateError ? (
+              <p className="text-peach ">{duplicateError}</p>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
       </div>
     </div>

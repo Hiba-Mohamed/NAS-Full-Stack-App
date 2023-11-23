@@ -16,6 +16,7 @@ import LandingPage from "./pages/introPage";
 import GetStarted from "./pages/getStarted";
 import HospitalView from "./pages/hospitalView";
 import NewUnit from "./pages/addingNewUnit";
+import { StartUnitSheet } from "./pages/startUnitShift";
 
 
 function App() {
@@ -27,6 +28,10 @@ function App() {
         <Route path="/hospitalView" element={<HospitalView />} />
         <Route path="getStarted" element={<GetStarted />} />
         <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/startUnitShift/:unitName"
+          element={<StartUnitSheet />}
+        />
         <Route path="/viewShift/:ShiftId" element={<ViewShift />} />
         <Route
           path="/searchResult/:shiftDate/:shiftType"
@@ -36,7 +41,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/account" element={<Account />} />
-        <Route path="/manageStaff/:ShiftId" element={<NurseForm />} />
+        <Route path="/manageStaff/:unitName/:ShiftId" element={<NurseForm />} />
         <Route path="/unitNav" element={<UnitNav />} />
         <Route path="/shiftHistory" element={<ShiftHistory />} />
         <Route path="/startSheet/:unitName" element={<StartSheet />} />
