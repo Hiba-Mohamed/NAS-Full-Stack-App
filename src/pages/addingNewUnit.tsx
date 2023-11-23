@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface IUnitName {
   unitName: string;
@@ -39,6 +40,7 @@ interface IHospitalData {
 }
 export function NewUnit() {
   const hospitalNameJSON = localStorage.getItem("Hospital Data");
+  const navigate = useNavigate();
 
   const [hospitalData, setHospitalData] = useState<IHospitalData>(
     hospitalNameJSON
@@ -46,7 +48,7 @@ export function NewUnit() {
       : { hospitalName: "", hospitalUnits: [] }
   );
 
-  const [duplicateError, setDuplicateError] = useState("")
+  const [duplicateError, setDuplicateError] = useState("");
 
   const {
     register,
@@ -54,55 +56,58 @@ export function NewUnit() {
     formState: { errors },
   } = useForm<IUnitName>();
 
-
   const onSubmit: SubmitHandler<IUnitName> = (data, event) => {
     event?.preventDefault();
-        const unitArray = hospitalData.hospitalUnits;
-        if (unitArray && unitArray !== undefined && unitArray.length > 0) {
-          const duplicateUnit = unitArray.some(
-            (unit) =>
-              unit.unitName.toLocaleLowerCase() === data.unitName.toLocaleLowerCase()
-          );
-          if(!duplicateUnit){
-            console.log(data.unitName);
-            const newUnit = { unitName: data.unitName, shifts: [] as any };
-            const exsitingUnitsArray = hospitalData.hospitalUnits;
-            console.log(exsitingUnitsArray);
-            exsitingUnitsArray.push(newUnit);
-            const updatedHospitalData: IHospitalData = {
-              hospitalName: hospitalData.hospitalName,
-              hospitalUnits: exsitingUnitsArray, // Use spread operator to create a new array
-            };
-            // Update the localStorage with the updated hospital data
-            localStorage.setItem(
-              "Hospital Data",
-              JSON.stringify(updatedHospitalData)
-            );
+    const unitArray = hospitalData.hospitalUnits;
+    if (unitArray && unitArray !== undefined && unitArray.length > 0) {
+      const duplicateUnit = unitArray.some(
+        (unit) =>
+          unit.unitName.toLocaleLowerCase() ===
+          data.unitName.toLocaleLowerCase()
+      );
+      if (!duplicateUnit) {
+        console.log(data.unitName);
+        const newUnit = { unitName: data.unitName, shifts: [] as any };
+        const exsitingUnitsArray = hospitalData.hospitalUnits;
+        console.log(exsitingUnitsArray);
+        exsitingUnitsArray.push(newUnit);
+        const updatedHospitalData: IHospitalData = {
+          hospitalName: hospitalData.hospitalName,
+          hospitalUnits: exsitingUnitsArray, // Use spread operator to create a new array
+        };
+        // Update the localStorage with the updated hospital data
+        localStorage.setItem(
+          "Hospital Data",
+          JSON.stringify(updatedHospitalData)
+        );
 
-            setHospitalData(updatedHospitalData);
-          }
-          else{       setDuplicateError(
-            "Duplicate Unit Name Detected, Enter a Different Unit Name please"
-          );}
-        }
-        if(unitArray && unitArray == undefined || unitArray.length < 1){
-          console.log(data.unitName);
-          const newUnit = { unitName: data.unitName, shifts: [] as any };
-          const exsitingUnitsArray = hospitalData.hospitalUnits;
-          console.log(exsitingUnitsArray);
-          exsitingUnitsArray.push(newUnit);
-          const updatedHospitalData: IHospitalData = {
-            hospitalName: hospitalData.hospitalName,
-            hospitalUnits: exsitingUnitsArray, // Use spread operator to create a new array
-          };
-          // Update the localStorage with the updated hospital data
-          localStorage.setItem(
-            "Hospital Data",
-            JSON.stringify(updatedHospitalData)
-          );
+        setHospitalData(updatedHospitalData);
+        navigate(`/startSheet/${data.unitName}`);
+      } else {
+        setDuplicateError(
+          "Duplicate Unit Name Detected, Enter a Different Unit Name please"
+        );
+      }
+    }
+    if ((unitArray && unitArray == undefined) || unitArray.length < 1) {
+      console.log(data.unitName);
+      const newUnit = { unitName: data.unitName, shifts: [] as any };
+      const exsitingUnitsArray = hospitalData.hospitalUnits;
+      console.log(exsitingUnitsArray);
+      exsitingUnitsArray.push(newUnit);
+      const updatedHospitalData: IHospitalData = {
+        hospitalName: hospitalData.hospitalName,
+        hospitalUnits: exsitingUnitsArray, // Use spread operator to create a new array
+      };
+      // Update the localStorage with the updated hospital data
+      localStorage.setItem(
+        "Hospital Data",
+        JSON.stringify(updatedHospitalData)
+      );
 
-          setHospitalData(updatedHospitalData);
-        }  };
+      setHospitalData(updatedHospitalData);
+    }
+  };
   return (
     <div className="font-nunito min-h-screen">
       <div className="flex flex-col items-center justify-center py-6 sm:py-12">
@@ -141,7 +146,11 @@ export function NewUnit() {
                 <p className="text-peach text-sm">This field is required</p>
               )}
               <div className="bg-white sm:px-8 max-w-sm  sm:max-w-xl text-xsm p-4 sm:text-md text-sm text-center mx-4 my-2">
-               {duplicateError? (<p className="text-peach ">{duplicateError}</p>):""}
+                {duplicateError ? (
+                  <p className="text-peach ">{duplicateError}</p>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
 

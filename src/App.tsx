@@ -21,7 +21,6 @@ import NewUnit from "./pages/addingNewUnit";
 function App() {
   return (
     <div className="App">
-      
       <Heading />
       <Routes>
         <Route path="/addingNewUnit" element={<NewUnit />} />
@@ -40,7 +39,8 @@ function App() {
         <Route path="/manageStaff/:ShiftId" element={<NurseForm />} />
         <Route path="/unitNav" element={<UnitNav />} />
         <Route path="/shiftHistory" element={<ShiftHistory />} />
-        <Route path="/startSheet" element={<StartSheet />} />
+        <Route path="/startSheet/:unitName" element={<StartSheet />} />
+
         <Route path="/introPage" element={<LandingPage />} />
         <Route
           path="/editNurse/:ShiftId/:nurseId"
