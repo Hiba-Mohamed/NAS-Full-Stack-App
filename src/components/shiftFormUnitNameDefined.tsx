@@ -102,7 +102,7 @@ const UnitShiftForm = (unitName: { unitName: string }) => {
     console.log("Matching Unit Shifts", matchingUnitShifts);
 
     // validate for duplicates
-    if (shiftsArray && shiftsArray.length > 0) {
+    if (matchingUnitInfo && shiftsArray && shiftsArray.length > 0) {
       const isDuplicateShift = shiftsArray.some((item) => {
         item.data === currentShift;
       });
@@ -118,20 +118,32 @@ const UnitShiftForm = (unitName: { unitName: string }) => {
           data: currentShift,
           staff: [],
         };
+        console.log("newShift", newShift);
+        console.log("shiftsArray", shiftsArray);
         shiftsArray.push(newShift);
+        console.log(shiftsArray);
+        matchingUnitInfo.shifts = shiftsArray;
         setHospitalData(hospitalData);
+
+        localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
         navigate(`/manageStaff/${unitNameString}/${ShiftId}`);
       }
     }
-    if (shiftsArray && shiftsArray.length < 1) {
-      const newShift = {
-        shiftId: ShiftId,
-        data: currentShift,
-        staff: [],
-      };
-      shiftsArray.push(newShift);
-      setHospitalData(hospitalData);
-      navigate(`/manageStaff/${unitNameString}/${ShiftId}`);
+    if (matchingUnitInfo && shiftsArray && shiftsArray.length < 1) {
+        const newShift = {
+          shiftId: ShiftId,
+          data: currentShift,
+          staff: [],
+        };
+        console.log("newShift", newShift);
+        console.log("shiftsArray", shiftsArray);
+        shiftsArray.push(newShift);
+        console.log(shiftsArray)
+        matchingUnitInfo.shifts = shiftsArray
+        setHospitalData(hospitalData);
+
+        localStorage.setItem("Hospital Data",JSON.stringify(hospitalData));
+        navigate(`/manageStaff/${unitNameString}/${ShiftId}`);
     }
   };
 
