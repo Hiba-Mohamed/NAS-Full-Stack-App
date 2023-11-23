@@ -1,8 +1,10 @@
 import { useParams } from "react-router-dom";
-import UnitShiftForm from "../components/shiftFormUnitNameDefined"
+import UnitShiftForm from "../components/shiftFormUnitNameDefined";
 
 export function StartUnitSheet() {
   const { unitName } = useParams();
+
+  console.log(unitName);
 
   return (
     <div className="flex flex-col items-center sm:pt-12 pt-14 gap-8 font-nunito min-h-screen bg-slate-50">
@@ -15,4 +17,3 @@ export function StartUnitSheet() {
     </div>
   );
 }
-

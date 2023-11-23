@@ -10,7 +10,6 @@ interface IUnitShiftDataBeforeConversion {
   shiftType: string;
 }
 
-
 interface IUnitShiftData {
   shiftDate: string;
   shiftType: string;
@@ -28,7 +27,7 @@ interface IStaffData {
     reliefName: string;
     extraDuties: string;
     fireCode: string;
-    assignedPatient: IpatientObject[]; 
+    assignedPatient: IpatientObject[];
   };
 }
 
@@ -48,10 +47,10 @@ interface IHospitalData {
   hospitalUnits: IUnitObject[];
 }
 
-const UnitShiftForm = (unitName: string) => {
-  console.log(unitName)
-  const unitNameString = JSON.stringify(unitName);
-  console.log(unitNameString)
+const UnitShiftForm = (unitName: { unitName: string }) => {
+  console.log(unitName);
+  const unitNameString = unitName.unitName;
+  console.log(unitNameString);
   // Retrieve existing data from localStorage or create an empty array
   const hospitalNameJSON = localStorage.getItem("Hospital Data");
   const [hospitalData, setHospitalData] = useState<IHospitalData>(
@@ -61,7 +60,7 @@ const UnitShiftForm = (unitName: string) => {
   );
   const hospitalUnitsList = hospitalData.hospitalUnits;
   const matchingUnitInfo = hospitalUnitsList.find((unit) => {
-  return unit.unitName === unitName;
+    return unit.unitName === unitNameString;
   });
 
   const navigate = useNavigate();
@@ -75,7 +74,10 @@ const UnitShiftForm = (unitName: string) => {
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const onSubmit: SubmitHandler<IUnitShiftDataBeforeConversion> = (data, event) => {
+  const onSubmit: SubmitHandler<IUnitShiftDataBeforeConversion> = (
+    data,
+    event
+  ) => {
     // Format the date as "YYYYMMDD"
     const formattedDate = data.shiftDate
       .toISOString()
@@ -118,7 +120,7 @@ const UnitShiftForm = (unitName: string) => {
         };
         shiftsArray.push(newShift);
         setHospitalData(hospitalData);
-        navigate(`/manageStaff/${unitName}/${ShiftId}`);
+        navigate(`/manageStaff/${unitNameString}/${ShiftId}`);
       }
     }
     if (shiftsArray && shiftsArray.length < 1) {
@@ -129,7 +131,7 @@ const UnitShiftForm = (unitName: string) => {
       };
       shiftsArray.push(newShift);
       setHospitalData(hospitalData);
-      navigate(`/manageStaff/${unitName}/${ShiftId}`);
+      navigate(`/manageStaff/${unitNameString}/${ShiftId}`);
     }
   };
 
