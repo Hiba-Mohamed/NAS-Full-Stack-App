@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import NurseInfoForm from "../components/nurseForm";
 import { useState } from "react";
 
-
 interface IFormInput {
   nurseName: string;
   nurseBreak: string;
   reliefName: string;
   extraDuties: string;
   fireCode: string;
-  assignedPatient: IpatientObject[];}
+  assignedPatient: IpatientObject[];
+}
 interface IUnitShiftData {
   shiftDate: Date;
   shiftType: string;
@@ -60,17 +60,19 @@ export function EditUnitNursePage() {
       : { hospitalName: "", hospitalUnits: [] }
   );
 
-  const matchingUnit =
-    hospitalData.hospitalUnits.find((item) => {
-      return item.unitName === unitName;
-    }) ?? [];
+  const matchingUnit = hospitalData.hospitalUnits.find(
+    (item) => {return item.unitName === unitName}
+  ) ;
   console.log("matching unit", matchingUnit);
-  
-  const matchingShift = matchingUnit.shifts.find((item:IUnitShiftObject) => {
+  const unitShiftList = matchingUnit?.shifts;
+  console.log("unitShiftList", unitShiftList);
+
+  const matchingShift = unitShiftList?.find((item: IUnitShiftObject) => {
     return item.shiftId === ShiftId;
   });
+  const matchingStaff = matchingShift?.staff ?? [];
+
   console.log("matching Shift", matchingShift);
-  const matchingStaff = matchingShift.staff ?? [];
   const validationArray = matchingStaff.filter(
     (nurse: IStaffData) => nurse.nurseId !== nurseId
   );
@@ -83,11 +85,14 @@ export function EditUnitNursePage() {
         (nurse: IStaffData) => nurse.nurseId === nurseId
       );
       console.log("target nurse", targetNurse);
-      targetNurse.nurseData = data;
-      setHospitalData(hospitalData);
-      localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
-      navigate(`/manageUnitStaff/${unitName}/${ShiftId}`);
-      setErrorMessage(null);
+      if(targetNurse){
+        targetNurse.nurseData = data;
+        setHospitalData(hospitalData);
+        localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
+        navigate(`/manageUnitStaff/${unitName}/${ShiftId}`);
+        setErrorMessage(null);
+      }
+
     } else
       setErrorMessage(
         "Error: duplicate patient name and/or room is being assigned to the same nurse"
@@ -130,25 +135,26 @@ export function EditUnitNursePage() {
   console.log("matching Staff:", matchingStaff);
 
   console.log("matching staff from edit nurse page", matchingStaff);
-  const matchingNurse = matchingStaff.find(
-    (nurse: IStaffData) => nurse.nurseId === nurseId
+  const matchingNurse = matchingStaff?.find(
+    (nurse: IStaffData) => {return nurse.nurseId === nurseId }
   );
+
   console.log("matching nurse", matchingNurse);
-  const matchingNurseData = matchingNurse.nurseData;
+  const matchingNurseData = matchingNurse?.nurseData;
   console.log("matching nurse data", matchingNurseData);
-  const matchingName = matchingNurseData.nurseName;
+  const matchingName = matchingNurseData?.nurseName;
   console.log("matching name", matchingName);
-  const patientArray = matchingNurseData.assignedPatient;
+  const patientArray = matchingNurseData?.assignedPatient;
   console.log("patient array", patientArray);
 
   if (ShiftId && nurseId) {
     const form = useForm<IFormInput>({
       defaultValues: {
         nurseName: matchingName,
-        nurseBreak: matchingNurseData.nurseBreak,
-        reliefName: matchingNurseData.reliefName,
-        extraDuties: matchingNurseData.extraDuties,
-        fireCode: matchingNurseData.fireCode,
+        nurseBreak: matchingNurseData?.nurseBreak,
+        reliefName: matchingNurseData?.reliefName,
+        extraDuties: matchingNurseData?.extraDuties,
+        fireCode: matchingNurseData?.fireCode,
         assignedPatient: patientArray,
       },
     });

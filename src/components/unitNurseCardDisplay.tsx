@@ -105,8 +105,11 @@ export function UnitNurseCardDisplay({
     return (
       <div className="flex flex-row flex-wrap justify-evenly">
         {nurses.map((staffData: IStaffData, nurseIndex: number) => (
-          <div className="bg-white shadow-lg rounded-lg sm:px-8 sm:pt-6 sm:pb-8 my-4  max-w-sm mx-2 text-sm">
-            <div key={nurseIndex} className="flex flex-col m-4">
+          <div
+            key={nurseIndex}
+             className="bg-white shadow-lg rounded-lg sm:px-8 sm:pt-6 sm:pb-8 my-4  max-w-sm mx-2 text-sm"
+          >
+            <div className="flex flex-col m-4">
               <div className="flex flex-col justify-center items-center text-center font-bold">
                 {staffData.nurseData.nurseName}
               </div>
