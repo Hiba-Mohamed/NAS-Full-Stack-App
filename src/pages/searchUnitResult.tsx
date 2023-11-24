@@ -83,12 +83,12 @@ export const SearchUnitResults = () => {
 
   function viewShift(shiftId: string) {
     console.log("View shift", shiftId);
-    navigate(`/viewUnitShift/${unitNameString}/${shiftId}`);
+    navigate(`/viewUnitShift/${unitName}/${shiftId}`);
   }
 
   function editShift(shiftId: string) {
     console.log("edit Shift", shiftId);
-    navigate(`/manageUnitStaff/${unitNameString}/${shiftId}`);
+    navigate(`/manageUnitStaff/${unitName}/${shiftId}`);
   }
 
   function deleteShift(shiftId: string) {
