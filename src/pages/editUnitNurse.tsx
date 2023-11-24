@@ -4,20 +4,6 @@ import { useNavigate } from "react-router-dom";
 import NurseInfoForm from "../components/nurseForm";
 import { useState } from "react";
 
-interface IUnitShiftData {
-  unitName: string;
-  shiftDate: Date;
-  shiftType: string;
-}
-
-interface IData {
-  ShiftId: string;
-  data: IUnitShiftData;
-}
-interface IPatientData {
-  patientName: string;
-  patientRoom: string;
-}
 
 interface IFormInput {
   nurseName: string;
@@ -25,12 +11,42 @@ interface IFormInput {
   reliefName: string;
   extraDuties: string;
   fireCode: string;
-  assignedPatient: IPatientData[];
+  assignedPatient: IpatientObject[];}
+interface IUnitShiftData {
+  shiftDate: Date;
+  shiftType: string;
+}
+interface IpatientObject {
+  patientName: string;
+  patientRoom: string;
 }
 
-interface IstaffData {
+interface IStaffData {
   nurseId: string;
-  nurseData: IFormInput;
+  nurseData: {
+    nurseName: string;
+    nurseBreak: string;
+    reliefName: string;
+    extraDuties: string;
+    fireCode: string;
+    assignedPatient: IpatientObject[];
+  };
+}
+
+interface IUnitShiftObject {
+  shiftId: string;
+  data: IUnitShiftData;
+  staff: IStaffData[];
+}
+
+interface IUnitObject {
+  unitName: string;
+  shifts: IUnitShiftObject[];
+}
+
+interface IHospitalData {
+  hospitalName: string;
+  hospitalUnits: IUnitObject[];
 }
 
 export function EditUnitNursePage() {
@@ -44,17 +60,19 @@ export function EditUnitNursePage() {
       : { hospitalName: "", hospitalUnits: [] }
   );
 
-  const matchingUnit = hospitalData.hospitalUnits.find((item) => {
-    return item.unitName === unitName;
-  });
+  const matchingUnit =
+    hospitalData.hospitalUnits.find((item) => {
+      return item.unitName === unitName;
+    }) ?? [];
   console.log("matching unit", matchingUnit);
-  const matchingShift = matchingUnit?.shifts.find((item) => {
+  
+  const matchingShift = matchingUnit.shifts.find((item:IUnitShiftObject) => {
     return item.shiftId === ShiftId;
   });
   console.log("matching Shift", matchingShift);
-  const matchingStaff = matchingShift.staff;
+  const matchingStaff = matchingShift.staff ?? [];
   const validationArray = matchingStaff.filter(
-    (nurse: IstaffData) => nurse.nurseId !== nurseId
+    (nurse: IStaffData) => nurse.nurseId !== nurseId
   );
   const onSubmitEdit: SubmitHandler<IFormInput> = (data) => {
     const isnotDuplicate = validatePatientsfieldsAgainstEachOther(data);
@@ -62,7 +80,7 @@ export function EditUnitNursePage() {
     if (isnotDuplicate) {
       console.log("data of the edited nurse", data);
       const targetNurse = matchingStaff.find(
-        (nurse: IstaffData) => nurse.nurseId === nurseId
+        (nurse: IStaffData) => nurse.nurseId === nurseId
       );
       console.log("target nurse", targetNurse);
       targetNurse.nurseData = data;
@@ -113,7 +131,7 @@ export function EditUnitNursePage() {
 
   console.log("matching staff from edit nurse page", matchingStaff);
   const matchingNurse = matchingStaff.find(
-    (nurse: IstaffData) => nurse.nurseId === nurseId
+    (nurse: IStaffData) => nurse.nurseId === nurseId
   );
   console.log("matching nurse", matchingNurse);
   const matchingNurseData = matchingNurse.nurseData;

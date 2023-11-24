@@ -1,37 +1,50 @@
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-
 interface IUnitShiftData {
-  unitName: string;
   shiftDate: Date;
   shiftType: string;
 }
-
-interface IData {
-  ShiftId: string;
-  data: IUnitShiftData;
-}
-interface IPatientData {
+interface IpatientObject {
   patientName: string;
   patientRoom: string;
 }
 
-interface IFormInput {
-  nurseName: string;
-  nurseBreak: string;
-  reliefName: string;
-  extraDuties: string;
-  fireCode: string;
-  assignedPatient: IPatientData[];
-}
-
-interface IstaffData {
+interface IStaffData {
   nurseId: string;
-  nurseData: IFormInput;
+  nurseData: {
+    nurseName: string;
+    nurseBreak: string;
+    reliefName: string;
+    extraDuties: string;
+    fireCode: string;
+    assignedPatient: IpatientObject[];
+  };
 }
 
-export function UnitNurseCardDisplay({ staffData, unitName }: { staffData: IstaffData[], unitName: string }) {
+interface IUnitShiftObject {
+  shiftId: string;
+  data: IUnitShiftData;
+  staff: IStaffData[];
+}
+
+interface IUnitObject {
+  unitName: string;
+  shifts: IUnitShiftObject[];
+}
+
+interface IHospitalData {
+  hospitalName: string;
+  hospitalUnits: IUnitObject[];
+}
+
+export function UnitNurseCardDisplay({
+  staffData,
+  unitName,
+}: {
+  staffData: IStaffData[];
+  unitName: string;
+}) {
   const { ShiftId } = useParams();
   const navigate = useNavigate();
   // Retrieve existing data from localStorage or create an empty array
@@ -49,31 +62,32 @@ export function UnitNurseCardDisplay({ staffData, unitName }: { staffData: Istaf
   const matchingShift = matchingUnit?.shifts.find((item) => {
     return item.shiftId === ShiftId;
   });
-  console.log("matching Shift", matchingShift);  
-
+  console.log("matching Shift", matchingShift);
 
   const [nurses, setNurses] = useState(staffData);
-
- 
 
   console.log(staffData);
 
   const deleteNurse = (nurseId: string) => {
-    const exsitingNurseArray = nurses;
-    // get the index of the nurse card
+    if (matchingShift) {
+      const exsitingNurseArray = nurses;
+      // get the index of the nurse card
 
-    const updatedNurseList = exsitingNurseArray.filter((item: IstaffData) => {
-      return item.nurseId !== nurseId;
-    });
+      const updatedNurseList = exsitingNurseArray.filter((item: IStaffData) => {
+        return item.nurseId !== nurseId;
+      });
 
-    matchingData.staff = updatedNurseList;
+      matchingShift.staff = updatedNurseList;
 
-    console.log("Updated Nurse List", updatedNurseList);
-    //  update the local storage
-    localStorage.setItem("startShiftDataArray", JSON.stringify(existingData));
+      console.log("Updated Nurse List", updatedNurseList);
+      setHospitalData(hospitalData);
 
-    console.log(updatedNurseList);
-    setNurses(updatedNurseList);
+      //  update the local storage
+      localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
+
+      console.log(updatedNurseList);
+      setNurses(updatedNurseList);
+    }
   };
   useEffect(() => {
     setNurses(staffData);
@@ -90,7 +104,7 @@ export function UnitNurseCardDisplay({ staffData, unitName }: { staffData: Istaf
   if (ShiftId && staffData.length !== 0) {
     return (
       <div className="flex flex-row flex-wrap justify-evenly">
-        {nurses.map((staffData: IstaffData, nurseIndex: number) => (
+        {nurses.map((staffData: IStaffData, nurseIndex: number) => (
           <div className="bg-white shadow-lg rounded-lg sm:px-8 sm:pt-6 sm:pb-8 my-4  max-w-sm mx-2 text-sm">
             <div key={nurseIndex} className="flex flex-col m-4">
               <div className="flex flex-col justify-center items-center text-center font-bold">
@@ -137,7 +151,7 @@ export function UnitNurseCardDisplay({ staffData, unitName }: { staffData: Istaf
                       </thead>
                       <tbody>
                         {staffData.nurseData.assignedPatient.map(
-                          (patient: IPatientData, patientIndex: number) => (
+                          (patient: IpatientObject, patientIndex: number) => (
                             <tr key={patientIndex}>
                               <td className="border px-2 py-1">
                                 {patient.patientRoom}
