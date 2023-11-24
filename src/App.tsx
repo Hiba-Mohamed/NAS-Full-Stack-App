@@ -22,6 +22,7 @@ import EditUnitNursePage from "./pages/editUnitNurse";
 import SpecificUnitNav from "./pages/specificUnitNav";
 import { UnitShiftHistory } from "./pages/unitShiftHistory";
 import ViewUnitShift from "./pages/viewUnitShift";
+import SearchUnitResults from "./pages/searchUnitResult";
 function App() {
   return (
     <div className="App">
@@ -35,7 +36,12 @@ function App() {
           path="/unitShiftHistory/:unitName"
           element={<UnitShiftHistory />}
         />
-        <Route path="/viewUnitShift/:unitName/:ShiftId" element={<ViewUnitShift />} />
+        <Route path="/searchUnitResult/:unitName/:shiftDate/:shiftType" element={<SearchUnitResults />} />
+
+        <Route
+          path="/viewUnitShift/:unitName/:ShiftId"
+          element={<ViewUnitShift />}
+        />
 
         <Route
           path="/editUnitNurse/:unitName/:ShiftId/:nurseId"
