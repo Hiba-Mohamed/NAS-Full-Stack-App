@@ -23,15 +23,13 @@ export function LandingPage() {
             module of the program, and UI/UX Get Coding coach{" "}
             <strong>Matt Kennedy</strong> for providing invaluable UI/UX instructions.
           </p>
-          <p className="py-4">
-            To learn nore about the NAS, click below to go to the "About" page.
-          </p>
+    
           <Link
-            to="/about"
-            className="bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-2 px-4 rounded-3xl focus:outline-none focus:shadow-outline"
+            to="/getStarted"
+            className="bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-2 px-4 rounded-3xl my-12 focus:outline-none focus:shadow-outline"
           >
             {" "}
-            Learn More
+            Get Started
           </Link>
         </div>
       </div>

@@ -73,22 +73,13 @@ export function Heading() {
             </li>
             <li>
               <Link
-                to="/startSheet"
+                to="/hospitalView"
                 className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-green"
                 onClick={() => setOpen(!open)}
               >
-                Create New Shift
-              </Link>
+Hospital Units              </Link>
             </li>
-            <li>
-              <Link
-                to="/shiftHistory"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-green"
-                onClick={() => setOpen(!open)}
-              >
-                Shift Record
-              </Link>
-            </li>
+
             <li>
               <Link
                 to="/about"
