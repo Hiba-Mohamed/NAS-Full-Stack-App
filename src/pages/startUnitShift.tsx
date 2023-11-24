@@ -5,6 +5,7 @@ export function StartUnitSheet() {
   const { unitName } = useParams();
 
   console.log(unitName);
+  if(unitName){
 
   return (
     <div className="flex flex-col items-center sm:pt-12 pt-14 gap-8 font-nunito min-h-screen bg-slate-50">
@@ -15,5 +16,5 @@ export function StartUnitSheet() {
       </p>
       <UnitShiftForm unitName={unitName} />
     </div>
-  );
+  );}
 }

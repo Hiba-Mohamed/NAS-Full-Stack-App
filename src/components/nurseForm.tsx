@@ -1,16 +1,6 @@
 import { SubmitHandler, useFieldArray, Controller, UseFormReturn } from "react-hook-form";
 
 
-interface IUnitShiftData {
-  unitName: string;
-  shiftDate: Date;
-  shiftType: string;
-}
-
-interface IData {
-  ShiftId: string;
-  data: IUnitShiftData;
-}
 interface IPatientData {
   patientName: string;
   patientRoom: string;
@@ -43,23 +33,8 @@ export const NurseInfoForm = ({
 }) => {
   const ShiftId = Shifturl;
 
-  // Retrieve shift data array from localStorage
-  const existingDataJSON = localStorage.getItem("startShiftDataArray");
-  const existingData = existingDataJSON ? JSON.parse(existingDataJSON) : [];
 
-  console.log("existing Data", existingData);
-  console.log("existing Data", existingData);
-
-  // Find the shift data object with the matching shiftId
-  const matchingData = existingData.find(
-    (data: IData) => data.ShiftId === ShiftId
-  );
-
-  const shiftData = matchingData;
-  console.log("matching Data:", matchingData);
-  console.log("matching staff:", matchingData.staff);
-
-  const staffData = matchingData.staff;
+  const staffData = validationArray;
 
   console.log("matching Staff:", staffData);
 
@@ -80,7 +55,7 @@ export const NurseInfoForm = ({
     console.log(staffData);
 
     // Check if nurseName already exists in the staff data
-    if (staffData !== 0 && staffData !== undefined) {
+    if (staffData.length !== 0 && staffData !== undefined) {
       const isDuplicate = validationArray.some(
         (nurse: IstaffData) =>
           nurse.nurseData.nurseName.toLowerCase() === nurseName.toLowerCase()
@@ -134,15 +109,9 @@ export const NurseInfoForm = ({
   if (ShiftId) {
     // Check if ShiftId is defined
 
-    console.log("shiftData", shiftData);
 
-    console.log(shiftData);
     if (ShiftId) {
-      // Check if ShiftId is defined
-
-      console.log("shiftData", shiftData);
-
-      console.log(shiftData);
+   
       if (ShiftId) {
         console.log("staffData", staffData);
         return (
