@@ -19,7 +19,8 @@ import NewUnit from "./pages/addingNewUnit";
 import { StartUnitSheet } from "./pages/startUnitShift";
 import UnitNurseForm from "./pages/manageUnitStaff";
 import EditUnitNursePage from "./pages/editUnitNurse";
-
+import SpecificUnitNav from "./pages/specificUnitNav";
+import { UnitShiftHistory } from "./pages/unitShiftHistory";
 function App() {
   return (
     <div className="App">
@@ -29,7 +30,16 @@ function App() {
         <Route path="/hospitalView" element={<HospitalView />} />
         <Route path="getStarted" element={<GetStarted />} />
         <Route path="/" element={<LandingPage />} />
-        <Route path="/editUnitNurse/:unitName/:ShiftId/:nurseId" element={<EditUnitNursePage />} />
+        <Route path="/unitShiftHistory/:unitName" element={<UnitShiftHistory />} />
+
+        <Route
+          path="/editUnitNurse/:unitName/:ShiftId/:nurseId"
+          element={<EditUnitNursePage />}
+        />
+        <Route
+          path="/specificUnitNav/:unitName"
+          element={<SpecificUnitNav />}
+        />
 
         <Route
           path="/manageUnitStaff/:unitName/:ShiftId"
