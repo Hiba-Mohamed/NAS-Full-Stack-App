@@ -24,6 +24,7 @@ export const UnitShiftListComponent = (unitName) => {
       ? JSON.parse(hospitalNameJSON)
       : { hospitalName: "", hospitalUnits: [] }
   );
+
   const hospitalUnits = hospitalData.hospitalUnits;
   console.log("hospital units", hospitalUnits)
   const matchingUnit = hospitalUnits.find((unit) => {
@@ -32,7 +33,7 @@ export const UnitShiftListComponent = (unitName) => {
   console.log("matching unit", matchingUnit)
   const existingData = matchingUnit?.shifts;
 
-const [shifts, setShifts] = useState(existingData)
+const [shifts, setShifts] = useState( existingData)
   function formatDate(dateString: string): string {
     const year = dateString.slice(0, 4);
     const month = dateString.slice(4, 6);
@@ -81,18 +82,19 @@ const [shifts, setShifts] = useState(existingData)
     navigate(`/manageUnitStaff/${unitNameString}/${shiftId}`);
   }
 
-  function deleteShift(shiftId: string) {
-    console.log("delete Shift", shiftId);
-    const updatedShiftList = existingData.filter((items: IData) => {
-      return items.shiftId !== shiftId;
-    });
+function deleteShift(shiftId: string) {
+  console.log("delete Shift", shiftId);
+  const updatedShiftList = existingData.filter((items: IData) => {
+    return items.shiftId !== shiftId;
+  });
+  matchingUnit.shifts = updatedShiftList
+  console.log("updatedShiftList", updatedShiftList);
+  // Update the state
+  setShifts(updatedShiftList);
 
-    localStorage.setItem(
-      "Hospital Data",
-      JSON.stringify(hospitalData)
-    );
-    setShifts(updatedShiftList);
-  }
+  // Update localStorage
+  localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
+}
 
   if (shifts.length !== 0) {
     return (
