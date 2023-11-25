@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 interface IUnitName {
   unitName: string;
 }
-
 
 interface IUnitShiftData {
   shiftDate: string;
@@ -44,9 +44,13 @@ interface IHospitalData {
   hospitalName: string;
   hospitalUnits: IUnitObject[];
 }
-export function NewUnit() {
+export function EditUnit() {
   const hospitalNameJSON = localStorage.getItem("Hospital Data");
   const navigate = useNavigate();
+  const unitURLName = useParams();
+  console.log(unitURLName);
+  const unitName = unitURLName.unitName;
+  console.log(unitName);
 
   const [hospitalData, setHospitalData] = useState<IHospitalData>(
     hospitalNameJSON
@@ -65,30 +69,31 @@ export function NewUnit() {
   const onSubmit: SubmitHandler<IUnitName> = (data, event) => {
     event?.preventDefault();
     const unitArray = hospitalData.hospitalUnits;
+    console.log("unitArray",unitArray)
+    const targetUnit = unitArray.find((unit) => {
+      return unit.unitName === unitName;
+    });
+    console.log("targetUnit", targetUnit);
+    const validationUnitArray = unitArray.filter((unit) => {
+      return unit.unitName !== unitName;
+    });
     if (unitArray && unitArray !== undefined && unitArray.length > 0) {
-      const duplicateUnit = unitArray.some(
+      const duplicateUnit = validationUnitArray.some(
         (unit) =>
           unit.unitName.toLocaleLowerCase() ===
           data.unitName.toLocaleLowerCase()
       );
-      if (!duplicateUnit) {
+      if (!duplicateUnit && targetUnit) {
         console.log(data.unitName);
-        const newUnit = { unitName: data.unitName, shifts: [] };
-        const exsitingUnitsArray = hospitalData.hospitalUnits;
-        console.log(exsitingUnitsArray);
-        exsitingUnitsArray.push(newUnit);
-        const updatedHospitalData: IHospitalData = {
-          hospitalName: hospitalData.hospitalName,
-          hospitalUnits: exsitingUnitsArray, 
-        };
+        targetUnit.unitName = data.unitName;
         // Update the localStorage with the updated hospital data
         localStorage.setItem(
           "Hospital Data",
-          JSON.stringify(updatedHospitalData)
+          JSON.stringify(hospitalData)
         );
 
-        setHospitalData(updatedHospitalData);
-        navigate(`/startUnitShift/${data.unitName}`);
+        setHospitalData(hospitalData);
+        navigate(`/hospitalView`);
       } else {
         setDuplicateError(
           "Duplicate Unit Name Detected, Enter a Different Unit Name please"
@@ -112,8 +117,7 @@ export function NewUnit() {
       );
 
       setHospitalData(updatedHospitalData);
-      navigate(`/startUnitShift/${data.unitName}`);
-
+      navigate(`/hospitalView`);
     }
   };
   return (
@@ -134,7 +138,9 @@ export function NewUnit() {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center">
-        <h1 className="font-bold text-2xl p-6">Adding New Unit</h1>
+        <h1 className="font-bold text-2xl p-6 text-center">
+          Editing {unitName} Unit Name{" "}
+        </h1>
         <div className="flex flex-col items-center justify-center">
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -180,4 +186,4 @@ export function NewUnit() {
   );
 }
 
-export default NewUnit;
+export default EditUnit;
