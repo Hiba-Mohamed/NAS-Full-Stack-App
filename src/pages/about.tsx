@@ -1,6 +1,6 @@
 export function AboutPage() {
   return (
-    <div className="lg:px-40 md:px-10 sm:px-10 lg:text-2xl md:text-xl sm:text-lg">
+    <div className="lg:px-40 md:px-10 sm:px-10 lg:text-2xl md:text-xl sm:text-lg py-24 md:py-32">
 
       <div className="font-nunito flex flex-col items-start mb-48">
         <div className="flex w-auto items-center flex-row">

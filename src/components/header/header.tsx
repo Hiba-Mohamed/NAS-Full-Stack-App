@@ -83,11 +83,11 @@ export function Heading() {
           className={`${open ? "block" : "hidden"} w-full`}
           id="navbar-hamburger"
         >
-          <ul className="md:hidden flex flex-col items-center font-medium mt-4 rounded-lg bg-gray-50">
+          <ul className="md:hidden flex flex-col items-center font-medium mt-4 rounded-lg">
             <li>
               <Link
                 to="/home"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-green"
+                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-slate-500"
                 aria-current="page"
                 onClick={() => setOpen(!open)}
               >
@@ -97,7 +97,7 @@ export function Heading() {
             <li>
               <Link
                 to="/account"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-green"
+                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-slate-500"
                 onClick={() => setOpen(!open)}
               >
                 Create an Account
@@ -106,7 +106,7 @@ export function Heading() {
             <li>
               <Link
                 to="/login"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-green"
+                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-slate-500"
                 onClick={() => setOpen(!open)}
               >
                 Login
@@ -115,7 +115,7 @@ export function Heading() {
             <li>
               <Link
                 to="/hospitalView"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-green"
+                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-slate-500"
                 onClick={() => setOpen(!open)}
               >
                 Hospital Units{" "}
@@ -125,7 +125,7 @@ export function Heading() {
             <li>
               <Link
                 to="/about"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-green"
+                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-slate-500"
                 onClick={() => setOpen(!open)}
               >
                 About NAS
