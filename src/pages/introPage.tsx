@@ -4,18 +4,18 @@ export function LandingPage() {
   return (
     <div className="min-h-screen items-center bg-slate-50 font-nunito pt-12 flex flex-col max-w-xl sm:max-w-full py-6 px-2">
       <div className="max-w-3xl flex flex-col items-center">
-            <div className="flex sm:pt-12 flex-col lg:text-5xl items-center mx-4 py-4 text-xl sm:text-4xl text-center font-bold">
-              <p>Welcome to the Electronic NAS </p>
-              <p> (Nurses Assignment Sheet)!</p>
-            </div>
-            <div className="flex flex-col items-center mx-4 p-4 text-start mt-8 mb-10 p-12">
-              <p className="text-center text-md sm:text-xl lg:text-2xl">
-                The NAS is an elctronic document that replaces the paper based
-                nurses assignment sheet used in some healthcare settings. It is
-                used to communicate vital information to nurses and other staff
-                throughout the shift.
-              </p>
-            </div>
+        <div className="flex sm:pt-12 flex-col lg:text-5xl items-center mx-4 py-4 text-xl sm:text-4xl text-center font-bold">
+          <p>Welcome to the Electronic NAS </p>
+          <p> (Nurses Assignment Sheet)!</p>
+        </div>
+        <div className="flex flex-col items-center mx-4 p-4 text-start mt-8 mb-10 p-12">
+          <p className="text-center text-md sm:text-xl lg:text-2xl">
+            The NAS is an elctronic document that replaces the paper based
+            nurses assignment sheet used in some healthcare settings. It is used
+            to communicate vital information to nurses and other staff
+            throughout the shift.
+          </p>
+        </div>
         <Link
           to="/getStarted"
           className="bg-slate-700 lg:text-lg hover:bg-slate-500 text-white font-bold py-2 px-4 rounded-3xl my-12 focus:outline-none focus:shadow-outline"
@@ -42,7 +42,7 @@ export function LandingPage() {
                 alt=""
                 className="rounded-3xl lg:w-64"
               />
-              <div className="lg:w-40 lg:text-lg">
+              <div className="lg:w-40 lg:text-lg py-4">
                 <p>Click on "Create New Shift" in the top navigation bar.</p>
               </div>
             </div>
@@ -57,7 +57,7 @@ export function LandingPage() {
                 alt=""
                 className="rounded-3xl lg:w-64"
               />
-              <div className="lg:w-40 lg:text-lg">
+              <div className="lg:w-40 lg:text-lg py-4">
                 <p>Fill in the three steps form.</p>
               </div>
             </div>
@@ -74,7 +74,7 @@ export function LandingPage() {
                 alt=""
                 className="rounded-3xl lg:w-64"
               />
-              <div className="lg:w-40 lg:text-lg">
+              <div className="lg:w-40 lg:text-lg py-4">
                 <p>
                   Use the nurse's information form to dynamically add nurses to
                   your shift.
@@ -88,7 +88,7 @@ export function LandingPage() {
           </div>
           <div className="flex flex-col rounded-3xl bg-white flex flex-row items-center gap-4 shadow-lg text-start mb-16 max-w-xl">
             <p className="font-bold md:text-2xl  text-2xl text-center text-white rounded-t-3xl  bg-slate-600 w-full p-2">
-              Step 4: Manage Shifts assignments
+              Step 4: Manage Shifts Assignments
             </p>
             <div className="flex lg:flex-row-reverse flex-col items-center p-4">
               <img
@@ -96,7 +96,7 @@ export function LandingPage() {
                 alt=""
                 className="rounded-3xl lg:w-64"
               />
-              <div className="lg:w-40 lg:text-lg">
+              <div className="lg:w-40 lg:text-lg py-4">
                 <p>Edit shift and assignment information as necessary.</p>
               </div>
             </div>
@@ -113,7 +113,7 @@ export function LandingPage() {
                 alt=""
                 className="rounded-3xl lg:w-64"
               />
-              <div className="lg:w-40 lg:text-lg">
+              <div className="lg:w-40 lg:text-lg py-4">
                 <p>Click on "Shift Record" in the top navigation bar.</p>
               </div>
             </div>
@@ -128,7 +128,7 @@ export function LandingPage() {
                 alt=""
                 className="rounded-3xl lg:w-64"
               />
-              <div className="lg:w-40 lg:text-lg">
+              <div className="lg:w-40 lg:text-lg py-4">
                 <p>Shifts are autosaved and organized from newest to oldest.</p>
                 <p>Use the search bar to quickly find a specific shift.</p>
               </div>

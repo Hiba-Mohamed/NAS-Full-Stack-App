@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export function Heading() {
   const [open, setOpen] = useState(false);
   return (
-    <nav className="border-slate-50 bg-white font-nunito py-2">
+    <nav className="border-slate-50 bg-white font-nunito pb-2">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 max-w-7xl">
         <Link to="/home" className="flex items-center">
           <img
@@ -15,7 +15,7 @@ export function Heading() {
         </Link>
 
         <div id="navbar-hamburger">
-          <ul className="hidden text-sm md:flex flex  gap-6 flex-row items-center font-medium mt-4 rounded-lg">
+          <ul className="hidden text-sm md:flex flex  gap-6 flex-row items-center font-medium mt-2 rounded-lg">
             <li>
               <Link
                 to="/login"
@@ -47,11 +47,11 @@ export function Heading() {
           </ul>
         </div>
         <div className="flex flex-row items-center gap-4 hidden md:flex">
-          <Link>
+          <Link to="/">
             <img className="h-4 md:h-6" src="images/settings-icon.png"></img>
           </Link>
-          <Link>
-            <img className="h-8 md:h-12"  src="images/profile-icon.png"></img>
+          <Link to="/">
+            <img className="h-8 md:h-12" src="images/profile-icon.png"></img>
           </Link>
         </div>
         <button

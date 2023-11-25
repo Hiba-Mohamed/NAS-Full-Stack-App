@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         peach: "#EF798A",
-        green: "#68B0AB",
+        green: "#075985",
         white: "#FFFFFF",
         lgreen: "#8FC0A9",
         greygreen: "#F3FAF8",
