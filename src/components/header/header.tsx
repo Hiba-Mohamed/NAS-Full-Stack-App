@@ -15,7 +15,7 @@ export function Heading() {
         </Link>
 
         <div id="navbar-hamburger">
-          <ul className="hidden md:flex flex  gap-6 flex-row items-center font-medium mt-4 rounded-lg">
+          <ul className="hidden text-sm md:flex flex  gap-6 flex-row items-center font-medium mt-4 rounded-lg">
             <li>
               <Link
                 to="/login"
