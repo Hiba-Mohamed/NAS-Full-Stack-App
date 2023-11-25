@@ -13,7 +13,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "outDir": "./dist", // Specify your desired output directory
+    "outDir": "./dist", 
 
     
 
