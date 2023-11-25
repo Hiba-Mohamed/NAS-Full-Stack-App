@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 interface IUnitShiftData {
   shiftDate: Date;
@@ -9,7 +8,6 @@ interface IpatientObject {
   patientName: string;
   patientRoom: string;
 }
-
 interface IStaffData {
   nurseId: string;
   nurseData: {
@@ -21,32 +19,22 @@ interface IStaffData {
     assignedPatient: IpatientObject[];
   };
 }
-
 interface IUnitShiftObject {
   shiftId: string;
   data: IUnitShiftData;
   staff: IStaffData[];
 }
-
 interface IUnitObject {
   unitName: string;
   shifts: IUnitShiftObject[];
 }
 
-interface IHospitalData {
-  hospitalName: string;
-  hospitalUnits: IUnitObject[];
-}
-
-
 export default function HospitalView(){
     const hospitalNameJSON = localStorage.getItem("Hospital Data");
 
-  const [hospitalData, setHospitalData] = useState<IHospitalData>(
-    hospitalNameJSON
-      ? JSON.parse(hospitalNameJSON)
-      : { hospitalName: "", hospitalUnits: [] }
-  );
+  const hospitalData = hospitalNameJSON
+    ? JSON.parse(hospitalNameJSON)
+    : { hospitalName: "", hospitalUnits: [] };
   const hospitalUnitsList = hospitalData.hospitalUnits
   console.log("hospital Units", hospitalUnitsList)
 
@@ -56,7 +44,7 @@ export default function HospitalView(){
         {hospitalData.hospitalName}
       </h1>
       <div className="flex flex-row flex-wrap justify-evenly pb-6">
-        {hospitalUnitsList.map((unit) => (
+        {hospitalUnitsList.map((unit:IUnitObject) => (
           <div className=" shadow-lg rounded-lg my-4  max-w-sm mx-2 text-sm sm:text-xl w-32 sm:w-80">
             {" "}
             <Link

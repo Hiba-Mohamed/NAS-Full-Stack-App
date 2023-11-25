@@ -1,6 +1,39 @@
-import { useLocalStorage } from "@uidotdev/usehooks";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+
+interface IUnitShiftData {
+  shiftDate: string;
+  shiftType: string;
+}
+interface IpatientObject {
+  patientName: string;
+  patientRoom: string;
+}
+
+interface IStaffData {
+  nurseId: string;
+  nurseData: {
+    nurseName: string;
+    nurseBreak: string;
+    reliefName: string;
+    extraDuties: string;
+    fireCode: string;
+    assignedPatient: IpatientObject[];
+  };
+}
+
+interface IUnitShiftObject {
+  shiftId: string;
+  data: IUnitShiftData;
+  staff: IStaffData[];
+}
+
+interface IUnitObject {
+  unitName: string;
+  shifts: IUnitShiftObject[];
+}
+
 
 interface IUnitShiftData {
   unitName: string;
@@ -13,21 +46,19 @@ interface IData {
   data: IUnitShiftData;
 }
 
-export const UnitShiftListComponent = (unitName) => {
+export const UnitShiftListComponent = (unitName:{unitName: string}) => {
     console.log("unitName", unitName);
     const unitNameString = unitName.unitName;
     console.log("unitNameString", unitNameString);
   const navigate = useNavigate();
   const hospitalNameJSON = localStorage.getItem("Hospital Data");
-  const [hospitalData, setHospitalData] = useState<IHospitalData>(
-    hospitalNameJSON
-      ? JSON.parse(hospitalNameJSON)
-      : { hospitalName: "", hospitalUnits: [] }
-  );
+  const hospitalData = hospitalNameJSON
+    ? JSON.parse(hospitalNameJSON)
+    : { hospitalName: "", hospitalUnits: [] };
 
   const hospitalUnits = hospitalData.hospitalUnits;
   console.log("hospital units", hospitalUnits)
-  const matchingUnit = hospitalUnits.find((unit) => {
+  const matchingUnit = hospitalUnits.find((unit:IUnitObject) => {
     return unit.unitName === unitNameString;
   });
   console.log("matching unit", matchingUnit)
@@ -64,7 +95,7 @@ const [shifts, setShifts] = useState( existingData)
     return months[monthIndex];
   }
 
-  existingData.sort((a: IData, b: IData) => {
+  existingData?.sort((a: IData, b: IData) => {
     const dateA = parseInt(a.data.shiftDate);
     const dateB = parseInt(b.data.shiftDate);
     return dateB - dateA;
@@ -84,23 +115,26 @@ const [shifts, setShifts] = useState( existingData)
 
 function deleteShift(shiftId: string) {
   console.log("delete Shift", shiftId);
-  const updatedShiftList = existingData.filter((items: IData) => {
+  const updatedShiftList = existingData?.filter((items: IData) => {
     return items.shiftId !== shiftId;
   });
-  matchingUnit.shifts = updatedShiftList
+  if(matchingUnit){
+  matchingUnit.shifts = updatedShiftList;
   console.log("updatedShiftList", updatedShiftList);
   // Update the state
   setShifts(updatedShiftList);
+  }
+;
 
   // Update localStorage
   localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
 }
 
-  if (shifts.length !== 0) {
+  if (shifts?.length !== 0) {
     return (
       <div className="flex flex-col md:flex-col items-center max-w-sm sm:max-w-2xl">
         <div className="flex flex-col lg:flex-col text-sm ms:text-md md:flex-col items-center max-w- sm:max-w-2xl">
-          {existingData.map((existingData: IData) => (
+          {existingData?.map((existingData: IData) => (
             <div
               className="sm:my-4 mx-2 sm:p-4 my-4 py-4 flex flex-col sm:flex-row items-center bg-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition duration-300 md:duration-500"
               key={existingData.shiftId}

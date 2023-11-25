@@ -1,9 +1,8 @@
 import { useParams } from "react-router-dom";
 import ViewNurseCard from "../components/viewNursesComponent";
-import { useState } from "react";
 
 interface IUnitShiftData {
-  shiftDate: Date;
+  shiftDate: string;
   shiftType: string;
 }
 interface IpatientObject {
@@ -34,21 +33,14 @@ interface IUnitObject {
   shifts: IUnitShiftObject[];
 }
 
-interface IHospitalData {
-  hospitalName: string;
-  hospitalUnits: IUnitObject[];
-}
 
 interface IUnitShiftData {
   unitName: string;
-  shiftDate: Date;
+  shiftDate: string;
   shiftType: string;
 }
 
-interface IData {
-  ShiftId: string;
-  data: IUnitShiftData;
-}
+
 
 function formatDate(dateString: string): string {
   const year = dateString.slice(0, 4);
@@ -86,20 +78,18 @@ export function ViewUnitShift() {
   const { unitName, ShiftId } = useParams();
   console.log("unitName", unitName)
     const hospitalNameJSON = localStorage.getItem("Hospital Data");
-    const [hospitalData, setHospitalData] = useState<IHospitalData>(
-      hospitalNameJSON
-        ? JSON.parse(hospitalNameJSON)
-        : { hospitalName: "", hospitalUnits: [] }
-    );
+  const hospitalData = hospitalNameJSON
+    ? JSON.parse(hospitalNameJSON)
+    : { hospitalName: "", hospitalUnits: [] };
     const hospitalUnits = hospitalData.hospitalUnits;
     console.log("hospital units", hospitalUnits);
-    const matchingUnit = hospitalUnits.find((unit) => {
+    const matchingUnit = hospitalUnits.find((unit:IUnitObject) => {
       return unit.unitName === unitName;
     });
     console.log("matching unit", matchingUnit);
     const existingData = matchingUnit?.shifts;
 
-    const matchingShift = existingData.find((shift)=>{return shift.shiftId === ShiftId})
+    const matchingShift = existingData?.find((shift:IUnitShiftObject)=>{return shift.shiftId === ShiftId})
 
   if (ShiftId) {
     // Check if ShiftId is defined
@@ -107,10 +97,10 @@ export function ViewUnitShift() {
 
     if (ShiftId) {
 
-      const staffData = matchingShift.staff ?? [];
+      const staffData = matchingShift?.staff ?? [];
 
       console.log("staffData", staffData);
-
+if(matchingShift){
       return (
         <div className="font-nunito bg-greygreen sm:max-w-full min-h-screen">
           <div className="flex flex-col items-center justify-center">
@@ -131,7 +121,7 @@ export function ViewUnitShift() {
             <ViewNurseCard staffData={staffData} />{" "}
           </div>
         </div>
-      );
+      );}
     } else {
       console.log("ShiftId is undefined.");
     }

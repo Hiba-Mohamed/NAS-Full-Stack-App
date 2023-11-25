@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useLocalStorage } from "@uidotdev/usehooks";
 import { useState } from "react";
 
 interface IUnitShiftData {
@@ -35,15 +34,6 @@ interface IUnitObject {
   shifts: IUnitShiftObject[];
 }
 
-interface IHospitalData {
-  hospitalName: string;
-  hospitalUnits: IUnitObject[];
-}
-interface IShiftSearch {
-  shiftDate: Date;
-  shiftType: string;
-}
-
 
 
 export const SearchUnitResults = () => {
@@ -57,15 +47,13 @@ export const SearchUnitResults = () => {
     console.log("unitName", unitName);
     const navigate = useNavigate();
     const hospitalNameJSON = localStorage.getItem("Hospital Data");
-    const [hospitalData, setHospitalData] = useState<IHospitalData>(
-      hospitalNameJSON
-        ? JSON.parse(hospitalNameJSON)
-        : { hospitalName: "", hospitalUnits: [] }
-    );
+  const hospitalData = hospitalNameJSON
+    ? JSON.parse(hospitalNameJSON)
+    : { hospitalName: "", hospitalUnits: [] };
 
     const hospitalUnits = hospitalData.hospitalUnits;
     console.log("hospital units", hospitalUnits);
-    const matchingUnit = hospitalUnits.find((unit) => {
+    const matchingUnit = hospitalUnits.find((unit:IUnitObject) => {
       return unit.unitName === unitName;
     });
     console.log("matching unit", matchingUnit);
@@ -74,8 +62,8 @@ export const SearchUnitResults = () => {
 
     const [shifts, setShifts] = useState(existingData);
 
-  const matchingShift = existingData.find(
-    (shift) =>{
+  const matchingShift = existingData?.find(
+    (shift:IUnitShiftObject) =>{
      return shift.data.shiftDate === shiftDate && shift.data.shiftType === formattedShiftType}
   );
 
@@ -93,7 +81,7 @@ export const SearchUnitResults = () => {
 
   function deleteShift(shiftId: string) {
     console.log("delete Shift", shiftId);
-    const updatedShiftList = existingData.filter((items: IData) => {
+    const updatedShiftList = existingData.filter((items: IUnitShiftObject) => {
       return items.shiftId !== shiftId;
     });
     matchingUnit.shifts = updatedShiftList;

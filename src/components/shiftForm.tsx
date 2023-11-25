@@ -22,7 +22,7 @@ interface IDatesWithTypes{
   shiftType:string;
 }
 
-const ShiftForm = (unitName:string|undefined) => {
+const ShiftForm = () => {
   const navigate = useNavigate();
 
   const {

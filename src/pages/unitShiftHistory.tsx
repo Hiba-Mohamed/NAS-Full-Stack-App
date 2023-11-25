@@ -3,7 +3,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import UnitShiftListComponent from "../components/unitShiftListComponent";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 interface IUnitShiftData {
   shiftDate: string;
@@ -37,10 +36,6 @@ interface IUnitObject {
   shifts: IUnitShiftObject[];
 }
 
-interface IHospitalData {
-  hospitalName: string;
-  hospitalUnits: IUnitObject[];
-}
 interface IShiftSearch {
   shiftDate: Date;
   shiftType: string;
@@ -85,19 +80,16 @@ export function UnitShiftHistory() {
 
     console.log("shiftType", shiftType);
 
-    navigate(
-      `/searchUnitResult/${unitName}/${formattedDate}/${shiftTypeDash}`
-    );
+    navigate(`/searchUnitResult/${unitName}/${formattedDate}/${shiftTypeDash}`);
   };
 
   const hospitalNameJSON = localStorage.getItem("Hospital Data");
-  const [hospitalData, setHospitalData] = useState<IHospitalData>(
-    hospitalNameJSON
-      ? JSON.parse(hospitalNameJSON)
-      : { hospitalName: "", hospitalUnits: [] }
-  );
+  const hospitalData = hospitalNameJSON
+    ? JSON.parse(hospitalNameJSON)
+    : { hospitalName: "", hospitalUnits: [] };
+
   const hospitalUnits = hospitalData.hospitalUnits;
-  const matchingUnit = hospitalUnits.find((unit) => {
+  const matchingUnit = hospitalUnits.find((unit:IUnitObject) => {
     return unit.unitName === unitName;
   });
   const existingData = matchingUnit?.shifts;
