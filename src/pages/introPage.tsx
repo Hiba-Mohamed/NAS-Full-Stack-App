@@ -35,7 +35,7 @@ export function LandingPage() {
       </div>
 
       <div className="flex flex-row items-center gap-4 sm:mt-28 mx-4 p-4 text-start text-lg my-4">
-        <img src="images/NAS-logo.png" alt="NAS logo" className="h-12" />
+        <img src="images/NAS-logo-icon.png" alt="NAS logo" className="h-12" />
         <p className="font-bold text-xl">A quick guide to get started below:</p>
       </div>
       <div className="flex flex-col justify-evenly sm:text-xl p-2 items-center">
@@ -45,11 +45,11 @@ export function LandingPage() {
             <img src="images/features1.png" alt="" className="rounded-3xl" />
             <div>
               <div className="flex flex-row p-4 gap-2">
-                <img src="images/NAS-logo.png" alt="" className="h-4 mt-2" />
+                <img src="images/NAS-logo-icon.png" alt="" className="h-4 mt-2" />
                 <p>Choose from the menu on the header above to get started.</p>
               </div>
               <div className="flex flex-row p-4 gap-2">
-                <img src="images/NAS-logo.png" alt="" className="h-4 mt-2" />
+                <img src="images/NAS-logo-icon.png" alt="" className="h-4 mt-2" />
                 <p>Click on "Create New Shift".</p>
               </div>
             </div>
@@ -64,7 +64,7 @@ export function LandingPage() {
           <div className="flex flex-col items-center">
             <img src="images/features2.png" alt="" className="rounded-3xl" />
             <div className="flex flex-row p-4 gap-2">
-              <img src="images/NAS-logo.png" alt="" className="h-4 mt-2" />
+              <img src="images/NAS-logo-icon.png" alt="" className="h-4 mt-2" />
               <p>Fill in the three steps form to create a new shift.</p>
             </div>
           </div>
@@ -73,7 +73,7 @@ export function LandingPage() {
           <div className="flex flex-col items-center">
             <img src="images/features6.png" alt="" className="rounded-3xl" />
             <div className="flex flex-row p-4 gap-2">
-              <img src="images/NAS-logo.png" alt="" className="h-4 mt-2" />
+              <img src="images/NAS-logo-icon.png" alt="" className="h-4 mt-2" />
               <p>
                 Duplication safeguards in place to prevent shift Duplication.
               </p>
@@ -90,14 +90,14 @@ export function LandingPage() {
             <img src="images/features5.png" alt="" className="rounded-3xl" />
             <div>
               <div className="flex flex-row p-4 gap-2">
-                <img src="images/NAS-logo.png" alt="" className="h-4 mt-2" />
+                <img src="images/NAS-logo-icon.png" alt="" className="h-4 mt-2" />
                 <p>
                   Use the nurse's information form to dynamically add nurses to
                   your shift.
                 </p>
               </div>
               <div className="flex flex-row p-4 gap-2">
-                <img src="images/NAS-logo.png" alt="" className="h-4 mt-2" />
+                <img src="images/NAS-logo-icon.png" alt="" className="h-4 mt-2" />
                 <p>
                   Duplication safeguards in place to prevent duplication of
                   nurse's name, patient's name, and room number.
@@ -110,7 +110,7 @@ export function LandingPage() {
           <div className="flex flex-col items-center">
             <img src="images/features4.png" alt="" className="rounded-3xl" />
             <div className="flex flex-row p-4 gap-2">
-              <img src="images/NAS-logo.png" alt="" className="h-4 mt-2" />
+              <img src="images/NAS-logo-icon.png" alt="" className="h-4 mt-2" />
               <p>
                 Manange shift staff and edit nurse's assignment information.
               </p>
@@ -126,7 +126,7 @@ export function LandingPage() {
           <div className="flex flex-col items-center">
             <img src="images/features1.png" alt="" className="rounded-3xl" />
             <div className="flex flex-row p-4 gap-2">
-              <img src="images/NAS-logo.png" alt="" className="h-4 mt-2" />
+              <img src="images/NAS-logo-icon.png" alt="" className="h-4 mt-2" />
               <p>
                 Use the menu bar to click on "Shift Record" to access your shift
                 list.
@@ -140,13 +140,13 @@ export function LandingPage() {
             <img src="images/features3.png" alt="" className="rounded-3xl" />
             <div>
               <div className="flex flex-row p-4 gap-2">
-                <img src="images/NAS-logo.png" alt="" className="h-4 mt-2" />
+                <img src="images/NAS-logo-icon.png" alt="" className="h-4 mt-2" />
                 <p>
                   Your shifts are autosaved and organized from newest to oldest.
                 </p>
               </div>
               <div className="flex flex-row p-4 gap-2">
-                <img src="images/NAS-logo.png" alt="" className="h-4 mt-2" />
+                <img src="images/NAS-logo-icon.png" alt="" className="h-4 mt-2" />
                 <p>
                   You can always search a specific shift using the search bar.
                 </p>
