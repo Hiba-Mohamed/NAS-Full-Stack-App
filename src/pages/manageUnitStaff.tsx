@@ -4,7 +4,7 @@ import UnitNurseCardDisplay from "../components/unitNurseCardDisplay";
 import { v4 as uuidv4 } from "uuid";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 interface IUnitShiftData {
   shiftDate: string;
   shiftType: string;
@@ -172,20 +172,35 @@ export function UnitNurseForm() {
 
       return (
         <div className="font-nunito bg-greygreen sm:max-w-full min-h-screen">
-          <div className="flex flex-col items-center justify-center">
-            <div className="text-nunito-900 font-extrabold text-lg sm:text-lg lg:text-xl tracking-tight text-center py-1 bg-white shadow-lg rounded-lg sm:px-4 sm:pt-3 sm:pb-4 sm:py-2 m-8 text-green">
-              <p>{unitName}</p>
-              <div className="flex sm:flex-row items-center flex-col">
-                {" "}
-                <p className="px-4">{formatDate(matchingShift.data.shiftDate)}</p>
-                <p className="px-4">{matchingShift.data.shiftType}</p>
+          <div className="flex flex-row items-center justify-center ">
+            <div className="text-nunito-900 justify-center items-center font-extrabold flex flex-row tracking-tight text-center py-1 sm:px-4 sm:pt-3 sm:pb-4 sm:py-2 m-8 text-green bg-white shadow-lg rounded-lg">
+              <div className=" sm:text-lg lg:text-xl">
+                <p>{unitName}</p>
+                <div className="flex sm:flex-row items-center flex-col">
+                  {" "}
+                  <p className="px-4">
+                    {formatDate(matchingShift.data.shiftDate)}
+                  </p>
+                  <p className="px-4">{matchingShift.data.shiftType}</p>
+                </div>
+              </div>
+              <div>
+                <Link
+                  className="bg-sky-600 hover:bg-sky-500 text-md text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  to={`/editShiftInfo/${unitName}/${ShiftId}`}
+                >
+                  Edit
+                </Link>
               </div>
             </div>
           </div>
 
           <div>
             {" "}
-            <UnitNurseCardDisplay unitName = {unitName} staffData={matchingShift.staff} />{" "}
+            <UnitNurseCardDisplay
+              unitName={unitName}
+              staffData={matchingShift.staff}
+            />{" "}
           </div>
           <div className="flex flex-col items-center">
             {" "}

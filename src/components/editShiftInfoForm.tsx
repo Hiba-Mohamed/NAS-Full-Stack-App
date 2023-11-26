@@ -4,6 +4,7 @@ import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 interface IUnitShiftDataBeforeConversion {
   shiftDate: Date;
@@ -47,10 +48,12 @@ interface IHospitalData {
   hospitalUnits: IUnitObject[];
 }
 
-const UnitShiftForm = (unitName: { unitName: string }) => {
-  console.log(unitName);
-  const unitNameString = unitName.unitName;
-  console.log(unitNameString);
+const EditShiftForm = () => {
+  const { unitName, ShiftId } = useParams();
+
+  console.log("shiftId", ShiftId);
+  console.log("unitName", unitName);
+
   // Retrieve existing data from localStorage or create an empty array
   const hospitalNameJSON = localStorage.getItem("Hospital Data");
   const [hospitalData, setHospitalData] = useState<IHospitalData>(
@@ -59,10 +62,19 @@ const UnitShiftForm = (unitName: { unitName: string }) => {
       : { hospitalName: "", hospitalUnits: [] }
   );
   const hospitalUnitsList = hospitalData.hospitalUnits;
+  console.log("hospitalUnitsList", hospitalUnitsList);
   const matchingUnitInfo = hospitalUnitsList.find((unit) => {
-    return unit.unitName === unitNameString;
+    return unit.unitName === unitName;
   });
+  console.log("matchingUnitInfo", matchingUnitInfo);
 
+  const unitShifts = matchingUnitInfo.shifts;
+  console.log("unitShifts", unitShifts);
+
+  const matchingShift = unitShifts.find((shift) => {
+    return shift.shiftId === ShiftId;
+  });
+  console.log("matching shift", matchingShift);
   const navigate = useNavigate();
 
   const {
@@ -98,55 +110,47 @@ const UnitShiftForm = (unitName: { unitName: string }) => {
     const matchingUnitShifts = matchingUnitInfo?.shifts;
 
     const shiftsArray = matchingUnitShifts ?? [];
-
+    const validationArray = shiftsArray.filter((shift) => {
+      return shift.shiftId !== matchingShift.shiftId;
+    });
+    console.log("data", data);
+    console.log("validationArray", validationArray);
     console.log("Matching Unit Shifts", matchingUnitShifts);
 
     // validate for duplicates
-    if (matchingUnitInfo  && shiftsArray.length > 0) {
-   const isDuplicateShift = shiftsArray.some((item) => {
-     return (
-       item.data.shiftDate === currentShift.shiftDate &&
-       item.data.shiftType === currentShift.shiftType
-     );
-   });
-
+    if (matchingUnitInfo && validationArray && validationArray.length > 0) {
+      const isDuplicateShift = validationArray.some((item) => { return(
+        item.data.shiftDate === currentShift.shiftDate &&
+        item.data.shiftType === currentShift.shiftType)
+      });
+console.log("isDuplicateShift", isDuplicateShift);
       if (isDuplicateShift) {
         setErrorMessage(
           "Duplicate shift, please select a different date, or shift Type"
         );
+        console.log("duplicate shift");
       }
       if (!isDuplicateShift) {
-        const newShift = {
-          shiftId: ShiftId,
-          data: currentShift,
-          staff: [],
-        };
-        console.log("newShift", newShift);
-        console.log("shiftsArray", shiftsArray);
-        shiftsArray.push(newShift);
-        console.log(shiftsArray);
-        matchingUnitInfo.shifts = shiftsArray;
-        setHospitalData(hospitalData);
+        matchingShift.data.shiftDate = currentShift.shiftDate;
+        matchingShift.data.shiftType = currentShift.shiftType
+              localStorage.setItem(
+                "Hospital Data",
+                JSON.stringify(hospitalData)
+              );
+      setHospitalData(hospitalData);
+      console.log("valid shift")
 
-        localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
-        navigate(`/manageUnitStaff/${unitNameString}/${ShiftId}`);
+        navigate(`/manageUnitStaff/${unitName}/${matchingShift.shiftId}`);
       }
     }
-    if (matchingUnitInfo && shiftsArray && shiftsArray.length < 1) {
-        const newShift = {
-          shiftId: ShiftId,
-          data: currentShift,
-          staff: [],
-        };
-        console.log("newShift", newShift);
-        console.log("shiftsArray", shiftsArray);
-        shiftsArray.push(newShift);
-        console.log(shiftsArray)
-        matchingUnitInfo.shifts = shiftsArray
+    if (matchingUnitInfo && validationArray && validationArray.length < 1) {
+        matchingShift.data.shiftDate = currentShift.shiftDate;
+        matchingShift.data.shiftType = currentShift.shiftType;
+        localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
         setHospitalData(hospitalData);
+      console.log("valid shift");
 
-        localStorage.setItem("Hospital Data",JSON.stringify(hospitalData));
-        navigate(`/manageUnitStaff/${unitNameString}/${ShiftId}`);
+        navigate(`/manageUnitStaff/${unitName}/${matchingShift.shiftId}`);
     }
   };
 
@@ -223,4 +227,4 @@ const UnitShiftForm = (unitName: { unitName: string }) => {
   );
 };
 
-export default UnitShiftForm;
+export default EditShiftForm;

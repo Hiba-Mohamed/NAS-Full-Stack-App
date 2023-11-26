@@ -324,9 +324,9 @@ export const NurseInfoForm = ({
                   <button
                     type="button"
                     onClick={() => append({ patientName: "", patientRoom: "" })}
-                    className="bg-white px-2 border border-green rounded-lg text-green"
+                    className="bg-white px-4 p-2 border border-green rounded-lg text-green"
                   >
-                    +
+                    + Add A Patient
                   </button>
                 </div>
               </div>
