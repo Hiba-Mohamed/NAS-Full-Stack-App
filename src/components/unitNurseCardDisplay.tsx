@@ -55,6 +55,28 @@ export function UnitNurseCardDisplay({
       : { hospitalName: "", hospitalUnits: [] }
   );
 
+  const [showPopup, setShowPopup] = useState(false);
+  const [nurseToDelete, SetNurseToDelete] = useState<IStaffData>();
+  const [nurses, setNurses] = useState(staffData);
+
+  function confirmDelete() {
+    console.log("deleting  Nurse", nurseToDelete);
+    const updatedNurseList = staffData.filter((items: IStaffData) => {
+      return items.nurseId !== nurseToDelete?.nurseId;
+    });
+    if (matchingShift) {
+      matchingShift.staff = updatedNurseList;
+      console.log("updatedNurseList", updatedNurseList);
+      // Update the state
+      setHospitalData(hospitalData);
+      setNurses(updatedNurseList);
+
+      // Update localStorage
+      localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
+      setShowPopup(false);
+    }
+  }
+
   const matchingUnit = hospitalData.hospitalUnits.find((item) => {
     return item.unitName === unitName;
   });
@@ -64,83 +86,101 @@ export function UnitNurseCardDisplay({
   });
   console.log("matching Shift", matchingShift);
 
-  const [nurses, setNurses] = useState(staffData);
-
   console.log(staffData);
 
-  const deleteNurse = (nurseId: string) => {
+  const deleteNurse = (nurseData: IStaffData) => {
     if (matchingShift) {
-      const exsitingNurseArray = nurses;
-      // get the index of the nurse card
-
-      const updatedNurseList = exsitingNurseArray.filter((item: IStaffData) => {
-        return item.nurseId !== nurseId;
-      });
-
-      matchingShift.staff = updatedNurseList;
-
-      console.log("Updated Nurse List", updatedNurseList);
-      setHospitalData(hospitalData);
-
-      //  update the local storage
-      localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
-
-      console.log(updatedNurseList);
-      setNurses(updatedNurseList);
+      console.log("nurse to be deleted: ", nurseData);
+      setShowPopup(true);
+      SetNurseToDelete(nurseData);
     }
   };
+  function cancelDelete() {
+    // Close the popup without performing the delete operation
+    setShowPopup(false);
+  }
+
   useEffect(() => {
     setNurses(staffData);
   }, staffData);
 
   const editNurse = (ShiftId: string, nurseId: string) => {
     navigate(`/editUnitNurse/${unitName}/${ShiftId}/${nurseId}`);
-
-    // 2- have the form autopopulated with the nurse info using nurseId
-    // 3- on form submission is handled through the onSubmitEdit function that is in the editNurse page.
-    // 4- have to find a way to send the  ShiftId to the editNurse page to be passed in as a prop there.
   };
   console.log(staffData);
-  if (ShiftId && staffData.length !== 0) {
+  if (ShiftId && nurses.length !== 0) {
     return (
       <div className="flex flex-row flex-wrap justify-evenly">
-        {nurses.map((staffData: IStaffData, nurseIndex: number) => (
+        {showPopup && nurseToDelete ? (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 ">
+            <div className="bg-white p-8 rounded-lg max-w-sm sm:max-w-lg">
+              <p className="text-xl font-bold mb-4">
+                Are you sure you want to delete this Nurse?
+              </p>
+              <div className="flex flex-row p-2 gap-8 pb-6">
+                {" "}
+                <p className="font-bold text text-lg ">
+                  {" "}
+                  Nurse Being Deleted: {nurseToDelete.nurseData.nurseName}
+                </p>
+              </div>
+
+              <div className="flex justify-between">
+                <button
+                  className="bg-white hover:bg-rose-700 hover:text-white text-rose-700 border-solid border-2 border-rose-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  onClick={confirmDelete}
+                >
+                  Yes, Delete
+                </button>
+                <button
+                  className="bg-green hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  onClick={cancelDelete}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+        {nurses.map((nurses: IStaffData, nurseIndex: number) => (
           <div
             key={nurseIndex}
-             className="bg-white shadow-lg rounded-lg sm:px-8 sm:pt-6 sm:pb-8 my-4  max-w-sm mx-2 text-sm"
+            className="bg-white shadow-lg rounded-lg sm:px-8 sm:pt-6 sm:pb-8 my-4  max-w-sm mx-2 text-sm"
           >
             <div className="flex flex-col m-4">
               <div className="flex flex-col justify-center items-center text-center font-bold">
-                {staffData.nurseData.nurseName}
+                {nurses.nurseData.nurseName}
               </div>
               <table className="table-auto">
                 <tbody>
                   <tr>
                     <td className="font-semibold text-cyan-700">Break:</td>
-                    <td>{staffData.nurseData.nurseBreak}</td>
+                    <td>{nurses.nurseData.nurseBreak}</td>
                   </tr>
                   <tr>
                     <td className="font-semibold text-cyan-700">Relief:</td>
-                    <td>{staffData.nurseData.reliefName}</td>
+                    <td>{nurses.nurseData.reliefName}</td>
                   </tr>
                   <tr>
                     <td className="font-semibold text-cyan-700">
                       Extra Duties:
                     </td>
-                    <td>{staffData.nurseData.extraDuties}</td>
+                    <td>{nurses.nurseData.extraDuties}</td>
                   </tr>
                   <tr>
                     <td className="font-semibold text-cyan-700">Fire Code:</td>
                     <td className="text-red-500">
-                      {staffData.nurseData.fireCode}
+                      {nurses.nurseData.fireCode}
                     </td>
                   </tr>
                 </tbody>
               </table>
 
               <div>
-                {staffData.nurseData.assignedPatient.length !== 0 &&
-                  staffData.nurseData.assignedPatient.length !== undefined && (
+                {nurses.nurseData.assignedPatient.length !== 0 &&
+                  nurses.nurseData.assignedPatient.length !== undefined && (
                     <table className="mb-4">
                       <thead>
                         <tr className="border border-stone-700 bg-stone-400 text-white">
@@ -153,7 +193,7 @@ export function UnitNurseCardDisplay({
                         </tr>
                       </thead>
                       <tbody>
-                        {staffData.nurseData.assignedPatient.map(
+                        {nurses.nurseData.assignedPatient.map(
                           (patient: IpatientObject, patientIndex: number) => (
                             <tr key={patientIndex}>
                               <td className="border px-2 py-1">
@@ -173,13 +213,13 @@ export function UnitNurseCardDisplay({
               <div className="flex flex-row justify-evenly items-center gap-1">
                 <button
                   className="bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  onClick={() => editNurse(ShiftId, staffData.nurseId)}
+                  onClick={() => editNurse(ShiftId, nurses.nurseId)}
                 >
                   Edit
                 </button>
                 <button
                   className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  onClick={() => deleteNurse(staffData.nurseId)}
+                  onClick={() => deleteNurse(nurses)}
                 >
                   Delete
                 </button>
