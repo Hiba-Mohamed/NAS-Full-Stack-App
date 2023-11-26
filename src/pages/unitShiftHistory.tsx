@@ -57,6 +57,8 @@ function NoShiftFound() {
 }
 
 export function UnitShiftHistory() {
+
+
   const navigate = useNavigate();
   const { unitName } = useParams();
 
@@ -99,6 +101,7 @@ export function UnitShiftHistory() {
   if (unitName) {
     return (
       <div className="bg-slate-100 font-nunito min-h-screen text-sm smm:text-md">
+        
         <div className="">
           <div className="flex flex-col items-center">
             <h1 className="text-center text-2xl sm:text-4xl font-bold py-8">

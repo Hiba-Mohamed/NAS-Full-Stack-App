@@ -47,6 +47,32 @@ interface IData {
 }
 
 export const UnitShiftListComponent = (unitName:{unitName: string}) => {
+     const [showPopup, setShowPopup] = useState(false);
+     const [shiftToDelete, SetShiftToDelete] = useState<IUnitShiftObject>();
+
+     function confirmDelete() {
+       console.log("deleting Shift", shiftToDelete);
+       console.log("delete Shift", shiftToDelete);
+       const updatedShiftList = existingData.filter(
+         (items: IUnitShiftObject) => {
+           return items.shiftId !== shiftToDelete?.shiftId;
+         }
+       );
+       matchingUnit.shifts = updatedShiftList;
+       console.log("updatedShiftList", updatedShiftList);
+       // Update the state
+       setShifts(updatedShiftList);
+
+       // Update localStorage
+       localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
+       setShowPopup(false)
+     }
+
+     function deleteShift(shift: IUnitShiftObject) {
+       console.log("Shift:", shift);
+       SetShiftToDelete(shift);
+       setShowPopup(true);
+     }
     console.log("unitName", unitName);
     const unitNameString = unitName.unitName;
     console.log("unitNameString", unitNameString);
@@ -112,29 +138,49 @@ const [shifts, setShifts] = useState( existingData)
     console.log("edit Shift", shiftId);
     navigate(`/manageUnitStaff/${unitNameString}/${shiftId}`);
   }
+      function cancelDelete() {
+        // Close the popup without performing the delete operation
+        setShowPopup(false);
+      }
 
-function deleteShift(shiftId: string) {
-  console.log("delete Shift", shiftId);
-  const updatedShiftList = existingData?.filter((items: IData) => {
-    return items.shiftId !== shiftId;
-  });
-  if(matchingUnit){
-  matchingUnit.shifts = updatedShiftList;
-  console.log("updatedShiftList", updatedShiftList);
-  // Update the state
-  setShifts(updatedShiftList);
-  }
-;
 
-  // Update localStorage
-  localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
-}
 
   if (shifts?.length !== 0) {
     return (
       <div className="flex flex-col md:flex-col items-center max-w-sm sm:max-w-2xl">
+        {showPopup && shiftToDelete ? (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 ">
+            <div className="bg-white p-8 rounded-lg max-w-sm sm:max-w-lg">
+              <p className="text-xl font-bold mb-4">
+                Are you sure you want to delete this shift?
+              </p>
+              <div className="flex flex-row p-2 gap-8 pb-6">
+                {" "}
+                <p>{formatDate(shiftToDelete.data.shiftDate)}</p>
+                <p>{shiftToDelete.data.shiftType}</p>
+              </div>
+
+              <div className="flex justify-between">
+                <button
+                  className="bg-white hover:bg-rose-700 hover:text-white text-rose-700 border-solid border-2 border-rose-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  onClick={confirmDelete}
+                >
+                  Yes, Delete
+                </button>
+                <button
+                  className="bg-green hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  onClick={cancelDelete}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
         <div className="flex flex-col lg:flex-col text-sm ms:text-md md:flex-col items-center max-w- sm:max-w-2xl">
-          {existingData?.map((existingData: IData) => (
+          {existingData?.map((existingData: IUnitShiftObject) => (
             <div
               className="sm:my-4 mx-2 sm:p-4 my-4 py-4 flex flex-col sm:flex-row items-center bg-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition duration-300 md:duration-500"
               key={existingData.shiftId}
@@ -163,7 +209,7 @@ function deleteShift(shiftId: string) {
                 </button>
                 <button
                   className="sm:mx-2 mx-1 bg-red-700 hover:bg-red-600 text-white font-bold py-1 px-2 sm:py-2 sm:px-4 rounded focus:outline-none focus:shadow-outline"
-                  onClick={() => deleteShift(existingData.shiftId)}
+                  onClick={() => deleteShift(existingData)}
                 >
                   Delete
                 </button>
