@@ -89,7 +89,7 @@ export default function HospitalView() {
               </p>
               <div className="flex justify-between">
                 <button
-                  className="bg-white hover:bg-red-600 text-rose-700 border-solid border-2 border-rose-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-white hover:bg-rose-700 hover:text-white text-rose-700 border-solid border-2 border-rose-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   onClick={confirmDelete}
                 >
                   Yes, Delete
