@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 interface IUnitShiftData {
   shiftDate: Date;
   shiftType: string;
@@ -30,106 +31,141 @@ interface IUnitObject {
   shifts: IUnitShiftObject[];
 }
 
-export default function HospitalView(){
+export default function HospitalView() {
   const navigate = useNavigate();
-    const hospitalNameJSON = localStorage.getItem("Hospital Data");
+  const [showPopup, setShowPopup] = useState(false);
+  const [unitToDelete, setUnitToDelete] = useState("");
+
+  function confirmDelete() {
+  console.log("deleting Unit", unitToDelete);
+  const updatedUnitsList = hospitalUnitsList.filter((items: IUnitObject) => {
+    return items.unitName !== unitToDelete;
+  });
+  hospitalData.hospitalUnits = updatedUnitsList;
+  console.log("updatedUnitsList", updatedUnitsList);
+  // Update the state
+  setUnits(updatedUnitsList);
+  // Update localStorage
+  localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
+    // Close the popup
+    setShowPopup(false);
+  }
+
+  function cancelDelete() {
+    // Close the popup without performing the delete operation
+    setShowPopup(false);
+  }
+  const hospitalNameJSON = localStorage.getItem("Hospital Data");
 
   const hospitalData = hospitalNameJSON
     ? JSON.parse(hospitalNameJSON)
     : { hospitalName: "", hospitalUnits: [] };
-  const hospitalUnitsList = hospitalData.hospitalUnits
-  console.log("hospital Units", hospitalUnitsList)
+  const hospitalUnitsList = hospitalData.hospitalUnits;
+  console.log("hospital Units", hospitalUnitsList);
 
-  const [units, setUnits] = useState(hospitalUnitsList)
-    function viewUnit(unitName: string) {
-      navigate(`/specificUnitNav/${unitName}`);
-    }
-
+  const [units, setUnits] = useState(hospitalUnitsList);
+  function viewUnit(unitName: string) {
+    navigate(`/specificUnitNav/${unitName}`);
+  }
 
   function editUnit(unitName: string) {
-    console.log(unitName)
+    console.log(unitName);
     const modifiedUnitName = unitName.replace(/ /g, "-");
     navigate(`/editUnitName/${modifiedUnitName}`);
   }
 
   function deleteUnit(unitName: string) {
-    console.log("deleting Unit", unitName);
-    const updatedUnitsList = hospitalUnitsList.filter((items: IUnitObject) => {
-      return items.unitName !== unitName;
-    });
-
-    hospitalData.hospitalUnits = updatedUnitsList;
-    console.log("updatedUnitsList", updatedUnitsList);
-    // Update the state
-    setUnits(updatedUnitsList);
-
-    // Update localStorage
-    localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
+    setShowPopup(true);
+    setUnitToDelete(unitName);
   }
-if (units){
-  return (
-    <div className="font-nunito flex flex-col items-center min-h-screen pb-24 sm:pb-32">
-      <h1 className="p-12 text-2xl font-bold sm:text-5xl ">
-        {hospitalData.hospitalName}
-      </h1>
-      <div className="flex flex-col sm:flex-row flex-wrap justify-evenly pb-6">
-        {hospitalUnitsList.map((unit: IUnitObject) => (
-          <div className="shadow-lg rounded-lg my-6 sm:my-12  max-w-sm mx-2 text-sm sm:text-xl w-56 sm:w-80 p-4 sm:p-6">
-            {" "}
-            <p className="text-md font-bold  sm:text-xl text-center flex justify-center p-4 sm:p-12 ">
-              {unit.unitName}
-            </p>
-            <div className="flex flex-row text-sm sm:text-md lg:flex-row items-center justify-evenly">
-              {" "}
-              <button
-                className="sm:mx-2 mx-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-1 px-2  sm:py-2 sm:px-4 rounded focus:outline-none focus:shadow-outline"
-                onClick={() => viewUnit(unit.unitName)}
-              >
-                Explore
-              </button>
-              <button
-                className="sm:mx-2 mx-1 bg-sky-600 hover:bg-sky-500 text-white font-bold py-1 px-2 sm:py-2 sm:px-4 rounded focus:outline-none focus:shadow-outline"
-                onClick={() => editUnit(unit.unitName)}
-              >
-                Edit
-              </button>
-              <button
-                className="sm:mx-2 mx-1 bg-red-700 hover:bg-red-600 text-white font-bold py-1 px-2 sm:py-2 sm:px-4 rounded focus:outline-none focus:shadow-outline"
-                onClick={() => deleteUnit(unit.unitName)}
-              >
-                Delete
-              </button>
+  if (units) {
+    return (
+      <div className="font-nunito flex flex-col items-center min-h-screen pb-24 sm:pb-32">
+        {showPopup ? (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 ">
+            <div className="bg-white p-8 rounded-lg max-w-sm sm:max-w-lg">
+              <p className="text-xl font-bold mb-4">
+                Are you sure you want to delete this unit: {unitToDelete}?
+              </p>
+              <div className="flex justify-between">
+                <button
+                  className="bg-white hover:bg-red-600 text-rose-700 border-solid border-2 border-rose-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  onClick={confirmDelete}
+                >
+                  Yes, Delete
+                </button>
+                <button
+                  className="bg-green hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  onClick={cancelDelete}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
-        ))}
+        ) : (
+          ""
+        )}
+        <h1 className="p-12 text-2xl font-bold sm:text-5xl ">
+          {hospitalData.hospitalName}
+        </h1>
+        <div className="flex flex-col sm:flex-row flex-wrap justify-evenly pb-6">
+          {hospitalUnitsList.map((unit: IUnitObject) => (
+            <div className="shadow-lg rounded-lg my-6 sm:my-12  max-w-sm mx-2 text-sm sm:text-xl w-56 sm:w-80 p-4 sm:p-6">
+              {" "}
+              <p className="text-md font-bold  sm:text-xl text-center flex justify-center p-4 sm:p-12 ">
+                {unit.unitName}
+              </p>
+              <div className="flex flex-row text-sm sm:text-md lg:flex-row items-center justify-evenly">
+                {" "}
+                <button
+                  className="sm:mx-2 mx-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-1 px-2  sm:py-2 sm:px-4 rounded focus:outline-none focus:shadow-outline"
+                  onClick={() => viewUnit(unit.unitName)}
+                >
+                  Explore
+                </button>
+                <button
+                  className="sm:mx-2 mx-1 bg-sky-600 hover:bg-sky-500 text-white font-bold py-1 px-2 sm:py-2 sm:px-4 rounded focus:outline-none focus:shadow-outline"
+                  onClick={() => editUnit(unit.unitName)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="sm:mx-2 mx-1 bg-red-700 hover:bg-red-600 text-white font-bold py-1 px-2 sm:py-2 sm:px-4 rounded focus:outline-none focus:shadow-outline"
+                  onClick={() => deleteUnit(unit.unitName)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-col justify-center">
+          {" "}
+          <Link
+            to="/addingNewUnit"
+            className="text-md font-bold  sm:text-xl text-center flex justify-center p-4 sm:p-12 bg-gray-100 shadow-lg rounded-xl"
+          >
+            + Add New Unit
+          </Link>
+        </div>
       </div>
-      <div className="flex flex-col justify-center">
+    );
+  } else {
+    return (
+      <div>
         {" "}
+        <p className="p-12 text-2xl font-bold sm:text-5xl">
+          No Units Have been added yet, to start adding units, please click
+          button below.
+        </p>{" "}
         <Link
-          to="/addingNewUnit"
-          className="text-md font-bold  sm:text-xl text-center flex justify-center p-4 sm:p-12 bg-gray-100 shadow-lg rounded-xl"
+          to="/getStarted"
+          className="bg-cyan-700 hover:bg-cyan-600 text-white font-bold sm:py-4 sm:px-14 py-4 px-24 rounded sm:text-xl text-md"
         >
-          + Add New Unit
+          Get Started
         </Link>
       </div>
-    </div>
-  );
-}
-else{
-  return (
-    <div>
-      {" "}
-      <p className="p-12 text-2xl font-bold sm:text-5xl">
-        No Units Have been added yet, to start adding units, please click
-        button below.
-      </p>{" "}
-      <Link
-        to="/getStarted"
-        className="bg-cyan-700 hover:bg-cyan-600 text-white font-bold sm:py-4 sm:px-14 py-4 px-24 rounded sm:text-xl text-md"
-      >
-        Get Started
-      </Link>
-    </div>
-  );
-}
+    );
+  }
 }
