@@ -46,7 +46,7 @@ function NoShiftFound() {
 
   return (
     <div className="flex flex-col bg-slate-100 items-center min-h-screen">
-      <h1 className="font-nunito text-center text-2xl sm:text-4xl font-bold py-8 px-12 items-center">
+      <h1 className="font-OpenSans text-center text-2xl sm:text-4xl font-bold py-8 px-12 items-center">
         Shift Record for {unitName} unit
       </h1>{" "}
       <div className="items-center flex w-full justify-evenly">
@@ -57,8 +57,6 @@ function NoShiftFound() {
 }
 
 export function UnitShiftHistory() {
-
-
   const navigate = useNavigate();
   const { unitName } = useParams();
 
@@ -91,7 +89,7 @@ export function UnitShiftHistory() {
     : { hospitalName: "", hospitalUnits: [] };
 
   const hospitalUnits = hospitalData.hospitalUnits;
-  const matchingUnit = hospitalUnits.find((unit:IUnitObject) => {
+  const matchingUnit = hospitalUnits.find((unit: IUnitObject) => {
     return unit.unitName === unitName;
   });
   const existingData = matchingUnit?.shifts;
@@ -100,8 +98,7 @@ export function UnitShiftHistory() {
   }
   if (unitName) {
     return (
-      <div className="bg-slate-100 font-nunito min-h-screen text-sm smm:text-md">
-        
+      <div className="bg-slate-100 font-OpenSans min-h-screen text-sm smm:text-md">
         <div className="">
           <div className="flex flex-col items-center">
             <h1 className="text-center text-2xl sm:text-4xl font-bold py-8">

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import NurseInfoForm from "../components/nurseForm";
 import { useState } from "react";
 
-
 interface IUnitShiftData {
   unitName: string;
   shiftDate: Date;
@@ -97,7 +96,7 @@ export function EditNursePage() {
 
   // Find the shift data object with the matching shiftId
   const matchingData = existingData.find(
-    (data:IData) => data.ShiftId === ShiftId
+    (data: IData) => data.ShiftId === ShiftId
   );
 
   console.log("matching Data:", matchingData);
@@ -139,7 +138,7 @@ export function EditNursePage() {
     console.log("You are editing the nurse with nurseId:", nurseId);
 
     return (
-      <div className="bg-greygreen font-nunito min-h-screen lg:px-40 md:px-10 sm:px-10 flex flex-col items-center">
+      <div className="bg-greyblue font-OpenSans min-h-screen lg:px-40 md:px-10 sm:px-10 flex flex-col items-center">
         <h1 className="text-center text-2xl sm:text-3xl p-8 pt-16">
           Editing nurse below
         </h1>{" "}

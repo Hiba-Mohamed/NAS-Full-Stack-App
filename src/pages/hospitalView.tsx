@@ -37,16 +37,16 @@ export default function HospitalView() {
   const [unitToDelete, setUnitToDelete] = useState("");
 
   function confirmDelete() {
-  console.log("deleting Unit", unitToDelete);
-  const updatedUnitsList = hospitalUnitsList.filter((items: IUnitObject) => {
-    return items.unitName !== unitToDelete;
-  });
-  hospitalData.hospitalUnits = updatedUnitsList;
-  console.log("updatedUnitsList", updatedUnitsList);
-  // Update the state
-  setUnits(updatedUnitsList);
-  // Update localStorage
-  localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
+    console.log("deleting Unit", unitToDelete);
+    const updatedUnitsList = hospitalUnitsList.filter((items: IUnitObject) => {
+      return items.unitName !== unitToDelete;
+    });
+    hospitalData.hospitalUnits = updatedUnitsList;
+    console.log("updatedUnitsList", updatedUnitsList);
+    // Update the state
+    setUnits(updatedUnitsList);
+    // Update localStorage
+    localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
     // Close the popup
     setShowPopup(false);
   }
@@ -80,7 +80,7 @@ export default function HospitalView() {
   }
   if (units) {
     return (
-      <div className="font-nunito flex flex-col items-center min-h-screen pb-24 sm:pb-32">
+      <div className="font-OpenSans flex flex-col items-center min-h-screen pb-24 sm:pb-32">
         {showPopup ? (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 ">
             <div className="bg-white p-8 rounded-lg max-w-sm sm:max-w-lg">
@@ -95,7 +95,7 @@ export default function HospitalView() {
                   Yes, Delete
                 </button>
                 <button
-                  className="bg-green hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-blue hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   onClick={cancelDelete}
                 >
                   Cancel

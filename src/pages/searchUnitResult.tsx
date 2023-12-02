@@ -54,7 +54,7 @@ export const SearchUnitResults = () => {
 
     // Update localStorage
     localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
-    setShowPopup(false)
+    setShowPopup(false);
   }
 
   const formattedShiftType = shiftType?.replace(/-/g, " ");
@@ -86,10 +86,10 @@ export const SearchUnitResults = () => {
   });
 
   console.log("matching shift", matchingShift);
-    function cancelDelete() {
-      // Close the popup without performing the delete operation
-      setShowPopup(false);
-    }
+  function cancelDelete() {
+    // Close the popup without performing the delete operation
+    setShowPopup(false);
+  }
 
   function viewShift(shiftId: string) {
     console.log("View shift", shiftId);
@@ -101,9 +101,11 @@ export const SearchUnitResults = () => {
     navigate(`/manageUnitStaff/${unitName}/${shiftId}`);
   }
 
-  function deleteShift(shift:IUnitShiftObject) {console.log("Shift Id: ",shift)
-SetShiftToDelete(shift);
- setShowPopup(true)}
+  function deleteShift(shift: IUnitShiftObject) {
+    console.log("Shift Id: ", shift);
+    SetShiftToDelete(shift);
+    setShowPopup(true);
+  }
 
   function formatDate(dateString: string): string {
     const year = dateString.slice(0, 4);
@@ -159,7 +161,7 @@ SetShiftToDelete(shift);
                   Yes, Delete
                 </button>
                 <button
-                  className="bg-green hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-blue hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   onClick={cancelDelete}
                 >
                   Cancel
@@ -170,17 +172,17 @@ SetShiftToDelete(shift);
         ) : (
           ""
         )}
-        <h1 className="font-nunito text-center text-2xl sm:text-4xl font-bold py-8 items-center">
+        <h1 className="font-OpenSans text-center text-2xl sm:text-4xl font-bold py-8 items-center">
           Search Result
         </h1>{" "}
-        <h2 className="font-nunito text-center text-2xl sm:text-4xl font-bold py-8 items-center">
+        <h2 className="font-OpenSans text-center text-2xl sm:text-4xl font-bold py-8 items-center">
           {unitName}
         </h2>
         <div
           className="sm:my-4 mx-2 sm:p-4 my-4 py-4 flex flex-col sm:flex-row items-center bg-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition duration-300 md:duration-500"
           key={existingData.ShiftId}
         >
-          <div className="flex flex-row font-nunito">
+          <div className="flex flex-row font-OpenSans">
             <div className="p-2">{matchingShift.data.unitName}</div>
             <div className="p-2">
               {formatDate(matchingShift.data.shiftDate)}
@@ -215,10 +217,10 @@ SetShiftToDelete(shift);
   } else {
     return (
       <div className="flex flex-col bg-slate-100 items-center min-h-screen">
-        <h1 className="font-nunito text-center text-2xl sm:text-4xl font-bold py-8 items-center">
+        <h1 className="font-OpenSans text-center text-2xl sm:text-4xl font-bold py-8 items-center">
           Search Result
         </h1>{" "}
-        <h2 className="font-nunito text-center text-2xl sm:text-4xl font-bold pb-8 items-center">
+        <h2 className="font-OpenSans text-center text-2xl sm:text-4xl font-bold pb-8 items-center">
           {unitName}
         </h2>
         <div className="items-center flex w-full justify-evenly">

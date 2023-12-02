@@ -7,7 +7,6 @@ interface IUnitName {
   unitName: string;
 }
 
-
 interface IUnitShiftData {
   shiftDate: string;
   shiftType: string;
@@ -79,7 +78,7 @@ export function NewUnit() {
         exsitingUnitsArray.push(newUnit);
         const updatedHospitalData: IHospitalData = {
           hospitalName: hospitalData.hospitalName,
-          hospitalUnits: exsitingUnitsArray, 
+          hospitalUnits: exsitingUnitsArray,
         };
         // Update the localStorage with the updated hospital data
         localStorage.setItem(
@@ -113,11 +112,10 @@ export function NewUnit() {
 
       setHospitalData(updatedHospitalData);
       navigate(`/startUnitShift/${data.unitName}`);
-
     }
   };
   return (
-    <div className="font-nunito min-h-screen">
+    <div className="font-OpenSans min-h-screen">
       <div className="flex flex-col items-center justify-center py-6 sm:py-12">
         {" "}
         <h1 className="p-6 sm:p-6 text-3xl sm:text-5xl text-center font-bold">

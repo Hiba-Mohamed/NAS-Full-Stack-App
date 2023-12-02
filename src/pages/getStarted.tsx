@@ -80,7 +80,7 @@ export function GetStarted() {
   };
 
   return (
-    <div className="flex flex-col items-center font-nunito bg-slate-50 min-h-screen">
+    <div className="flex flex-col items-center font-OpenSans bg-slate-50 min-h-screen">
       <h1 className="text-center font-bold text-2xl sm:text-5xl p-12">
         Getting started
       </h1>

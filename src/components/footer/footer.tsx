@@ -1,13 +1,13 @@
 export function Footer() {
   return (
-    <footer className="bg-slate-100 font-nunito py-4 sm:py-8 text-sm">
-      <div className="text-cyan-700">
-        <p className="block text-center">NAS Created by Hiba Mohamed</p>
-        <p className="block text-center">
-          NAS Created using Vite, Node.js, and Canva
+    <footer className="bg-white font-OpenSans px-2 py-4 sm:py-8 text-sm">
+      <div className="flex gap-2 flex-col items-center">
+        <img src="images/NAS-logo.png" alt="NAS logo" className="h-6" />
+        <p className="block text-center text-blue font-bold">
+          Created by Hiba Mohamed using Vite, Node.js, and Canva
         </p>
         <p className="block text-center">
-          Disclaimer: All pictures used are from Canva{" "}
+          <strong>Disclaimer:</strong> Used pictures from Canva{" "}
         </p>
         <span className="block text-center">© 2023 All Rights Reserved.</span>
       </div>

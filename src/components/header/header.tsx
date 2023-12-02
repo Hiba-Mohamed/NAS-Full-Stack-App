@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export function Heading() {
   const [open, setOpen] = useState(false);
   return (
-    <nav className="border-slate-50 bg-white font-nunito">
+    <nav className="border-slate-50 bg-white font-OpenSans">
       <div className="max-w-2xl flex flex-wrap items-center justify-between mx-auto px-4 max-w-7xl">
         <Link to="/introPage" className="flex items-center">
           <img

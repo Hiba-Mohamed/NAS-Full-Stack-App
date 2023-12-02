@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 interface IUnitShiftData {
   shiftDate: string;
   shiftType: string;
@@ -34,7 +33,6 @@ interface IUnitObject {
   shifts: IUnitShiftObject[];
 }
 
-
 interface IUnitShiftData {
   unitName: string;
   shiftDate: string;
@@ -46,36 +44,34 @@ interface IData {
   data: IUnitShiftData;
 }
 
-export const UnitShiftListComponent = (unitName:{unitName: string}) => {
-     const [showPopup, setShowPopup] = useState(false);
-     const [shiftToDelete, SetShiftToDelete] = useState<IUnitShiftObject>();
+export const UnitShiftListComponent = (unitName: { unitName: string }) => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [shiftToDelete, SetShiftToDelete] = useState<IUnitShiftObject>();
 
-     function confirmDelete() {
-       console.log("deleting Shift", shiftToDelete);
-       console.log("delete Shift", shiftToDelete);
-       const updatedShiftList = existingData.filter(
-         (items: IUnitShiftObject) => {
-           return items.shiftId !== shiftToDelete?.shiftId;
-         }
-       );
-       matchingUnit.shifts = updatedShiftList;
-       console.log("updatedShiftList", updatedShiftList);
-       // Update the state
-       setShifts(updatedShiftList);
+  function confirmDelete() {
+    console.log("deleting Shift", shiftToDelete);
+    console.log("delete Shift", shiftToDelete);
+    const updatedShiftList = existingData.filter((items: IUnitShiftObject) => {
+      return items.shiftId !== shiftToDelete?.shiftId;
+    });
+    matchingUnit.shifts = updatedShiftList;
+    console.log("updatedShiftList", updatedShiftList);
+    // Update the state
+    setShifts(updatedShiftList);
 
-       // Update localStorage
-       localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
-       setShowPopup(false)
-     }
+    // Update localStorage
+    localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
+    setShowPopup(false);
+  }
 
-     function deleteShift(shift: IUnitShiftObject) {
-       console.log("Shift:", shift);
-       SetShiftToDelete(shift);
-       setShowPopup(true);
-     }
-    console.log("unitName", unitName);
-    const unitNameString = unitName.unitName;
-    console.log("unitNameString", unitNameString);
+  function deleteShift(shift: IUnitShiftObject) {
+    console.log("Shift:", shift);
+    SetShiftToDelete(shift);
+    setShowPopup(true);
+  }
+  console.log("unitName", unitName);
+  const unitNameString = unitName.unitName;
+  console.log("unitNameString", unitNameString);
   const navigate = useNavigate();
   const hospitalNameJSON = localStorage.getItem("Hospital Data");
   const hospitalData = hospitalNameJSON
@@ -83,14 +79,14 @@ export const UnitShiftListComponent = (unitName:{unitName: string}) => {
     : { hospitalName: "", hospitalUnits: [] };
 
   const hospitalUnits = hospitalData.hospitalUnits;
-  console.log("hospital units", hospitalUnits)
-  const matchingUnit = hospitalUnits.find((unit:IUnitObject) => {
+  console.log("hospital units", hospitalUnits);
+  const matchingUnit = hospitalUnits.find((unit: IUnitObject) => {
     return unit.unitName === unitNameString;
   });
-  console.log("matching unit", matchingUnit)
+  console.log("matching unit", matchingUnit);
   const existingData = matchingUnit?.shifts;
 
-const [shifts, setShifts] = useState( existingData)
+  const [shifts, setShifts] = useState(existingData);
   function formatDate(dateString: string): string {
     const year = dateString.slice(0, 4);
     const month = dateString.slice(4, 6);
@@ -138,12 +134,10 @@ const [shifts, setShifts] = useState( existingData)
     console.log("edit Shift", shiftId);
     navigate(`/manageUnitStaff/${unitNameString}/${shiftId}`);
   }
-      function cancelDelete() {
-        // Close the popup without performing the delete operation
-        setShowPopup(false);
-      }
-
-
+  function cancelDelete() {
+    // Close the popup without performing the delete operation
+    setShowPopup(false);
+  }
 
   if (shifts?.length !== 0) {
     return (
@@ -168,7 +162,7 @@ const [shifts, setShifts] = useState( existingData)
                   Yes, Delete
                 </button>
                 <button
-                  className="bg-green hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-blue hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   onClick={cancelDelete}
                 >
                   Cancel

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export function Account() {
   return (
     <div
-      className="font-nunito relative flex flex-1 flex-col overflow-hidden justify-center items-center mb-12 sm:max-w-screen h-screen"
+      className="font-OpenSans relative flex flex-1 flex-col overflow-hidden justify-center items-center mb-12 sm:max-w-screen h-screen"
       // style={{ backgroundImage: `url('images/banner-pic.png')` }}
     >
       <div className="flex flex-col items-center">
@@ -67,13 +67,13 @@ export function Account() {
             <div id="create-button">
               <button
                 id="create-btn"
-                className="inline-flex justify-center rounded-lg font-semibold py-2.5 px-4 bg-nunito-900 text-white hover:bg-nunito-700 w-full bg-green mt-6 lg:text-xl sm:text-l"
+                className="inline-flex justify-center rounded-lg font-semibold py-2.5 px-4 bg-nunito-900 text-white hover:bg-nunito-700 w-full bg-blue mt-6 lg:text-xl sm:text-l"
               >
                 Submit
               </button>
             </div>
             <div className="mt-6">
-              <Link id="login-direct" className="hover:text-green" to="/login">
+              <Link id="login-direct" className="hover:text-blue" to="/login">
                 Have an account? please login
               </Link>
             </div>

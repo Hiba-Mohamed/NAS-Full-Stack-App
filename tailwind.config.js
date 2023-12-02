@@ -3,12 +3,13 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      width: { 500: "500px" },
       colors: {
         peach: "#EF798A",
-        green: "#075985",
+        blue: "#0654A0",
         white: "#FFFFFF",
-        lgreen: "#8FC0A9",
-        greygreen: "#F3FAF8",
+        lblue: "#D7EAF9",
+        greyblue: "#F3FAF8",
       },
 
       boxShadow: {
@@ -17,10 +18,9 @@ export default {
     },
 
     fontFamily: {
-      nunito: ['"Nunito"', "sans-serif"],
+      OpenSans: ["Open Sans", "sans-serif"],
     },
   },
 
   plugins: [],
 };
-

@@ -69,7 +69,7 @@ export function EditUnit() {
   const onSubmit: SubmitHandler<IUnitName> = (data, event) => {
     event?.preventDefault();
     const unitArray = hospitalData.hospitalUnits;
-    console.log("unitArray",unitArray)
+    console.log("unitArray", unitArray);
     const targetUnit = unitArray.find((unit) => {
       return unit.unitName === unitName;
     });
@@ -87,10 +87,7 @@ export function EditUnit() {
         console.log(data.unitName);
         targetUnit.unitName = data.unitName;
         // Update the localStorage with the updated hospital data
-        localStorage.setItem(
-          "Hospital Data",
-          JSON.stringify(hospitalData)
-        );
+        localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
 
         setHospitalData(hospitalData);
         navigate(`/hospitalView`);
@@ -121,7 +118,7 @@ export function EditUnit() {
     }
   };
   return (
-    <div className="font-nunito min-h-screen">
+    <div className="font-OpenSans min-h-screen">
       <div className="flex flex-col items-center justify-center py-6 sm:py-12">
         {" "}
         <h1 className="p-6 sm:p-6 text-3xl sm:text-5xl text-center font-bold">

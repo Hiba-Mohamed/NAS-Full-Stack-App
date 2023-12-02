@@ -60,9 +60,9 @@ export function EditUnitNursePage() {
       : { hospitalName: "", hospitalUnits: [] }
   );
 
-  const matchingUnit = hospitalData.hospitalUnits.find(
-    (item) => {return item.unitName === unitName}
-  ) ;
+  const matchingUnit = hospitalData.hospitalUnits.find((item) => {
+    return item.unitName === unitName;
+  });
   console.log("matching unit", matchingUnit);
   const unitShiftList = matchingUnit?.shifts;
   console.log("unitShiftList", unitShiftList);
@@ -85,14 +85,13 @@ export function EditUnitNursePage() {
         (nurse: IStaffData) => nurse.nurseId === nurseId
       );
       console.log("target nurse", targetNurse);
-      if(targetNurse){
+      if (targetNurse) {
         targetNurse.nurseData = data;
         setHospitalData(hospitalData);
         localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
         navigate(`/manageUnitStaff/${unitName}/${ShiftId}`);
         setErrorMessage(null);
       }
-
     } else
       setErrorMessage(
         "Error: duplicate patient name and/or room is being assigned to the same nurse"
@@ -135,9 +134,9 @@ export function EditUnitNursePage() {
   console.log("matching Staff:", matchingStaff);
 
   console.log("matching staff from edit nurse page", matchingStaff);
-  const matchingNurse = matchingStaff?.find(
-    (nurse: IStaffData) => {return nurse.nurseId === nurseId }
-  );
+  const matchingNurse = matchingStaff?.find((nurse: IStaffData) => {
+    return nurse.nurseId === nurseId;
+  });
 
   console.log("matching nurse", matchingNurse);
   const matchingNurseData = matchingNurse?.nurseData;
@@ -162,7 +161,7 @@ export function EditUnitNursePage() {
     console.log("You are editing the nurse with nurseId:", nurseId);
 
     return (
-      <div className="bg-greygreen font-nunito min-h-screen lg:px-40 md:px-10 sm:px-10 flex flex-col items-center">
+      <div className="bg-greyblue font-OpenSans min-h-screen lg:px-40 md:px-10 sm:px-10 flex flex-col items-center">
         <h1 className="text-center text-2xl sm:text-3xl p-8 pt-16">
           Editing nurse below
         </h1>{" "}

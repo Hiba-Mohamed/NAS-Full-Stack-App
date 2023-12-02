@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 export default function SpecificUnitNav() {
-const {unitName} = useParams()
+  const { unitName } = useParams();
   return (
-    <div className="font-nunito min-h-screen">
+    <div className="font-OpenSans min-h-screen">
       <div className="flex flex-col items-center justify-center">
         <h1 className="pt-10 text-nunito-900 font-extrabold text-2xl px-12 sm:text-5xl lg:text-6xl tracking-tight text-center p-4">
           {unitName} Unit
@@ -24,7 +24,7 @@ const {unitName} = useParams()
               src="images/create-logo.png"
               alt=""
             />
-            <p className="text-md sm:text-lg rounded-lg p-2 bg-white text-green font-bold mt-2">
+            <p className="text-md sm:text-lg rounded-lg p-2 bg-white text-blue font-bold mt-2">
               Create A New Shift
             </p>
           </Link>
@@ -39,7 +39,7 @@ const {unitName} = useParams()
               src="images/history-logo.png"
               alt=""
             />
-            <p className="text-md sm:text-lg rounded-lg p-2 bg-white text-green font-bold mt-2">
+            <p className="text-md sm:text-lg rounded-lg p-2 bg-white text-blue font-bold mt-2">
               Past/Future shifts
             </p>
           </Link>
@@ -48,5 +48,3 @@ const {unitName} = useParams()
     </div>
   );
 }
-
-

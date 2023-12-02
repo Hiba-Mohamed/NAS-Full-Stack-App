@@ -5,14 +5,13 @@ import { v4 as uuidv4 } from "uuid";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 
-
 interface IUnitShiftData {
   unitName: string;
   shiftDate: Date;
   shiftType: string;
 }
 
-interface IData{
+interface IData {
   ShiftId: string;
   data: IUnitShiftData;
 }
@@ -29,8 +28,6 @@ interface IFormInput {
   fireCode: string;
   assignedPatient: IPatientData[];
 }
-
-
 
 function formatDate(dateString: string): string {
   const year = dateString.slice(0, 4);
@@ -71,7 +68,7 @@ function retriveShiftDataLSwithShiftId(ShiftId: string) {
 
   // Find the shift data object with the matching shiftId
   const matchingData = existingData.find(
-    (data:IData) => data.ShiftId === ShiftId
+    (data: IData) => data.ShiftId === ShiftId
   );
 
   console.log("matching Data:", matchingData);
@@ -97,7 +94,6 @@ export function NurseForm() {
       setErrorMessage(
         "Error: duplicate patient name and/or room is being assigned to the same nurse"
       );
-      
   };
 
   const validatePatientsfieldsAgainstEachOther = (nurseData: IFormInput) => {
@@ -139,7 +135,7 @@ export function NurseForm() {
 
     // Find the shift data object with the matching ShiftId
     const matchingDataIndex = existingData.findIndex(
-      (data:IData) => data.ShiftId === ShiftId
+      (data: IData) => data.ShiftId === ShiftId
     );
 
     if (matchingDataIndex !== -1) {
@@ -174,9 +170,9 @@ export function NurseForm() {
       console.log("staffData", staffData);
 
       return (
-        <div className="font-nunito bg-greygreen sm:max-w-full min-h-screen">
+        <div className="font-OpenSans bg-greyblue sm:max-w-full min-h-screen">
           <div className="flex flex-col items-center justify-center">
-            <div className="text-nunito-900 font-extrabold text-lg sm:text-lg lg:text-xl tracking-tight text-center py-1 bg-white shadow-lg rounded-lg sm:px-4 sm:pt-3 sm:pb-4 sm:py-2 m-8 text-green">
+            <div className="text-nunito-900 font-extrabold text-lg sm:text-lg lg:text-xl tracking-tight text-center py-1 bg-white shadow-lg rounded-lg sm:px-4 sm:pt-3 sm:pb-4 sm:py-2 m-8 text-blue">
               <p>{shiftData.unitName}</p>
               <div className="flex sm:flex-row items-center flex-col">
                 {" "}
@@ -188,9 +184,7 @@ export function NurseForm() {
 
           <div>
             {" "}
-            <NurseCardDisplay
-              staffData={staffData}
-            />{" "}
+            <NurseCardDisplay staffData={staffData} />{" "}
           </div>
           <div className="flex flex-col items-center">
             {" "}

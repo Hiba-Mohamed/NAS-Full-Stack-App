@@ -80,7 +80,6 @@ function getMonthName(month: string): string {
   return months[monthIndex];
 }
 
-
 export function UnitNurseForm() {
   const { unitName, ShiftId } = useParams();
   const nurseId = uuidv4();
@@ -95,14 +94,14 @@ export function UnitNurseForm() {
       : { hospitalName: "", hospitalUnits: [] }
   );
 
-      const matchingUnit = hospitalData.hospitalUnits.find((item) => {
-        return item.unitName === unitName;
-      });
-      console.log("matching unit", matchingUnit);
-      const matchingShift = matchingUnit?.shifts.find((item) => {
-        return item.shiftId === ShiftId;
-      });
-      console.log("matching Shift", matchingShift);
+  const matchingUnit = hospitalData.hospitalUnits.find((item) => {
+    return item.unitName === unitName;
+  });
+  console.log("matching unit", matchingUnit);
+  const matchingShift = matchingUnit?.shifts.find((item) => {
+    return item.shiftId === ShiftId;
+  });
+  console.log("matching Shift", matchingShift);
 
   const form = useForm<IFormInput>({ defaultValues: { assignedPatient: [] } });
   const onSubmitForm: SubmitHandler<IFormInput> = (nurseData, event) => {
@@ -153,27 +152,19 @@ export function UnitNurseForm() {
   function makeAndAddNurseDataToLS(nurseData: IFormInput) {
     console.log("nurse data manage staff", nurseData);
 
-    if (matchingUnit && matchingShift){
-
+    if (matchingUnit && matchingShift) {
       matchingShift.staff.push({ nurseId, nurseData });
-            localStorage.setItem(
-              "Hospital Data",
-              JSON.stringify(hospitalData)
-            );
-            setHospitalData(hospitalData)
-
+      localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
+      setHospitalData(hospitalData);
     }
   }
 
   if (ShiftId) {
-  
-    if (unitName && ShiftId && matchingShift&& matchingUnit) {
-
-
+    if (unitName && ShiftId && matchingShift && matchingUnit) {
       return (
-        <div className="font-nunito bg-greygreen sm:max-w-full min-h-screen">
+        <div className="font-OpenSans bg-greyblue sm:max-w-full min-h-screen">
           <div className="flex flex-row items-center justify-center ">
-            <div className="text-nunito-900 justify-center items-center font-extrabold flex flex-row tracking-tight text-center py-1 sm:px-4 sm:pt-3 sm:pb-4 sm:py-2 m-8 text-green bg-white shadow-lg rounded-lg">
+            <div className="text-nunito-900 justify-center items-center font-extrabold flex flex-row tracking-tight text-center py-1 sm:px-4 sm:pt-3 sm:pb-4 sm:py-2 m-8 text-blue bg-white shadow-lg rounded-lg">
               <div className=" sm:text-lg lg:text-xl">
                 <p>{unitName}</p>
                 <div className="flex sm:flex-row items-center flex-col">

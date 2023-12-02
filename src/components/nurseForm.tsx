@@ -1,5 +1,9 @@
-import { SubmitHandler, useFieldArray, Controller, UseFormReturn } from "react-hook-form";
-
+import {
+  SubmitHandler,
+  useFieldArray,
+  Controller,
+  UseFormReturn,
+} from "react-hook-form";
 
 interface IPatientData {
   patientName: string;
@@ -32,7 +36,6 @@ export const NurseInfoForm = ({
   validationArray: IstaffData[];
 }) => {
   const ShiftId = Shifturl;
-
 
   const staffData = validationArray;
 
@@ -109,13 +112,11 @@ export const NurseInfoForm = ({
   if (ShiftId) {
     // Check if ShiftId is defined
 
-
     if (ShiftId) {
-   
       if (ShiftId) {
         console.log("staffData", staffData);
         return (
-          <div className="bg-greygreen font-nunito relative flex flex-row flex-wrap justify-evenly text-sm sm:text-md">
+          <div className="bg-greyblue font-OpenSans relative flex flex-row flex-wrap justify-evenly text-sm sm:text-md">
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mx-2 max-w-sm sm:max-w-xl"
@@ -324,7 +325,7 @@ export const NurseInfoForm = ({
                   <button
                     type="button"
                     onClick={() => append({ patientName: "", patientRoom: "" })}
-                    className="bg-white px-4 p-2 border border-green rounded-lg text-green"
+                    className="bg-white px-4 p-2 border border-blue rounded-lg text-blue"
                   >
                     + Add A Patient
                   </button>

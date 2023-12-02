@@ -1,10 +1,9 @@
-
 import { Link } from "react-router-dom";
 
 export function Login() {
   return (
     <div
-      className="font-nunito relative flex flex-1 flex-col overflow-hidden justify-center items-center mb-12"
+      className="font-OpenSans relative flex flex-1 flex-col overflow-hidden justify-center items-center mb-12"
       style={{ backgroundImage: `url('images/banner-pic.png')` }}
     >
       <div className="">
@@ -43,28 +42,28 @@ export function Login() {
             </div>
             <div className="">
               <Link
-                className="inline-flex justify-center rounded-lg border border-green font-semibold py-2.5 px-4 bg-nunito-900 text-green hover:bg-nunito-700 w-full bg-white mt-6 mb-2 lg:text-lg text-md sm:text-md"
+                className="inline-flex justify-center rounded-lg border border-blue font-semibold py-2.5 px-4 bg-nunito-900 text-blue hover:bg-nunito-700 w-full bg-white mt-6 mb-2 lg:text-lg text-md sm:text-md"
                 to="/unitNav"
               >
                 Login
               </Link>
 
               <Link
-                className="inline-flex justify-center rounded-lg font-semibold py-2.5 px-4 bg-nunito-900 text-white hover:bg-nunito-700 w-full bg-green mt-6 mb-2 lg:text-lg text-md sm:text-md"
+                className="inline-flex justify-center rounded-lg font-semibold py-2.5 px-4 bg-nunito-900 text-white hover:bg-nunito-700 w-full bg-blue mt-6 mb-2 lg:text-lg text-md sm:text-md"
                 to="/unitNav"
               >
                 Login as a guest
               </Link>
             </div>
             <div className="flex items-center flex-col lg:text-lg text-md sm:text-md">
-              <Link className="hover:text-green" to="#">
+              <Link className="hover:text-blue" to="#">
                 Forgot password?
               </Link>
               <div className="flex flex-col items-center mt-6">
-                <p className="lg:text-xl sm:text-l hover:text-green">
+                <p className="lg:text-xl sm:text-l hover:text-blue">
                   No account?
                 </p>
-                <button className="inline-flex justify-center rounded-lg border border-green font-semibold py-2.5 px-4 bg-nunito-900 text-green hover:bg-nunito-700 w-full bg-white mt-6 mb-2 lg:text-xl sm:text-l">
+                <button className="inline-flex justify-center rounded-lg border border-blue font-semibold py-2.5 px-4 bg-nunito-900 text-blue hover:bg-nunito-700 w-full bg-white mt-6 mb-2 lg:text-xl sm:text-l">
                   <Link to="/account">Create an Account</Link>
                 </button>
               </div>

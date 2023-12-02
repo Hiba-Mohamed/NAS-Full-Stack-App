@@ -1,8 +1,7 @@
 export function AboutPage() {
   return (
     <div className="lg:px-40 md:px-10 sm:px-10 lg:text-2xl md:text-xl sm:text-lg py-24 md:py-32">
-
-      <div className="font-nunito flex flex-col items-start mb-48">
+      <div className="font-OpenSans flex flex-col items-start mb-48">
         <div className="flex w-auto items-center flex-row">
           <img
             className="h-40 sm:h-56"
@@ -32,7 +31,7 @@ export function AboutPage() {
         </div>
       </div>
 
-      <div className="font-nunito flex flex-col items-start mb-48">
+      <div className="font-OpenSans flex flex-col items-start mb-48">
         <div className="flex w-auto items-center flex-row">
           <img
             className="h-40 sm:h-56"
@@ -50,7 +49,7 @@ export function AboutPage() {
             to:
           </p>
           <ul className="list">
-            <p className="text-green font-bold">Efficiency:</p>
+            <p className="text-blue font-bold">Efficiency:</p>
             <li className="my-4 ">
               Electronic assignment sheets streamline the process of assigning
               and communicating patient information to nurses. They eliminate
@@ -58,7 +57,7 @@ export function AboutPage() {
               reducing administrative burden and saving time.
             </li>
 
-            <p className="text-green font-bold">Error Reduction:</p>
+            <p className="text-blue font-bold">Error Reduction:</p>
             <li className="my-4 ">
               Electronic nurses' assignment sheets contribute to a reduction in
               errors compared to their paper-based counterparts. With electronic
@@ -67,7 +66,7 @@ export function AboutPage() {
               handwriting, or duplication errors.
             </li>
 
-            <p className="text-green font-bold">Data Analysis and Reporting:</p>
+            <p className="text-blue font-bold">Data Analysis and Reporting:</p>
             <li className="my-4 ">
               Electronic systems can capture and store data, allowing for
               analysis and reporting on patient outcomes, workload distribution,
@@ -77,12 +76,12 @@ export function AboutPage() {
               and operational efficiency.{" "}
             </li>
 
-            <p className="text-green font-bold">Environmental Impact:</p>
+            <p className="text-blue font-bold">Environmental Impact:</p>
             <li className="my-4 ">
               Shifting from paper-based assignment sheets to electronic ones
               reduces paper consumption and promotes sustainability. This
               environmentally-friendly approach aligns with the goals of
-              healthcare organizations to minimize waste and adopt greener
+              healthcare organizations to minimize waste and adopt blueer
               practices.{" "}
             </li>
           </ul>
@@ -90,7 +89,7 @@ export function AboutPage() {
       </div>
 
       <div>
-        <div className="font-nunito flex flex-col mb-48 items-start">
+        <div className="font-OpenSans flex flex-col mb-48 items-start">
           <div className="flex w-auto items-center flex-row">
             <img
               className="h-40 sm:h-56"
@@ -104,7 +103,7 @@ export function AboutPage() {
 
           <div className="flex flex-col">
             <div className="text-nunito-400 tracking-tight p-4 text-grey">
-              <h4 className="text-green font-bold my-4">Regulated Access</h4>
+              <h4 className="text-blue font-bold my-4">Regulated Access</h4>
               <p className="">
                 Electronic nurses' assignment sheets offer regulated access,
                 ensuring that only authorized users can view and make changes to
@@ -116,7 +115,7 @@ export function AboutPage() {
             </div>
 
             <div className="text-nunito-400 tracking-tight p-4 text-grey">
-              <h4 className="text-green font-bold my-4">
+              <h4 className="text-blue font-bold my-4">
                 Creating Electronic Sheets for Future Dates
               </h4>
               <p className="">
@@ -130,7 +129,7 @@ export function AboutPage() {
             </div>
 
             <div className="text-nunito-400 tracking-tight p-4 text-grey">
-              <h4 className="text-green font-bold my-4">
+              <h4 className="text-blue font-bold my-4">
                 Duplication Safeguards
               </h4>
               <p className="">

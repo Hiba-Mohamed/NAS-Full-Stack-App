@@ -133,7 +133,7 @@ export function UnitNurseCardDisplay({
                   Yes, Delete
                 </button>
                 <button
-                  className="bg-green hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-blue hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   onClick={cancelDelete}
                 >
                   Cancel

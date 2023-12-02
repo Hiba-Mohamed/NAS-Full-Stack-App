@@ -33,15 +33,11 @@ interface IUnitObject {
   shifts: IUnitShiftObject[];
 }
 
-
 interface IUnitShiftData {
   unitName: string;
   shiftDate: string;
   shiftType: string;
 }
-
-
-
 
 function formatDate(dateString: string): string {
   const year = dateString.slice(0, 4);
@@ -73,56 +69,55 @@ function getMonthName(month: string): string {
   return months[monthIndex];
 }
 
-
-
 export function ViewUnitShift() {
   const { unitName, ShiftId } = useParams();
-  console.log("unitName", unitName)
-    const hospitalNameJSON = localStorage.getItem("Hospital Data");
+  console.log("unitName", unitName);
+  const hospitalNameJSON = localStorage.getItem("Hospital Data");
   const hospitalData = hospitalNameJSON
     ? JSON.parse(hospitalNameJSON)
     : { hospitalName: "", hospitalUnits: [] };
-    const hospitalUnits = hospitalData.hospitalUnits;
-    console.log("hospital units", hospitalUnits);
-    const matchingUnit = hospitalUnits.find((unit:IUnitObject) => {
-      return unit.unitName === unitName;
-    });
-    console.log("matching unit", matchingUnit);
-    const existingData = matchingUnit?.shifts;
+  const hospitalUnits = hospitalData.hospitalUnits;
+  console.log("hospital units", hospitalUnits);
+  const matchingUnit = hospitalUnits.find((unit: IUnitObject) => {
+    return unit.unitName === unitName;
+  });
+  console.log("matching unit", matchingUnit);
+  const existingData = matchingUnit?.shifts;
 
-    const matchingShift = existingData?.find((shift:IUnitShiftObject)=>{return shift.shiftId === ShiftId})
+  const matchingShift = existingData?.find((shift: IUnitShiftObject) => {
+    return shift.shiftId === ShiftId;
+  });
 
   if (ShiftId) {
     // Check if ShiftId is defined
 
-
     if (ShiftId) {
-
       const staffData = matchingShift?.staff ?? [];
 
       console.log("staffData", staffData);
-if(matchingShift){
-      return (
-        <div className="font-nunito bg-greygreen sm:max-w-full min-h-screen">
-          <div className="flex flex-col items-center justify-center">
-            <div className="text-nunito-900 font-extrabold text-lg sm:text-lg lg:text-xl tracking-tight text-center py-1 bg-white shadow-lg rounded-lg sm:px-4 sm:pt-3 sm:pb-4 sm:py-2 m-8 text-green">
-              <p>{unitName}</p>
-              <div className="flex sm:flex-row items-center flex-col">
-                {" "}
-                <p className="px-4">
-                  {formatDate(matchingShift?.data.shiftDate)}
-                </p>
-                <p className="px-4">{matchingShift?.data.shiftType}</p>
+      if (matchingShift) {
+        return (
+          <div className="font-OpenSans bg-greyblue sm:max-w-full min-h-screen">
+            <div className="flex flex-col items-center justify-center">
+              <div className="text-nunito-900 font-extrabold text-lg sm:text-lg lg:text-xl tracking-tight text-center py-1 bg-white shadow-lg rounded-lg sm:px-4 sm:pt-3 sm:pb-4 sm:py-2 m-8 text-blue">
+                <p>{unitName}</p>
+                <div className="flex sm:flex-row items-center flex-col">
+                  {" "}
+                  <p className="px-4">
+                    {formatDate(matchingShift?.data.shiftDate)}
+                  </p>
+                  <p className="px-4">{matchingShift?.data.shiftType}</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div>
-            {" "}
-            <ViewNurseCard staffData={staffData} />{" "}
+            <div>
+              {" "}
+              <ViewNurseCard staffData={staffData} />{" "}
+            </div>
           </div>
-        </div>
-      );}
+        );
+      }
     } else {
       console.log("ShiftId is undefined.");
     }
