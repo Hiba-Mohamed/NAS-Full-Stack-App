@@ -2,7 +2,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -68,10 +67,10 @@ const EditShiftForm = () => {
   });
   console.log("matchingUnitInfo", matchingUnitInfo);
 
-  const unitShifts = matchingUnitInfo.shifts;
+  const unitShifts = matchingUnitInfo?.shifts;
   console.log("unitShifts", unitShifts);
 
-  const matchingShift = unitShifts.find((shift) => {
+  const matchingShift = unitShifts?.find((shift) => {
     return shift.shiftId === ShiftId;
   });
   console.log("matching shift", matchingShift);
@@ -98,7 +97,6 @@ const EditShiftForm = () => {
 
     event?.preventDefault();
     console.log(data);
-    const ShiftId = uuidv4(); // Generate a unique ID using uuid
 
     const currentShift: IUnitShiftData = {
       shiftDate: formattedDate,
@@ -111,7 +109,7 @@ const EditShiftForm = () => {
 
     const shiftsArray = matchingUnitShifts ?? [];
     const validationArray = shiftsArray.filter((shift) => {
-      return shift.shiftId !== matchingShift.shiftId;
+      return shift.shiftId !== matchingShift?.shiftId;
     });
     console.log("data", data);
     console.log("validationArray", validationArray);
@@ -130,7 +128,7 @@ console.log("isDuplicateShift", isDuplicateShift);
         );
         console.log("duplicate shift");
       }
-      if (!isDuplicateShift) {
+      if (!isDuplicateShift && matchingShift) {
         matchingShift.data.shiftDate = currentShift.shiftDate;
         matchingShift.data.shiftType = currentShift.shiftType
               localStorage.setItem(
@@ -143,7 +141,7 @@ console.log("isDuplicateShift", isDuplicateShift);
         navigate(`/manageUnitStaff/${unitName}/${matchingShift.shiftId}`);
       }
     }
-    if (matchingUnitInfo && validationArray && validationArray.length < 1) {
+    if (matchingUnitInfo && matchingShift && validationArray && validationArray.length < 1) {
         matchingShift.data.shiftDate = currentShift.shiftDate;
         matchingShift.data.shiftType = currentShift.shiftType;
         localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));

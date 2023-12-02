@@ -1,7 +1,7 @@
 import EditShiftForm from "../components/editShiftInfoForm";
 import { useParams } from "react-router-dom";
 export function EditShiftInfo() {
-  const { unitName, ShiftId } = useParams();
+  const { unitName } = useParams();
   console.log("unitName", unitName);
 
   return (
