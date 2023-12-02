@@ -135,7 +135,6 @@ export function NewUnit() {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center">
-        <h1 className="font-bold text-2xl p-6">Adding New Unit</h1>
         <div className="flex flex-col items-center justify-center">
           <form
             onSubmit={handleSubmit(onSubmit)}
