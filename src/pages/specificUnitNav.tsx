@@ -13,34 +13,34 @@ export default function SpecificUnitNav() {
           Please select from the options below
         </h2>
       </div>
-      <div className="flex flex-row flex-wrap justify-evenly sm:py-10 pb-10 gap-4">
-        <div>
+      <div className="flex flex-col lg:flex-row flex-wrap justify-evenly sm:py-10 pb-10 gap-4">
+        <div className="flex rounded-lg bg-white  flex-row  px-6 shadow-lg text-start max-w-xl m-2 py-4 w-80 sm:w-500">
           <Link
             to={`/startUnitShift/${unitName}`}
-            className="flex flex-col items-center justify-center"
+            className="flex items-center flex-row-reverse justify-between gap-2 sm:gap-24"
           >
             <img
-              className="sm:w-40 w-16 rounded-lg "
-              src="images/create-logo.png"
+              className="sm:w-48 w-32 rounded-lg "
+              src="images/computer-icon.png"
               alt=""
             />
-            <p className="text-md sm:text-lg rounded-lg p-2 bg-white text-blue font-bold mt-2">
-              Create A New Shift
+            <p className="text- sm:text-lg lg:text-2xl rounded-lg p-2 bg-white text-blue font-bold mt-2">
+              Create New Shift
             </p>
           </Link>
         </div>
-        <div>
+        <div className="flex flex-col rounded-lg bg-white flex flex-row items-start px-6 shadow-lg text-start max-w-xl m-2 py-4 w-80 sm:w-500">
           <Link
             to={`/unitShiftHistory/${unitName}`}
-            className="flex flex-col items-center justify-center"
+            className="flex items-center flex-row-reverse justify-evenly gap-2"
           >
             <img
-              className="sm:w-40 w-16 rounded-lg "
-              src="images/history-logo.png"
+              className="sm:w-48 w-32 rounded-lg "
+              src="images/computer-right.png"
               alt=""
             />
-            <p className="text-md sm:text-lg rounded-lg p-2 bg-white text-blue font-bold mt-2">
-              Past/Future shifts
+            <p className="text-md sm:text-lg lg:text-2xl rounded-lg p-2 bg-white text-blue font-bold mt-2">
+              Review Past and Future Shifts
             </p>
           </Link>
         </div>

@@ -68,6 +68,7 @@ const UnitShiftForm = (unitName: { unitName: string }) => {
   const {
     register,
     handleSubmit,
+    watch,
     control,
     formState: { errors },
   } = useForm<IUnitShiftDataBeforeConversion>();
@@ -166,56 +167,68 @@ const UnitShiftForm = (unitName: { unitName: string }) => {
       )}{" "}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white sm:px-8 px-auto shadow-lg rounded-lg pt-6 pb-8 m-4 sm:max-w-2xl text-sm px-4 px-8 sm:text-lg flex sm:flex-row flex-col gap-4"
+        className="bg-white sm:px-8 px-auto shadow-lg rounded-lg pt-6 pb-8 m-4 sm:max-w-2xl text-sm px-4 px-8 sm:text-lg flex flex-col gap-4"
         id="unitData-form"
       >
-        <div className="mb-6">
-          <div>
-            <h3 className="font-bold">Shift Date:</h3>
-            <Controller
-              control={control}
-              name="shiftDate"
-              rules={{ required: true }}
-              render={({ field }) => (
-                <DatePicker
-                  placeholderText=""
-                  onChange={(date) => field.onChange(date)}
-                  className="w-full px-2 py-2 rounded-md border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  filterDate={disablePastDates} // Apply the validation function
-                  selected={field.value}
-                />
+        <div className="flex flex-row gap-4">
+          <div className="mb-6">
+            <div>
+              <h3 className="font-bold pb-2">Shift Date:</h3>
+              <Controller
+                control={control}
+                name="shiftDate"
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <DatePicker
+                    placeholderText="DD/MM/YYYY"
+                    onChange={(date) => field.onChange(date)}
+                    className="w-full px-2 py-2 rounded-md border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    filterDate={disablePastDates} // Apply the validation function
+                    selected={field.value}
+                  />
+                )}
+              />
+              {errors?.shiftDate?.type === "required" && (
+                <p className="text-peach text-sm">
+                  {errors?.shiftDate?.message || "This field is required"}
+                </p>
               )}
-            />
-            {errors?.shiftDate?.type === "required" && (
+            </div>
+          </div>
+          <div className="mb-6 basis-1/2 mr-2">
+            <label className="font-bold">Shift Type:</label>
+            <select
+              {...register("shiftType", { required: true })}
+              className={`w-full px-2 mt-2 appearance-none py-2 rounded-md border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        !watch("shiftType") && "opacity-50"
+                      }`}
+              placeholder="pick a shift"
+            >
+              <option
+                className={`px-4 py-2 rounded-md border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500  ${
+                  !watch("shiftType") && "opacity-50"
+                }`}
+                value=""
+              >
+                Pick a shift
+              </option>
+              <option value="Day Shift">Day Shift</option>
+              <option value="Night Shift">Night Shift</option>
+            </select>{" "}
+            {errors?.shiftType?.type === "required" && (
               <p className="text-peach text-sm">
-                {errors?.shiftDate?.message || "This field is required"}
+                {errors?.shiftType?.message || "This field is required"}
               </p>
             )}
           </div>
         </div>
-        <div className="mb-6 basis-1/2 mr-2">
-          <label className="font-bold">Shift Type:</label>
-          <select
-            {...register("shiftType", { required: true })}
-            className="w-full px-2 appearance-none py-2 rounded-md border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value=""></option>
-            <option value="Day Shift">Day Shift</option>
-            <option value="Night Shift">Night Shift</option>
-          </select>{" "}
-          {errors?.shiftType?.type === "required" && (
-            <p className="text-peach text-sm">
-              {errors?.shiftType?.message || "This field is required"}
-            </p>
-          )}
-        </div>
         <div className="flex  items-center">
           {" "}
           <button
-            className="mx-auto bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="mx-auto hover:bg-lblue hover:text-blue text-white font-bold py-2 px-4  border-solid border-2 border-blue hover:border-lblue sm:px-10 sm:py-1 bo sm:text-sm rounded focus:outline-none focus:shadow-outline bg-blue sm:mt-0 mt-6"
             type="submit"
           >
-            Submit
+            Next
           </button>
         </div>
       </form>

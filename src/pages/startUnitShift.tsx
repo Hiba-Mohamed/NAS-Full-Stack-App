@@ -8,13 +8,37 @@ export function StartUnitSheet() {
   if (unitName) {
     return (
       <div className="flex flex-col items-center sm:pt-12 pt-14 gap-8 font-OpenSans min-h-screen bg-slate-50">
-        <img src="images/NAS-logo.png" className="sm:w-24 w-12" alt="" />
+        <div className="flex lg:flex-row flex-col">
+          <img
+            src="images/step1-blue.png"
+            alt=""
+            className="w-56 sm:w-80 lg:w-56 lg:h-12"
+          />
+          <img
+            src="images/line.png"
+            alt=""
+            className="lg:w-60 lg:block hidden"
+          />
+          <img
+            src="images/step2-grey.png"
+            alt=""
+            className="w-56 sm:w-80 lg:w-56 lg:h-12"
+          />
+          <img
+            src="images/line.png"
+            alt=""
+            className="lg:w-60 lg:block hidden"
+          />
+          <img
+            src="images/step3-grey.png"
+            alt=""
+            className="w-56 sm:w-80 lg:w-56 lg:h-12"
+          />
+        </div>
         <h1 className="text-2xl sm:text-5xl text-center font-bold">
-          {unitName}
+          New Shift{" "}
         </h1>
-        <p className="w-screen flex flex-col items-center justify-center text-nunito-900  text-2xl sm:text-3xl tracking-tight text-center">
-          Start a New Shift
-        </p>
+
         <UnitShiftForm unitName={unitName} />
       </div>
     );
