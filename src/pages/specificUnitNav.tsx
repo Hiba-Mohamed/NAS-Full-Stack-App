@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 export default function SpecificUnitNav() {
   const { unitName } = useParams();
   return (
-    <div className="font-OpenSans min-h-screen">
+    <div className="flex flex-col items-center font-OpenSans lg:pt-24 bg-sky-50 min-h-screen">
       <div className="flex flex-col items-center justify-center">
-        <h1 className="pt-10 text-nunito-900 font-extrabold text-2xl px-12 sm:text-5xl lg:text-6xl tracking-tight text-center p-4">
-          {unitName} Unit
+        <h1 className="pt-20 text-nunito-900 font-extrabold text-2xl px-12 sm:text-4xl lg:text-5xl tracking-tight text-center p-4">
+          Welcome to Your {unitName} Unit
         </h1>
         <h2 className="text-nunito-900 font-extrabold text-md sm:text-2xl px-16 tracking-tight text-center p-10">
           Please select from the options below

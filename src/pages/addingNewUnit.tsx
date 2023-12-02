@@ -87,7 +87,7 @@ export function NewUnit() {
         );
 
         setHospitalData(updatedHospitalData);
-        navigate(`/startUnitShift/${data.unitName}`);
+      navigate(`/specificUnitNav/${data.unitName}`);
       } else {
         setDuplicateError(
           "Duplicate Unit Name Detected, Enter a Different Unit Name please"
@@ -111,7 +111,7 @@ export function NewUnit() {
       );
 
       setHospitalData(updatedHospitalData);
-      navigate(`/startUnitShift/${data.unitName}`);
+      navigate(`/specificUnitNav/${data.unitName}`);
     }
   };
   return (
