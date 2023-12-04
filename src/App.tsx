@@ -25,6 +25,8 @@ import ViewUnitShift from "./pages/viewUnitShift";
 import SearchUnitResults from "./pages/searchUnitResult";
 import EditUnit from "./pages/editUnitName";
 import { EditShiftInfo } from "./pages/editShiftInfo";
+import StartStaff from "./pages/addNurse";
+
 
 function App() {
   return (
@@ -35,6 +37,10 @@ function App() {
         <Route path="/hospitalView" element={<HospitalView />} />
         <Route path="getStarted" element={<GetStarted />} />
         <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/addNurse/:unitName/:ShiftId"
+          element={<StartStaff />}
+        />
         <Route path="/editUnitName/:unitName" element={<EditUnit />} />
         <Route
           path="/editShiftInfo/:unitName/:ShiftId"

@@ -1,10 +1,9 @@
-import NurseInfoForm from "../components/nurseForm";
 import { useParams } from "react-router-dom";
-import UnitNurseCardDisplay from "../components/unitNurseCardDisplay";
+import NurseInfoForm from "../components/newNurseForm";
 import { v4 as uuidv4 } from "uuid";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 interface IUnitShiftData {
   shiftDate: string;
   shiftType: string;
@@ -80,9 +79,10 @@ function getMonthName(month: string): string {
   return months[monthIndex];
 }
 
-export function UnitNurseForm() {
+export function StartStaff() {
   const { unitName, ShiftId } = useParams();
   const nurseId = uuidv4();
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   console.log(unitName);
 
@@ -112,6 +112,7 @@ export function UnitNurseForm() {
       form.reset();
       console.log(nurseData);
       setErrorMessage(null);
+        navigate(`/manageUnitStaff/${unitName}/${ShiftId}`);
     } else
       setErrorMessage(
         "Error: duplicate patient name and/or room is being assigned to the same nurse"
@@ -162,69 +163,39 @@ export function UnitNurseForm() {
   if (ShiftId) {
     if (unitName && ShiftId && matchingShift && matchingUnit) {
       return (
-        <div className="font-OpenSans bg-sky-50 sm:max-w-full min-h-screen items-center">
-          <div className="flex flex-col items-center justify-center ">
-            <div className="flex lg:flex-row flex-col p-8 sm:max-w-5xl items-center justify-center">
-              <img
-                src="images/step1-grey.png"
-                alt=""
-                className="w-56 sm:w-80 lg:w-56 lg:h-8"
-              />
-              <img
-                src="images/line.png"
-                alt=""
-                className="lg:w-60 lg:block hidden"
-              />
-              <img
-                src="images/step2-grey.png"
-                alt=""
-                className="w-56 sm:w-80 lg:w-56 lg:h-8"
-              />
-              <img
-                src="images/line.png"
-                alt=""
-                className="lg:w-60 lg:block hidden"
-              />
-              <img
-                src="images/step3-blue.png"
-                alt=""
-                className="w-56 sm:w-80 lg:w-56 lg:h-8"
-              />
-            </div>
-            <div className="flex flex-col lg:flex-row lg:gap-32  gap-6 text-sm items-center justify-center ">
-              <div className="flex flex-col-reverse gap-6 lg:gap-32 text-lg sm:text-xl lg:flex-row items-center justify-center">
-                <p>
-                  {" "}
-                  {formatDate(matchingShift.data.shiftDate)} |{" "}
-                  {matchingShift.data.shiftType}
-                </p>
-                <p className="sm:text-3xl font-bold">{unitName} Unit</p>
-              </div>
-              <button className="mx-auto hover:border-amber-200 hover:bg-amber-200 hover:text-white text-black font-bold py-2 px-4  border-solid border-2 border-orange rounded-sm  sm:px-10 sm:py-1 bo sm:text-sm rounded focus:outline-none focus:shadow-outline bg-orange sm:mb-0 mb-4  items-center justify-center">
-                + Add Nurse
-              </button>
-            </div>
-            <hr className=" hidden lg:block h-0.25 my-2 max-w-5xl w-full px-2 bg-slate-300"></hr>
-
-            {/* <div className="text-nunito-900 justify-center items-center font-extrabold flex flex-row tracking-tight text-center py-1 sm:px-4 sm:pt-3 sm:pb-4 sm:py-2 m-8 text-blue bg-white shadow-lg rounded-lg">
-              <div>
-                <Link
-                  className="bg-sky-600 hover:bg-sky-500 text-md text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  to={`/editShiftInfo/${unitName}/${ShiftId}`}
-                >
-                  Edit
-                </Link>
-              </div>
-            </div> */}
+        <div className="flex flex-col items-center sm:pt-12 pt-14 gap-8 font-OpenSans min-h-screen bg-slate-50">
+          <div className="flex lg:flex-row flex-col">
+            <img
+              src="images/step1-grey.png"
+              alt=""
+              className="w-56 sm:w-80 lg:w-56 lg:h-12"
+            />
+            <img
+              src="images/line.png"
+              alt=""
+              className="lg:w-60 lg:block hidden"
+            />
+            <img
+              src="images/step2-blue.png"
+              alt=""
+              className="w-56 sm:w-80 lg:w-56 lg:h-12"
+            />
+            <img
+              src="images/line.png"
+              alt=""
+              className="lg:w-60 lg:block hidden"
+            />
+            <img
+              src="images/step3-grey.png"
+              alt=""
+              className="w-56 sm:w-80 lg:w-56 lg:h-12"
+            />
+          </div>
+          <h1 className="font-bold text-xl sm:text-2xl">Add New Nurse</h1>
+          <div className="flex flex-row items-center justify-center ">
+            
           </div>
 
-          <div>
-            {" "}
-            <UnitNurseCardDisplay
-              unitName={unitName}
-              staffData={matchingShift.staff}
-            />{" "}
-          </div>
           <div className="flex flex-col items-center">
             {" "}
             <NurseInfoForm
@@ -232,6 +203,8 @@ export function UnitNurseForm() {
               Shifturl={ShiftId}
               form={form}
               validationArray={matchingShift.staff}
+              shiftType={matchingShift.data.shiftType}
+              shiftDate={formatDate(matchingShift.data.shiftDate)}
             />
             {errorMessage && (
               <div className="text-peach bg-peach text-white shadow-lg rounded-lg max-w-sm m-4 p-4">
@@ -249,4 +222,4 @@ export function UnitNurseForm() {
   }
 }
 
-export default UnitNurseForm;
+export default StartStaff;

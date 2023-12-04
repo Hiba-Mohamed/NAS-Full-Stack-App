@@ -10,6 +10,7 @@ export default {
         white: "#FFFFFF",
         lblue: "#D7EAF9",
         greyblue: "#F3FAF8",
+        orange: "#FBB612",
       },
 
       boxShadow: {
