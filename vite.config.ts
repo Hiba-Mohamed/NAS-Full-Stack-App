@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: '/NAS-Full-Stack-App/',
   optimizeDeps: {
-    include: ['*.ts', '*.d.ts', '*.tsx', '*.js', '*.jsx'],
+    include: ['*.ts', '*.d.ts', '*.tsx', '*.js', '*.jsx', 'main.tsx'],
   },
 })
 
