@@ -11,6 +11,7 @@ export default {
         lblue: "#D7EAF9",
         greyblue: "#F3FAF8",
         orange: "#FBB612",
+        red: "#EF4444",
       },
 
       boxShadow: {

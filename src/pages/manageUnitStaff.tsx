@@ -1,4 +1,4 @@
-import NurseInfoForm from "../components/nurseForm";
+import NurseInfoForm from "../components/newNurseForm";
 import { useParams } from "react-router-dom";
 import UnitNurseCardDisplay from "../components/unitNurseCardDisplay";
 import { v4 as uuidv4 } from "uuid";
@@ -193,10 +193,14 @@ export function UnitNurseForm() {
             </div>
             <div className="flex flex-col lg:flex-row lg:gap-32  gap-6 text-sm items-center justify-center ">
               <div className="flex flex-col-reverse gap-6 lg:gap-32 text-lg sm:text-xl lg:flex-row items-center justify-center">
-                <p>
+                <p className="flex flex-row gap-2">
                   {" "}
                   {formatDate(matchingShift.data.shiftDate)} |{" "}
                   {matchingShift.data.shiftType}
+                  <Link to={`/editShiftInfo/${unitName}/${ShiftId}`}>
+                    {" "}
+                    <img className="h-6" src="images/edit-grey.png" />
+                  </Link>
                 </p>
                 <p className="sm:text-3xl font-bold">{unitName} Unit</p>
               </div>
@@ -232,6 +236,8 @@ export function UnitNurseForm() {
               Shifturl={ShiftId}
               form={form}
               validationArray={matchingShift.staff}
+              shiftType={matchingShift.data.shiftType}
+              shiftDate={formatDate(matchingShift.data.shiftDate)}
             />
             {errorMessage && (
               <div className="text-peach bg-peach text-white shadow-lg rounded-lg max-w-sm m-4 p-4">

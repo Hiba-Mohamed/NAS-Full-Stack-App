@@ -209,19 +209,22 @@ export function UnitNurseCardDisplay({
                     </table>
                   )}
               </div>
-
-              <div className="flex flex-row justify-evenly items-center gap-1">
+              <div className="flex flex-row gap-6 items-center sm:py-4">
+                {" "}
                 <button
-                  className="bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  onClick={() => editNurse(ShiftId, nurses.nurseId)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  type="submit"
+                  className="flex flex-row items-center gap-2 mx-auto hover:bg-red  hover:text-white text-red font-bold  sm:px-1 sm:py-1 sm:text-sm py-1 px-2 sm:px-4 rounded rounded-sm focus:outline-none focus:shadow-outline bg-white border-solid border-2 border-red  sm:mt-0 mt-6"
                   onClick={() => deleteNurse(nurses)}
                 >
-                  Delete
+                  <img className="h-6 lg:h-4" src="images/delete-icon.png" />
+                  <p className="">Delete</p>
+                </button>
+                <button
+                  className="flex flex-row gap-2 items-center mx-auto hover:bg-lblue hover:text-blue text-white font-bold py-1 sm:px-4 px-4  border-solid border-2 border-blue rounded-sm hover:border-lblue sm:px-10 sm:py-1 bo sm:text-sm rounded focus:outline-none focus:shadow-outline bg-blue sm:mt-0 mt-6"
+                  onClick={() => editNurse(ShiftId, nurses.nurseId)}
+                >
+                  <img className="h-6 lg:h-4" src="images/edit-blue.png" />
+                  <p> Edit</p>
                 </button>
               </div>
             </div>

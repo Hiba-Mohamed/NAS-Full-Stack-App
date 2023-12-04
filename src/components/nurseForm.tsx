@@ -334,7 +334,7 @@ export const NurseInfoForm = ({
 
               <div className="flex justify-center items-center pt-4">
                 <button
-                  className="bg-orange-300 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-orange hover:bg-orange text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="submit"
                 >
                   Submit
