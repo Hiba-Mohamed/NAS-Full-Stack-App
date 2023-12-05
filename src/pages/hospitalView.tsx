@@ -64,6 +64,38 @@ export default function HospitalView() {
   console.log("hospital Units", hospitalUnitsList);
 
   const [units, setUnits] = useState(hospitalUnitsList);
+  // Function to concatenate staff arrays for all shifts of a unit
+function getAllStaffForUnit(unit: IUnitObject): number {
+  const uniqueNurseNames = new Set<string>();
+  const uniqueStaff: IStaffData[] = [];
+
+  unit.shifts.forEach((shift) => {
+    shift.staff.forEach((staffData) => {
+      const nurseName = staffData.nurseData.nurseName;
+
+      // Check if the nurse name is not already in the Set
+      if (!uniqueNurseNames.has(nurseName)) {
+        uniqueNurseNames.add(nurseName);
+        uniqueStaff.push(staffData);
+      }
+    });
+  });
+
+  return uniqueStaff.length;
+}
+
+  // Function to create array of concatenated staff for each unit
+  function createAllStaffArrayForUnits(unitsList: IUnitObject[]): void {
+    unitsList.forEach((unit) => {
+      const allStaffForUnit = getAllStaffForUnit(unit);
+      console.log(`Unit: ${unit.unitName}, All Staff: `, allStaffForUnit);
+      // You can store or use the allStaffForUnit array as needed
+    });
+  }
+
+  // Call the function to create arrays for all units
+  createAllStaffArrayForUnits(units);
+
   function viewUnit(unitName: string) {
     navigate(`/specificUnitNav/${unitName}`);
   }
@@ -78,6 +110,7 @@ export default function HospitalView() {
     setShowPopup(true);
     setUnitToDelete(unitName);
   }
+
   if (units) {
     return (
       <div className="font-OpenSans flex flex-col items-center min-h-screen pb-24 sm:pb-32">
@@ -116,6 +149,16 @@ export default function HospitalView() {
               <p className="text-md font-bold  sm:text-xl text-center flex justify-center p-4 sm:p-12 ">
                 {unit.unitName}
               </p>
+              <div>
+                <div>
+                  <p># of Shifts: </p>
+                  <p>{unit.shifts.length}</p>
+                </div>
+                <div>
+                  <p># of Nurses:</p>
+                  <p>{getAllStaffForUnit(unit)}</p>
+                </div>
+              </div>
               <div className="flex flex-row text-sm sm:text-md lg:flex-row items-center justify-evenly">
                 {" "}
                 <button
