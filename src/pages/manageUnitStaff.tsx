@@ -179,7 +179,12 @@ export function UnitNurseForm() {
                   shiftType={matchingShift.data.shiftType}
                   shiftDate={formatDate(matchingShift.data.shiftDate)}
                 />
-                <button className="bg-white px-6 py-2 rounded-sm font-bold text-red" onClick={() => setShowPopup(false)}>Cancel</button>
+                <button
+                  className="bg-white px-6 py-2 rounded-sm font-bold text-red"
+                  onClick={() => setShowPopup(false)}
+                >
+                  Cancel
+                </button>
                 {errorMessage && (
                   <div className="text-peach bg-peach text-white shadow-lg rounded-lg max-w-sm m-4 p-4">
                     {errorMessage}
@@ -248,6 +253,14 @@ export function UnitNurseForm() {
               staffData={matchingShift.staff}
             />{" "}
           </div>
+          <Link
+            className="flex flex-col items-center mt-12 lg:mt-24"
+            to={`/viewUnitShift/${unitName}/${ShiftId}`}
+          >
+            <button className="bg-white hover:bg-blue hover:text-white text-blue border-solid border-2 border-blue font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              Done
+            </button>{" "}
+          </Link>
         </div>
       );
     } else {

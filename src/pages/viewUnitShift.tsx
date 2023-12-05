@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import ViewNurseCard from "../components/viewNursesComponent";
-
+import { Link } from "react-router-dom";
 interface IUnitShiftData {
   shiftDate: string;
   shiftType: string;
@@ -97,24 +97,23 @@ export function ViewUnitShift() {
       console.log("staffData", staffData);
       if (matchingShift) {
         return (
-          <div className="font-OpenSans bg-greyblue sm:max-w-full min-h-screen">
-            <div className="flex flex-col items-center justify-center">
-              <div className="text-nunito-900 font-extrabold text-lg sm:text-lg lg:text-xl tracking-tight text-center py-1 bg-white shadow-lg rounded-lg sm:px-4 sm:pt-3 sm:pb-4 sm:py-2 m-8 text-blue">
-                <p>{unitName}</p>
-                <div className="flex sm:flex-row items-center flex-col">
-                  {" "}
-                  <p className="px-4">
-                    {formatDate(matchingShift?.data.shiftDate)}
-                  </p>
-                  <p className="px-4">{matchingShift?.data.shiftType}</p>
-                </div>
-              </div>
+          <div className="font-OpenSans bg-sky-50 sm:max-w-full min-h-screen items-center pb-24">
+            <div className="flex flex-col-reverse gap-6 lg:gap-32 text-lg py-8 sm:text-xl lg:flex-row items-center justify-center">
+              <p className="flex flex-row gap-2">
+                {" "}
+                {formatDate(matchingShift.data.shiftDate)}
+              </p>
+              <p className="sm:text-3xl font-bold">{unitName} Unit</p>
+              <p>{matchingShift.data.shiftType}</p>
             </div>
+
+            <hr className=" hidden lg:block h-0.25 my-2 max-w-5xl w-full px-2 bg-slate-300"></hr>
 
             <div>
               {" "}
               <ViewNurseCard staffData={staffData} />{" "}
             </div>
+            <Link className="flex flex-col items-center mt-12 lg:mt-24" to={`/manageUnitStaff/${unitName}/${ShiftId}`}><img src="images/edit-grey.png" alt="edit icon" className="h-12" /></Link>
           </div>
         );
       }

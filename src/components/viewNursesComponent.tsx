@@ -28,67 +28,75 @@ export function ViewNurseCard({ staffData }: { staffData: IstaffData[] }) {
   if (ShiftId && staffData.length !== 0) {
     return (
       <div className="flex flex-row flex-wrap justify-evenly">
-        {staffData?.map((staffData: IstaffData, nurseIndex: number) => (
+        {staffData.map((staffData: IstaffData, nurseIndex: number) => (
           <div
             key={nurseIndex}
-            className="bg-white shadow-lg rounded-lg sm:px-4 sm:pt-2 sm:pb-4 my-4  max-w-sm mx-2 text-sm  lg:text-l sm:text-md"
+            className="bg-white shadow-lg rounded-lg sm:px-4 sm:pt-2 sm:pb-2 my-4  max-w-sm mx-2 text-sm"
           >
             <div className="flex flex-col m-4">
-              <div className="flex flex-col justify-center items-center text-center font-bold">
+              <div className="flex flex-col justify-center items-center text-center font-bold sm:text-lg pb-4">
                 {staffData.nurseData.nurseName}
               </div>
               <table className="table-auto">
-                <tbody>
-                  <tr>
-                    <td className="font-semibold text-cyan-700">Break:</td>
-                    <td>{staffData.nurseData.nurseBreak}</td>
-                  </tr>
-                  <tr>
-                    <td className="font-semibold text-cyan-700">Relief:</td>
-                    <td>{staffData.nurseData.reliefName}</td>
-                  </tr>
-                  <tr>
-                    <td className="font-semibold text-cyan-700">
-                      Extra Duties:
-                    </td>
-                    <td>{staffData.nurseData.extraDuties}</td>
-                  </tr>
-                  <tr>
-                    <td className="font-semibold text-cyan-700">Fire Code:</td>
-                    <td className="text-red-500">
-                      {staffData.nurseData.fireCode}
-                    </td>
-                  </tr>
+                <tbody className="flex flex-col gap-4 pb-2">
+                  <div className="flex flex-row gap-12">
+                    <tr className="flex flex-col">
+                      <td className="font-semibold">Break:</td>
+                      <td>{staffData.nurseData.nurseBreak}</td>
+                    </tr>
+                    <tr className="flex flex-col">
+                      <td className="font-semibold">Relief:</td>
+                      <td>{staffData.nurseData.reliefName}</td>
+                    </tr>
+                  </div>
+                  <div className="flex flex-row gap-4">
+                    <tr className="flex flex-col">
+                      <td className="font-semibold">Extra Duties:</td>
+                      <td>{staffData.nurseData.extraDuties}</td>
+                    </tr>
+                    <tr className="flex flex-col">
+                      <td className="font-semibold">Fire Code:</td>
+                      <td className="text-red-500">
+                        {staffData.nurseData.fireCode}
+                      </td>
+                    </tr>
+                  </div>
                 </tbody>
               </table>
 
-              <div>
+              <div className="">
                 {staffData.nurseData.assignedPatient.length !== 0 &&
                   staffData.nurseData.assignedPatient.length !== undefined && (
-                    <table className="mb-4">
-                      <thead>
-                        <tr className="border border-stone-700 bg-stone-400 text-white">
-                          <th className="border border-stone-700 px-2">Room</th>
-                          <th className="border border-stone-700 px-2">
-                            Patient
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {staffData.nurseData.assignedPatient.map(
-                          (patient: IPatientData, patientIndex: number) => (
-                            <tr key={patientIndex}>
-                              <td className="border px-2">
-                                {patient.patientRoom}
-                              </td>
-                              <td className="border px-2">
-                                {patient.patientName}
-                              </td>
+                    <div className="">
+                      <p className="font-bold py-2">
+                        Assigned Patients: (
+                        {staffData.nurseData.assignedPatient.length})
+                      </p>
+                      <div className="border border-sky-200 rounded-lg ">
+                        <table className="min-w-full divide-y divide-sky-200">
+                          <thead className="">
+                            <tr className="text-sm sm:text-md bg-sky-100 text-blue text-start">
+                              <th className="px-2 py-1">Room</th>
+                              <th className=" px-2 py-1">Patient</th>
                             </tr>
-                          )
-                        )}
-                      </tbody>
-                    </table>
+                          </thead>
+                          <tbody className="divide-sky-200 divide-y">
+                            {staffData.nurseData.assignedPatient.map(
+                              (patient: IPatientData, patientIndex: number) => (
+                                <tr key={patientIndex}>
+                                  <td className="px-2  py-1">
+                                    {patient.patientRoom}
+                                  </td>
+                                  <td className="px-2 py-1">
+                                    {patient.patientName}
+                                  </td>
+                                </tr>
+                              )
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   )}
               </div>
             </div>
