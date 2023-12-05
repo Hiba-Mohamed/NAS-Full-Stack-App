@@ -60,20 +60,22 @@ export function UnitNurseCardDisplay({
   const [nurses, setNurses] = useState(staffData);
 
   function confirmDelete() {
+    console.log(nurses)
     console.log("deleting  Nurse", nurseToDelete);
     const updatedNurseList = staffData.filter((items: IStaffData) => {
       return items.nurseId !== nurseToDelete?.nurseId;
     });
+    console.log("Updated Nurse List after deletion",updatedNurseList)
     if (matchingShift) {
       matchingShift.staff = updatedNurseList;
       console.log("updatedNurseList", updatedNurseList);
       // Update the state
-      setHospitalData(hospitalData);
       setNurses(updatedNurseList);
-
       // Update localStorage
       localStorage.setItem("Hospital Data", JSON.stringify(hospitalData));
+      setHospitalData(hospitalData);
       setShowPopup(false);
+      console.log(hospitalData)
     }
   }
 

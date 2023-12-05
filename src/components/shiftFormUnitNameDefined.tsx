@@ -147,7 +147,7 @@ const UnitShiftForm = (unitName: { unitName: string }) => {
         setHospitalData(hospitalData);
 
         localStorage.setItem("Hospital Data",JSON.stringify(hospitalData));
-        navigate(`addNurse/${unitNameString}/${ShiftId}`);
+        navigate(`/addNurse/${unitNameString}/${ShiftId}`);
     }
   };
 
