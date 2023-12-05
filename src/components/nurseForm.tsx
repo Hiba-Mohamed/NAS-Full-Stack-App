@@ -116,10 +116,10 @@ export const NurseInfoForm = ({
       if (ShiftId) {
         console.log("staffData", staffData);
         return (
-          <div className="bg-greyblue font-OpenSans relative flex flex-row flex-wrap justify-evenly text-sm sm:text-md">
+          <div className=" font-OpenSans relative flex flex-row flex-wrap justify-evenly text-sm sm:text-md pb-12">
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mx-2 max-w-sm sm:max-w-xl"
+              className="bg-white px-8 pt-6 pb-6 sm:pb-2 max-w-sm rounded-lg sm:max-w-xl"
             >
               <div className="mb-4">
                 <label className="block text-gray-700 font-bold mb-2">
@@ -132,7 +132,7 @@ export const NurseInfoForm = ({
                     validate: (value: string) => validateNurseName(value),
                   })}
                   type="text"
-                  className="mt-2 appearance-none text-nunito-900 bg-white rounded-md block w-full p-3 h-10 shadow-sm focus:outline-none placeholder:text-nunito-400 focus:ring-2 focus:ring-sky-500 ring-1 ring-nunito-200"
+                  className="mt-2 pl-2 appearance-none text-nunito-900 bg-white rounded-sm block w-full h-8 shadow-sm focus:outline-none placeholder:text-nunito-400 focus:ring-2 focus:ring-slate-400 ring-1 ring-slate-300"
                   id="nurse-name"
                 />
                 {errors?.nurseName?.type === "required" && (
@@ -151,13 +151,13 @@ export const NurseInfoForm = ({
               </div>
 
               <div className="flex flex-row">
-                <div className="mb-6 basis-1/2 mr-2">
+                <div className="mb-4 basis-1/2 mr-2">
                   <label className="block text-gray-700 font-bold mb-2">
                     Nurse's break
                   </label>
                   <select
                     {...register("nurseBreak", { required: true })}
-                    className="mt-2 appearance-none text-nunito-900 bg-white rounded-md block w-full p-3 h-10 shadow-sm focus:outline-none placeholder:text-nunito-400 focus:ring-2 focus:ring-sky-500 ring-1 ring-nunito-200"
+                    className="mt-2 pl-2 text-nunito-900 bg-white rounded-sm block w-full h-8 shadow-sm focus:outline-none placeholder:text-nunito-400 focus:ring-2 focus:ring-slate-400 ring-1 ring-slate-300"
                     id="nurse-break"
                   >
                     <option value=""></option>
@@ -179,7 +179,7 @@ export const NurseInfoForm = ({
                       maxLength: 20,
                     })}
                     type="text"
-                    className="mt-2 appearance-none text-nunito-900 bg-white rounded-md block w-full p-3 h-10 shadow-sm focus:outline-none placeholder:text-nunito-400 focus:ring-2 focus:ring-sky-500 ring-1 ring-nunito-200"
+                    className="mt-2 pl-2 text-nunito-900 bg-white rounded-sm block w-full h-8 shadow-sm focus:outline-none placeholder:text-nunito-400 focus:ring-2 focus:ring-slate-400 ring-1 ring-slate-300"
                     id="relief-name"
                   ></input>
                   {errors?.reliefName?.type === "required" && (
@@ -205,7 +205,7 @@ export const NurseInfoForm = ({
                       maxLength: 40,
                     })}
                     type="text"
-                    className="mt-2 appearance-none text-nunito-900 bg-white rounded-md block w-full p-3 h-10 shadow-sm focus:outline-none placeholder:text-nunito-400 focus:ring-2 focus:ring-sky-500 ring-1 ring-nunito-200"
+                    className="mt-2 pl-2 text-nunito-900 bg-white rounded-sm block w-full h-8 shadow-sm focus:outline-none placeholder:text-nunito-400 focus:ring-2 focus:ring-slate-400 ring-1 ring-slate-300"
                     id="extra-duties"
                   ></input>
                   {errors?.extraDuties?.type === "maxLength" && (
@@ -220,7 +220,7 @@ export const NurseInfoForm = ({
                   </label>
                   <select
                     {...register("fireCode", { required: true })}
-                    className="mt-2 appearance-none text-nunito-900 bg-white rounded-md block w-full p-3 h-10 shadow-sm focus:outline-none placeholder:text-nunito-400 focus:ring-2 focus:ring-sky-500 ring-1 ring-nunito-200"
+                    className="mt-2 pl-2 text-nunito-900 bg-white rounded-sm block w-full h-8 shadow-sm focus:outline-none placeholder:text-nunito-400 focus:ring-2 focus:ring-slate-400 ring-1 ring-slate-300"
                     id="fire-code"
                   >
                     <option value=""></option>
@@ -244,7 +244,7 @@ export const NurseInfoForm = ({
                 {fields.map((field, index) => (
                   <div key={field.id} className="flex flex-row items-center">
                     <div className="flex flex-col">
-                      <div className="flex flex-row items-center mx-2 my-2 mt-2 appearance-none text-nunito-900 bg-white rounded-md block w-full p-3 h-10 shadow-sm focus:outline-none placeholder:text-nunito-400 focus:ring-2 focus:ring-sky-500 ring-1 ring-nunito-200">
+                      <div className="flex flex-row items-center my-1 mr-1 mt-2 appearance-none text-nunito-900 bg-white rounded-sm block w-full p-3 h-8 shadow-sm focus:outline-none placeholder:text-nunito-400 focus:ring-2 focus:ring-slate-400 ring-1 ring-slate-300">
                         <Controller
                           name={`assignedPatient.${index}.patientRoom`}
                           control={control}
@@ -284,6 +284,16 @@ export const NurseInfoForm = ({
                             />
                           )}
                         />
+                        <div>
+                          {" "}
+                          <button
+                            type="button"
+                            onClick={() => remove(index)}
+                            className="bg-white px-2 rounded-lg text-red"
+                          >
+                            &#10005;
+                          </button>
+                        </div>
                       </div>
 
                       {errors?.assignedPatient?.[index] && (
@@ -309,33 +319,23 @@ export const NurseInfoForm = ({
                         </div>
                       )}
                     </div>
-                    <div>
-                      {" "}
-                      <button
-                        type="button"
-                        onClick={() => remove(index)}
-                        className="bg-white px-2 border border-red-600 rounded-lg text-red-600"
-                      >
-                        -
-                      </button>
-                    </div>
                   </div>
                 ))}
                 <div className="flex flex-col items-center">
                   <button
                     type="button"
                     onClick={() => append({ patientName: "", patientRoom: "" })}
-                    className="bg-white px-4 p-2 border border-blue rounded-lg text-blue"
+                    className="mt-2 appearance-none text-nunito-900 bg-white rounded-sm block w-full h-8 shadow-sm focus:outline-none   ring-1 ring-blue text-blue"
                   >
                     + Add A Patient
                   </button>
                 </div>
               </div>
 
-              <div className="flex justify-center items-center pt-4">
+              <div className="flex flex-row gap-6 items-center sm:py-4">
                 <button
-                  className="bg-orange hover:bg-orange text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="submit"
+                  className="mx-auto hover:bg-lblue hover:text-blue text-white font-bold py-2 px-4  border-solid border-2 border-blue rounded-sm hover:border-lblue sm:px-10 sm:py-1 bo sm:text-sm rounded focus:outline-none focus:shadow-outline bg-blue sm:mt-0 mt-6"
                 >
                   Submit
                 </button>

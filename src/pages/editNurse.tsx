@@ -138,7 +138,7 @@ export function EditNursePage() {
     console.log("You are editing the nurse with nurseId:", nurseId);
 
     return (
-      <div className="bg-greyblue font-OpenSans min-h-screen lg:px-40 md:px-10 sm:px-10 flex flex-col items-center">
+      <div className="bg-sky-50 font-OpenSans min-h-screen lg:px-40 md:px-10 sm:px-10 flex flex-col items-center">
         <h1 className="text-center text-2xl sm:text-3xl p-8 pt-16">
           Editing nurse below
         </h1>{" "}

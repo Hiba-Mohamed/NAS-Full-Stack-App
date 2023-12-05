@@ -346,7 +346,7 @@ export const NurseInfoForm = ({
                             <button
                               type="button"
                               onClick={() => remove(index)}
-                              className="bg-white px-2 rounded-lg text-red-600"
+                              className="bg-white px-2 rounded-lg text-red"
                             >
                               &#10005;
                             </button>
