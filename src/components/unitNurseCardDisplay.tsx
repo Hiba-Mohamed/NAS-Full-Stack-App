@@ -116,26 +116,35 @@ export function UnitNurseCardDisplay({
         {showPopup && nurseToDelete ? (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 ">
             <div className="bg-white p-8 rounded-lg max-w-sm sm:max-w-lg">
-              <p className="text-xl font-bold mb-4">
-                Are you sure you want to delete this Nurse?
-              </p>
-              <div className="flex flex-row p-2 gap-8 pb-6">
-                {" "}
-                <p className="font-bold text text-lg ">
+              <div className="flex flex-col items-center ">
+                <img
+                  src="images/danger-icon.png"
+                  alt="danger sign icon"
+                  className="w-24"
+                />
+                <p className="text-xl font-bold mb-4">Are you sure?</p>
+                <p className="text-lg mb-4 text-center">
+                  This action cannot be undone. Only click confirm if you are
+                  certain you would like to delete this nurse
+                </p>
+                <p className="text text-lg ">
                   {" "}
-                  Nurse Being Deleted: {nurseToDelete.nurseData.nurseName}
+                  Nurse Being Deleted:{" "}
+                  <strong>{nurseToDelete.nurseData.nurseName}</strong>
                 </p>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex flex-row p-2 gap-8 pb-6"> </div>
+
+              <div className="flex justify-between flex-col gap-4">
                 <button
-                  className="bg-white hover:bg-rose-700 hover:text-white text-rose-700 border-solid border-2 border-rose-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-red hover:text-red hover:bg-white hover:border-solid hover:border-2 hover:border-red border-solid border-2 border-red text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   onClick={confirmDelete}
                 >
-                  Yes, Delete
+                  Confirm & Delete
                 </button>
                 <button
-                  className="bg-blue hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-white hover:bg-blue hover:text-white text-blue border-solid border-2 border-blue font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   onClick={cancelDelete}
                 >
                   Cancel
