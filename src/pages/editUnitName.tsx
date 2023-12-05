@@ -124,15 +124,6 @@ export function EditUnit() {
         <h1 className="p-6 sm:p-6 text-3xl sm:text-5xl text-center font-bold">
           {hospitalData.hospitalName}
         </h1>
-        <div>
-          {" "}
-          <Link
-            to="/getStarted"
-            className="mx-auto hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-cyan-600"
-          >
-            Edit Hospital's name
-          </Link>
-        </div>
       </div>
       <div className="flex flex-col items-center justify-center">
         <h1 className="font-bold text-2xl p-6 text-center">
@@ -141,7 +132,7 @@ export function EditUnit() {
         <div className="flex flex-col items-center justify-center">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="p-12 justify-center items-center sm:gap-2 flex flex-col sm:flex-row bg-white m-4 shadow-lg rounded-xl sm:max-w-4xl"
+            className="p-12 sm:p-6 justify-center sm:gap-2 flex flex-col bg-white m-4 shadow-lg rounded-xl sm:max-w-4xl"
           >
             <label className="font-bold text-xl text-center pb-4">
               New Unit's Name:
@@ -151,7 +142,8 @@ export function EditUnit() {
               <input
                 {...register("unitName", { required: true, maxLength: 50 })}
                 type="text"
-                className="w-full px-2 appearance-none py-2 rounded-md border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:h-12 sm:w-80"
+                placeholder="Enter your new Unit's name"
+                className="w-full px-2 appearance-none sm:py-0 py-2 rounded-md border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:h-10 sm:w-80"
               ></input>
               {errors?.unitName?.type === "required" && (
                 <p className="text-peach text-sm">This field is required</p>
@@ -162,13 +154,21 @@ export function EditUnit() {
                 </p>
               )}
             </div>
-
-            <button
-              type="submit"
-              className="mx-auto hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-orange-500 sm:ml-6 sm:mt-0 mt-6"
-            >
-              Submit
-            </button>
+            <div className="flex flex-row gap-6 items-center sm:py-4">
+              {" "}
+              <Link
+                to="/hospitalView"
+                className="mx-auto hover:bg-blue  hover:text-white text-blue font-bold sm:px-10 sm:py-1 sm:text-sm py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-white border-solid border-2 border-blue  sm:mt-0 mt-6"
+              >
+                Cancel
+              </Link>
+              <button
+                type="submit"
+                className="mx-auto hover:bg-lblue hover:text-blue text-white font-bold py-2 px-4  border-solid border-2 border-blue hover:border-lblue sm:px-10 sm:py-1 bo sm:text-sm rounded focus:outline-none focus:shadow-outline bg-blue sm:mt-0 mt-6"
+              >
+                Submit
+              </button>
+            </div>
           </form>{" "}
           <div className="bg-white sm:px-8 max-w-sm  sm:max-w-xl text-xsm p-4 sm:text-md text-sm text-center mx-4 my-2">
             {duplicateError ? (

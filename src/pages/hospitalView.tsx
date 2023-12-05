@@ -117,18 +117,34 @@ function getAllStaffForUnit(unit: IUnitObject): number {
         {showPopup ? (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 ">
             <div className="bg-white p-8 rounded-lg max-w-sm sm:max-w-lg">
-              <p className="text-xl font-bold mb-4">
-                Are you sure you want to delete this unit: {unitToDelete}?
-              </p>
-              <div className="flex justify-between">
+              <div className="flex flex-col items-center ">
+                <img
+                  src="images/danger-icon.png"
+                  alt="danger sign icon"
+                  className="w-24"
+                />
+                <p className="text-xl font-bold mb-4">Are you sure?</p>
+                <p className="text-lg mb-4 text-center">
+                  This action cannot be undone. Only click confirm if you are
+                  certain you would like to delete this nurse
+                </p>
+                <p className="text text-lg ">
+                  {" "}
+                  Unit Being Deleted: <strong>{unitToDelete}</strong>
+                </p>
+              </div>
+
+              <div className="flex flex-row p-2 gap-8 pb-6"> </div>
+
+              <div className="flex justify-between flex-col gap-4">
                 <button
-                  className="bg-white hover:bg-rose-700 hover:text-white text-rose-700 border-solid border-2 border-rose-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-red hover:text-red hover:bg-white hover:border-solid hover:border-2 hover:border-red border-solid border-2 border-red text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   onClick={confirmDelete}
                 >
-                  Yes, Delete
+                  Confirm & Delete
                 </button>
                 <button
-                  className="bg-blue hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-white hover:bg-blue hover:text-white text-blue border-solid border-2 border-blue font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   onClick={cancelDelete}
                 >
                   Cancel
@@ -139,45 +155,70 @@ function getAllStaffForUnit(unit: IUnitObject): number {
         ) : (
           ""
         )}
-        <h1 className="p-12 text-2xl font-bold sm:text-5xl ">
-          {hospitalData.hospitalName}
+        <h1 className="p-12 text-2xl flex flex-row gap-2 font-bold sm:text-5xl ">
+          <p className="">{hospitalData.hospitalName}</p>
+          <Link to="/getStarted">
+            {" "}
+            <img className="h-6 lg:h-8" src="images/edit-grey.png" />
+          </Link>
         </h1>
         <div className="flex flex-col sm:flex-row flex-wrap justify-evenly pb-6">
           {hospitalUnitsList.map((unit: IUnitObject) => (
-            <div className="shadow-lg rounded-lg my-6 sm:my-12  max-w-sm mx-2 text-sm sm:text-xl w-56 sm:w-80 p-4 sm:p-6">
+            <div className="shadow-lg flex flex-col rounded-lg my-6 sm:my-12  max-w-sm mx-2 text-sm sm:text-xl w-56 sm:w-80 p-4">
               {" "}
-              <p className="text-md font-bold  sm:text-xl text-center flex justify-center p-4 sm:p-12 ">
+              <button
+                onClick={() => deleteUnit(unit.unitName)}
+                className="flex justify-end"
+              >
+                <img src="images/delete-icon.png" className="h-4" />
+              </button>
+              <p className="text-md font-bold  sm:text-xl text-center flex justify-center p-4 ">
                 {unit.unitName}
               </p>
-              <div>
+              <div className="flex flex-row gap-8 sm:gap-24 sm:text-md sm:px-4 pb-2 text-sm ">
                 <div>
-                  <p># of Shifts: </p>
+                  <p className="font-bold"># of Shifts: </p>
                   <p>{unit.shifts.length}</p>
                 </div>
                 <div>
-                  <p># of Nurses:</p>
+                  <p className="font-bold"># of Nurses:</p>
                   <p>{getAllStaffForUnit(unit)}</p>
                 </div>
               </div>
-              <div className="flex flex-row text-sm sm:text-md lg:flex-row items-center justify-evenly">
-                {" "}
-                <button
-                  className="sm:mx-2 mx-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-1 px-2  sm:py-2 sm:px-4 rounded focus:outline-none focus:shadow-outline"
-                  onClick={() => viewUnit(unit.unitName)}
-                >
-                  Explore
-                </button>
+              <div className="flex flex-col">
+                <div className="flex flex-row text-sm sm:text-md lg:flex-row items-center justify-evenly">
+                  {" "}
+                  <button
+                    onClick={() => editUnit(unit.unitName)}
+                    className="mx-auto hover:bg-blue flex flex-row gap-2 items-center  hover:text-white text-blue font-bold sm:pr-10 sm: sm:py-1 sm:text-sm py-2 px-4 sm:px-4 rounded rounded-md focus:outline-none focus:shadow-outline bg-white border-solid border-2 border-blue  sm:mt-0 mt-6"
+                  >
+                    <img
+                      src="images/edit-transparent.png"
+                      className="h-4"
+                      alt="edit icon"
+                    />
+                    <p> Edit</p>
+                  </button>
+                  <button
+                    className="mx-auto hover:bg-lblue hover:text-blue text-white font-bold py-2 px-4  border-solid border-2 border-blue rounded-md hover:border-lblue sm:px-8 sm:py-1 bo sm:text-sm rounded focus:outline-none focus:shadow-outline bg-blue sm:mt-0 mt-6"
+                    onClick={() => viewUnit(unit.unitName)}
+                  >
+                    View
+                  </button>
+                </div>
+              </div>
+              <div className="flex hidden flex-row text-sm sm:text-md lg:flex-row items-center justify-evenly">
                 <button
                   className="sm:mx-2 mx-1 bg-sky-600 hover:bg-sky-500 text-white font-bold py-1 px-2 sm:py-2 sm:px-4 rounded focus:outline-none focus:shadow-outline"
                   onClick={() => editUnit(unit.unitName)}
                 >
-                  Edit
+                  Edit Name
                 </button>
                 <button
-                  className="sm:mx-2 mx-1 bg-red-700 hover:bg-red-600 text-white font-bold py-1 px-2 sm:py-2 sm:px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="sm:mx-2 mx-1 bg-red hover:bg-red text-white font-bold py-1 px-2 sm:py-2 sm:px-4 rounded focus:outline-none focus:shadow-outline"
                   onClick={() => deleteUnit(unit.unitName)}
                 >
-                  Delete
+                  Delete Unit
                 </button>
               </div>
             </div>
