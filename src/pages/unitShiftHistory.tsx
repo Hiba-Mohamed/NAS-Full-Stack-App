@@ -2,7 +2,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import UnitShiftListComponent from "../components/unitShiftListComponent";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 interface IUnitShiftData {
   shiftDate: string;
@@ -45,12 +45,20 @@ function NoShiftFound() {
   const { unitName } = useParams();
 
   return (
-    <div className="flex flex-col bg-slate-100 items-center min-h-screen">
-      <h1 className="font-OpenSans text-center text-2xl sm:text-4xl font-bold py-8 px-12 items-center">
+    <div className="flex flex-col bg-sky-50 items-center min-h-screen p-12">
+      <h1 className="font-OpenSans text-center text-3xl sm:text-4xl font-bold py-8 px-12 sm:py-12 items-center max-w-sm sm:max-w-4xl">
         Shift Record for {unitName} unit
       </h1>{" "}
-      <div className="items-center flex w-full justify-evenly">
-        <img src="./images/shifthistory.png" alt="" />
+      <div className="flex flex-col items-center gap-12">
+        <p className="text-lg p-12 text-center sm:text-2xl">
+          No shifts have been added yet on for this unit
+        </p>
+        <Link
+          to={`/startUnitShift/${unitName}`}
+          className="mx-auto hover:border-amber-200 hover:bg-amber-200 hover:text-white text-black font-bold py-2 px-4  border-solid border-2 border-orange rounded-sm  sm:px-10 sm:py-1 bo sm:text-xl rounded focus:outline-none focus:shadow-outline bg-orange sm:mb-0 mb-4  items-center justify-center"
+        >
+          + Add Shift
+        </Link>
       </div>
     </div>
   );

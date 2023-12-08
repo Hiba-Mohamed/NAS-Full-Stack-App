@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -110,10 +110,39 @@ function getAllStaffForUnit(unit: IUnitObject): number {
     setShowPopup(true);
     setUnitToDelete(unitName);
   }
+const [currentDateTime, setCurrentDateTime] = useState<string>("");
 
+useEffect(() => {
+  // Function to update the current time and date
+  const updateDateTime = () => {
+    const currentDate = new Date();
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    };
+    const formattedDate = currentDate.toLocaleDateString("en-US", options);
+
+    // Update the state with the formatted date
+    setCurrentDateTime(formattedDate);
+  };
+
+  // Call the function initially
+  updateDateTime();
+
+  // Update the time every second (1000 milliseconds)
+  const intervalId = setInterval(updateDateTime, 1000);
+
+  // Clear the interval when the component unmounts
+  return () => clearInterval(intervalId);
+}, []);
   if (units) {
     return (
-      <div className="font-OpenSans flex flex-col items-center min-h-screen pb-24 sm:pb-32">
+      <div className="font-OpenSans flex flex-col items-center min-h-screen pb-24 sm:pb-32 bg-sky-50">
         {showPopup ? (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 ">
             <div className="bg-white p-8 rounded-lg max-w-sm sm:max-w-lg">
@@ -155,16 +184,45 @@ function getAllStaffForUnit(unit: IUnitObject): number {
         ) : (
           ""
         )}
-        <h1 className="p-12 text-2xl flex flex-row gap-2 font-bold sm:text-5xl ">
-          <p className="">{hospitalData.hospitalName}</p>
-          <Link to="/getStarted">
-            {" "}
-            <img className="h-6 lg:h-8" src="images/edit-grey.png" />
+        <div className="sm:pb-6 hidden sm:flex sm:pt-12 flex flex-row items-center gap-20">
+          <p className="sm:text-lg">{currentDateTime}</p>
+
+          <h1 className=" text-2xl flex flex-row gap-2 font-bold sm:text-5xl ">
+            <p className="">{hospitalData.hospitalName}</p>
+            <Link to="/getStarted">
+              {" "}
+              <img className="h-6 lg:h-8" src="images/edit-grey.png" />
+            </Link>
+          </h1>
+          <Link
+            to="/addingNewUnit"
+            className="mx-auto hover:border-amber-200 hover:bg-amber-200 hover:text-white text-black font-bold py-2 px-4  sm:mb-2 border-solid border-2 border-orange rounded-sm  sm:px-10 sm:py-1 bo sm:text-sm rounded focus:outline-none focus:shadow-outline bg-orange sm:mb-0 mb-4  items-center justify-center"
+          >
+            + Add Unit
           </Link>
-        </h1>
+        </div>
+        <div className="sm:pb-6 sm:hidden sm:pt-12 flex flex-col items-center gap-6 pt-12">
+          <h1 className=" text-2xl flex flex-row gap-2 font-bold sm:text-5xl ">
+            <p className="">{hospitalData.hospitalName}</p>
+            <Link to="/getStarted">
+              {" "}
+              <img className="h-6 lg:h-8" src="images/edit-grey.png" />
+            </Link>
+          </h1>
+          <p className="sm:text-lg">{currentDateTime}</p>
+
+          <Link
+            to="/addingNewUnit"
+            className="mx-auto hover:border-amber-200 hover:bg-amber-200 hover:text-white text-black font-bold py-2 px-4  sm:mb-2 border-solid border-2 border-orange rounded-sm  sm:px-10 sm:py-1 bo sm:text-sm rounded focus:outline-none focus:shadow-outline bg-orange sm:mb-0 mb-4  items-center justify-center"
+          >
+            + Add Unit
+          </Link>
+        </div>
+
+        <hr className="border-1 border-faint w-full max-w-6xl px-6"></hr>
         <div className="flex flex-col sm:flex-row flex-wrap justify-evenly pb-6">
           {hospitalUnitsList.map((unit: IUnitObject) => (
-            <div className="shadow-lg flex flex-col rounded-lg my-6 sm:my-12  max-w-sm mx-2 text-sm sm:text-xl w-56 sm:w-80 p-4">
+            <div className="shadow-lg bg-white flex flex-col rounded-lg my-6 sm:my-12  max-w-sm mx-2 text-sm sm:text-xl w-56 sm:w-80 p-4">
               {" "}
               <button
                 onClick={() => deleteUnit(unit.unitName)}
@@ -223,15 +281,6 @@ function getAllStaffForUnit(unit: IUnitObject): number {
               </div>
             </div>
           ))}
-        </div>
-        <div className="flex flex-col justify-center">
-          {" "}
-          <Link
-            to="/addingNewUnit"
-            className="text-md font-bold  sm:text-xl text-center flex justify-center p-4 sm:p-12 bg-gray-100 shadow-lg rounded-xl"
-          >
-            + Add New Unit
-          </Link>
         </div>
       </div>
     );

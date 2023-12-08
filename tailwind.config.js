@@ -12,6 +12,8 @@ export default {
         greyblue: "#F3FAF8",
         orange: "#FBB612",
         red: "#EF4444",
+        faint: "#BDBDBD",
+        linecolor:"#666666"
       },
 
       boxShadow: {

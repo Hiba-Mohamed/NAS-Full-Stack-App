@@ -196,32 +196,28 @@ export function UnitNurseForm() {
             ""
           )}
           <div className="flex flex-col items-center justify-center ">
-            <div className="flex lg:flex-row flex-col p-8 sm:max-w-5xl items-center justify-center">
-              <img
-                src="images/step1-grey.png"
-                alt=""
-                className="w-56 sm:w-80 lg:w-56 lg:h-8"
-              />
-              <img
-                src="images/line.png"
-                alt=""
-                className="lg:w-60 lg:block hidden"
-              />
-              <img
-                src="images/step2-grey.png"
-                alt=""
-                className="w-56 sm:w-80 lg:w-56 lg:h-8"
-              />
-              <img
-                src="images/line.png"
-                alt=""
-                className="lg:w-60 lg:block hidden"
-              />
-              <img
-                src="images/step3-blue.png"
-                alt=""
-                className="w-56 sm:w-80 lg:w-56 lg:h-8"
-              />
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 px-4 py-12">
+              <div className="flex flex-row gap-2 items-center text-blue text-lg font-bold">
+                <p className="py-2 sm:py-2 px-4 sm:px-3 text-white font-bold sm:text-sm bg-blue rounded-full">
+                  &#10004;
+                </p>
+                <p>Date & Shift Type</p>
+              </div>
+              <hr className="w-32 bg-black hidden sm:block border-1 border-black"></hr>
+              <div className="flex flex-row gap-2 items-center text-blue text-lg font-bold">
+                <p className="py-2 sm:py-2 px-4 sm:px-3 text-white font-bold sm:text-sm bg-blue rounded-full">
+                  &#10004;
+                </p>
+                <p>Staff & Patient Info</p>
+              </div>
+              <hr className="w-32 bg-black hidden sm:block border-1 border-black"></hr>
+
+              <div className="flex flex-row gap-2 items-center text-blue text-lg font-bold">
+                <p className="py-2 sm:py-1 px-4 sm:px-3 text-blue font-bold sm:text-lg border-2 border-blue rounded-full">
+                  3
+                </p>
+                <p>Shift Overview</p>
+              </div>
             </div>
             <div className="flex flex-col lg:flex-row lg:gap-32  gap-6 text-sm items-center justify-center ">
               <div className="flex flex-col-reverse gap-6 lg:gap-32 text-lg sm:text-xl lg:flex-row items-center justify-center">
